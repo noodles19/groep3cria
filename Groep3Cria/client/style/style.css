@@ -1,0 +1,59 @@
+/*********** Header ***************/
+header {
+    background-color: blue;
+}
+
+#account{
+    float: right;
+
+}
+#loginForm {
+    width: 250px;
+    float: right;
+    background-color: red;
+}
+
+#inbox {
+    background-color: hotpink;
+
+}
+
+nav {
+    background-color: lightgoldenrodyellow;
+    clear: both;
+    height: 50px;
+}
+
+/******** Content ***********/
+section {
+    background-color: purple;
+}
+
+#news {
+    background-color: orange;
+    height: 150px;
+    margin: 20px 10% 20px 10%;
+}
+
+#createSong {
+    background-color: gray;
+    height: 300px;
+    float: left;
+    width: 50%;
+    margin: 0 0 20px 0;
+}
+
+#searchSong {
+    background-color: cornflowerblue;
+    height: 300px;
+    float: right;
+    width: 50%;
+}
+
+/********** Footer *************/
+footer {
+    background-color: green;
+    clear: both;
+    margin: 50px 0 0 0 !important;
+    position: relative;
+}
