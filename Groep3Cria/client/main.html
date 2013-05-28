@@ -4,7 +4,6 @@
     <title>Groep 3 CRIA project</title>
     <link type="text/css" rel="stylesheet" href="style/style.css"/>
     <link type="text/css" rel="stylesheet" href="style/reset.css"/>
-
 </head>
 <body>
 
@@ -17,7 +16,6 @@
         </form>
         <div id="inbox">
             Inbox
-
         </div>
     </div>
 
@@ -34,20 +32,33 @@
     <div id="createSong">
         Create Song
     </div>
-    <div id="searchSong">
+    <div id="searchSong" data-ng-app="myApp">
         Search Song
+        <input type="text" data-ng-model="searchText.$">
+
+            <table data-ng-controller="songsCtrl">
+                <tr data-ng-repeat="song in songs.testarray | filter: searchText">
+                    <td> {{song.name}} </td>
+                    <td> {{song.author}} </td>
+                    <td> {{song.speed}} </td>
+                    <td> {{song.volume}} </td>
+                    <td> {{song.instrument[0].type}} </td>
+                </tr>
+            </table>
+
     </div>
 
 </section>
 
 <footer>
-
     Disclaimer/ Terms of use/ Contact
 </footer>
 
 
 <script type="text/javascript" src="http://localhost:1337/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="script/libs/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="script/libs/angular.js/angular.min.js"></script>
+<script type="text/javascript" src="script/libs/angular.js/angular.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script type="text/javascript" src="script/plugins/jquery/SerializeFormJSON.jq.js"></script>
 <script type="text/javascript" src="script/SocketIOConnector.js"></script>
@@ -59,6 +70,7 @@
 <script type="text/javascript" src="script/Ratings.js"></script>
 <script type="text/javascript" src="script/Songs.js"></script>
 <script type="text/javascript" src="script/Users.js"></script>
+<script type="text/javascript" src="script/songData.js"></script>
 
 </body>
 </html>

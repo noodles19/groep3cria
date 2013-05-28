@@ -50,6 +50,10 @@ section {
     width: 50%;
 }
 
+tr{
+    padding: 30px !important;
+}
+
 /********** Footer *************/
 footer {
     background-color: green;
