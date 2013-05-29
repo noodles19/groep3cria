@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
+<html data-ng-app="myController">
 <head>
     <title>Groep 3 CRIA project</title>
     <link type="text/css" rel="stylesheet" href="style/style.css"/>
@@ -20,8 +20,12 @@
     </div>
 
     <nav>
-        Home Learn My songs Friends Search
+        <header><a href="#/home">home</a> - <a href="#/detail">detail</a> - <a href="about:blank">test1</a></header>
+        <content ng-view>
+            test
+        </content>
     </nav>
+
 
 </header>
 
@@ -36,15 +40,15 @@
         Search Song
         <input type="text" data-ng-model="searchText.$">
 
-            <table data-ng-controller="songsCtrl">
-                <tr data-ng-repeat="song in songs.testarray | filter: searchText">
-                    <td> {{song.name}} </td>
-                    <td> {{song.author}} </td>
-                    <td> {{song.speed}} </td>
-                    <td> {{song.volume}} </td>
-                    <td> {{song.instrument[0].type}} </td>
-                </tr>
-            </table>
+        <table data-ng-controller="songsCtrl">
+            <tr data-ng-repeat="song in songs.testarray | filter: searchText">
+                <td> {{song.name}}</td>
+                <td> {{song.author}}</td>
+                <td> {{song.speed}}</td>
+                <td> {{song.volume}}</td>
+                <td> {{song.instrument[0].type}}</td>
+            </tr>
+        </table>
 
     </div>
 
@@ -71,6 +75,10 @@
 <script type="text/javascript" src="script/Songs.js"></script>
 <script type="text/javascript" src="script/Users.js"></script>
 <script type="text/javascript" src="script/songData.js"></script>
+
+<script type="text/javascript" src="script/controller/controller.js"></script>
+<script type="text/javascript" src="script/controller/app.js"></script>
+
 
 </body>
 </html>
