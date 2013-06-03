@@ -26,4 +26,8 @@ function SocketIOConnector(formHandler) {
             socket.emit(message, data);
         }
     }
+
+    this.postWithCallback = function (message, data, callbackHandler) {
+        socket.emit(message, data, callbackHandler);
+    };
 }

@@ -4,6 +4,7 @@
     <title>Groep 3 CRIA project</title>
     <link type="text/css" rel="stylesheet" href="style/style.css"/>
     <link type="text/css" rel="stylesheet" href="style/reset.css"/>
+
 </head>
 <body>
 
@@ -11,27 +12,68 @@
     <img id="logo"/> Logo
 
     <div id="account">
-        <form id="loginForm">
-            Login/register
+        <form id="loginForm" name="login">
+            <div>
+                <label>Username
+                    <input type="text" name="userid"/>
+                </label>
+            </div>
+            <div>
+                <label>Password
+                    <input type="password" name="pswrd"/>
+                </label>
+            </div>
+            <input type="reset" value="Cancel"/>
+            <input id="loginBtn" type="submit" value="Login"/>
         </form>
-        <div id="inbox">
-            Inbox
-        </div>
+
     </div>
 
     <nav>
-        <header><a href="#/home">home</a> - <a href="#/detail">detail</a> - <a href="about:blank">test1</a></header>
+        <header><a href="#/home">home</a> - <a href="#/detail">detail</a></header>
         <content ng-view>
             test
         </content>
     </nav>
-
 
 </header>
 
 <section>
     <div id="news">
         Introductie/ Hot news
+
+        <form id="saveNewUserForm" class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="displayName">Display naam</label>
+
+                <div class="controls">
+                    <input type="text" name="displayName" id="displayName" placeholder="Display name" required>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="loginName">Login naam</label>
+
+                <div class="controls">
+                    <input type="text" name="loginName" id="loginName" placeholder="Login name" required>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="email">Email</label>
+
+                <div class="controls">
+                    <input type="text" name="email" id="email" placeholder="Email" required>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">Password</label>
+
+                <div class="controls">
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                </div>
+            </div>
+
+            <p><input type="submit" value="Register" class="btn btn-primary" id="btnSave"></p>
+        </form>
     </div>
     <div id="createSong">
         Create Song
@@ -49,7 +91,6 @@
                 <td> {{song.instrument[0].type}}</td>
             </tr>
         </table>
-
     </div>
 
 </section>
@@ -58,13 +99,15 @@
     Disclaimer/ Terms of use/ Contact
 </footer>
 
-
 <script type="text/javascript" src="http://localhost:1337/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="script/libs/jquery/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="script/libs/angular.js/angular.min.js"></script>
-<script type="text/javascript" src="script/libs/angular.js/angular.js"></script>
+<script type="text/javascript" src="script/libs/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="script/libs/angular.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script type="text/javascript" src="script/plugins/jquery/SerializeFormJSON.jq.js"></script>
+
+<script type="text/javascript" src="script/Login.js"></script>
+<script type="text/javascript" src="script/Controller.js"></script>
+
 <script type="text/javascript" src="script/SocketIOConnector.js"></script>
 <script type="text/javascript" src="script/FormHandler.js"></script>
 <script type="text/javascript" src="script/Comments.js"></script>
@@ -75,10 +118,9 @@
 <script type="text/javascript" src="script/Songs.js"></script>
 <script type="text/javascript" src="script/Users.js"></script>
 <script type="text/javascript" src="script/songData.js"></script>
+<script type="text/javascript" src="script/Register.js"></script>
 
-<script type="text/javascript" src="script/controller/controller.js"></script>
-<script type="text/javascript" src="script/controller/app.js"></script>
-
+<script type="text/javascript" src="script/app.js"></script>
 
 </body>
 </html>
