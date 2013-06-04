@@ -7,7 +7,7 @@ function Server() {
     var self = this;
 
     var mongoose = require('mongoose');
-    mongoose.connect('mongodb://localhost/groep3cria');
+    mongoose.connect('mongodb://localhost/Musync');
 
     var User = mongoose.model('User', { displayName: String, loginName: String, email: String, password: String });
 
