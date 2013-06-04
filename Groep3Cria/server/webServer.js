@@ -7,11 +7,11 @@ var http = require("http"),
     fs = require("fs")
     port = process.argv[2] || 8888;
 
-    
-    
 http.createServer(function(request, response) {
   var uri = url.parse(request.url).pathname
     , filename = path.join(process.cwd(), uri);
+
+    console.log(filename);
 
   var contentTypesByExtension = {
     '.html': "text/html",
