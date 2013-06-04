@@ -6,6 +6,11 @@
 function Server() {
     var self = this;
 
+    var mongoose = require('mongoose');
+    mongoose.connect('mongodb://localhost/groep3cria');
+
+    var User = mongoose.model('User', { displayName: String, loginName: String, email: String, password: String });
+
     /**
      * Starts a static http connection on port 8000 and a websocket server on 1337
      */
@@ -27,19 +32,25 @@ function Server() {
      * @param socket
      */
     this.handleSocketConnection = function (socket) {
-        socket.on("saveNewPlayer", function (data) {
-
-            var mongoose = require('mongoose');
-            mongoose.connect('mongodb://localhost/groep3cria');
-
-            var song = mongoose.model('song', { name: String, club: String, playerNumber: Number, isSuspended: Boolean });
-
-            var rody = new song({ name: data.name, club: data.club, playerNumber: data.playerNumber, isSuspended: false });
-            rody.save(function (err) {
+        socket.on("saveNewUser", function (data) {
+            var users = new User({ displayName: data.displayName, loginName: data.loginName, email: data.email, password: data.password});
+            users.save(function (err) {
                 console.log('done');
             });
         });
-    }
+
+
+}
+
+    /*  this.handleSocketConnection = function (socket) {
+     socket.on("checkLoginForm", function (data, callbackfn) {
+     console.log(data);
+     User.findOne({ displayName: data.userid}, function (err, users) {
+     callbackfn(users);
+
+     });
+     });
+     }*/
 }
 
 var server = new Server();

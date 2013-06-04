@@ -24,6 +24,10 @@ nav {
     height: 50px;
 }
 
+#greeting{
+    background-color: red;
+}
+
 /******** Content ***********/
 section {
     background-color: purple;
