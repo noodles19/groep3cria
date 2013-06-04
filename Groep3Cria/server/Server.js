@@ -40,18 +40,45 @@ function Server() {
         });
 
 
-}
+        socket.on("checkLoginForm", function (data, callbackfn) {
+            console.log(data);
+            User.findOne({ displayName: data.userid}, function (err, users) {
+                callbackfn(users);
 
-    /*  this.handleSocketConnection = function (socket) {
-     socket.on("checkLoginForm", function (data, callbackfn) {
-     console.log(data);
-     User.findOne({ displayName: data.userid}, function (err, users) {
-     callbackfn(users);
+            });
+        });
 
-     });
-     });
-     }*/
+        passport.use(new LocalStrategy(
+            function (username, password, done) {
+                console.log('passport.use(new LocalStrategy');
+                Relation.findOne({ name: username }, function (err, doc) {
+                    var hashedPassword = "";
+                    if (doc && doc.password) {
+                        hashedPassword = doc.password;
+                    }
+
+                    // Verify given password (or empty string) with stored password
+                    // @see https://github.com/davidwood/node-password-hash/blob/master/README.md
+                    if (password === "" || !passwordHash.verify(password, hashedPassword)) {
+                        doc = {};
+                        return done(err);
+                    }
+
+                    if (err) {
+                        return done(err);
+                    }
+                    if (!doc) {
+                        return done(null, false, { message: 'Incorrect username.' });
+                    }
+                    return done(null, doc);
+                });
+            }
+        ));
+
+    }
 }
 
 var server = new Server();
 server.start();
+
+
