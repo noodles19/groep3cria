@@ -1,0 +1,129 @@
+<!DOCTYPE html >
+<html data-ng-app="myApp">
+<head>
+    <title>Groep 3 CRIA project</title>
+    <link type="text/css" rel="stylesheet" href="style/style.css"/>
+    <link type="text/css" rel="stylesheet" href="style/reset.css"/>
+
+</head>
+<body>
+
+<header>
+    <img id="logo"/> Logo
+
+    <div id="account">
+        <form id="loginForm" name="login">
+            <div>
+                <label>Username
+                    <input type="text" name="userid"/>
+                </label>
+            </div>
+            <div>
+                <label>Password
+                    <input type="password" name="pswrd"/>
+                </label>
+            </div>
+            <input type="reset" value="Cancel"/>
+            <input id="loginBtn" type="submit" value="Login"/>
+        </form>
+
+    </div>
+
+    <nav>
+        <header>
+            <ul>
+                <li><a href="#/home">Home</a></li>
+                <li><a href="#/yql">Countries</a></li>
+                <li><a href="#/home">home</a></li>
+                <li><a href="#/detail">detail</a></li>
+            </ul>
+            <div data-ng-view></div>
+        </header>
+
+
+    </nav>
+
+</header>
+
+<section>
+    <div id="news">
+        Introductie/ Hot news
+
+        <form id="saveNewUserForm" class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="displayName">Display naam</label>
+
+                <div class="controls">
+                    <input type="text" name="displayName" id="displayName" placeholder="Display name" required>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="loginName">Login naam</label>
+
+                <div class="controls">
+                    <input type="text" name="loginName" id="loginName" placeholder="Login name" required>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="email">Email</label>
+
+                <div class="controls">
+                    <input type="text" name="email" id="email" placeholder="Email" required>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="password">Password</label>
+
+                <div class="controls">
+                    <input type="password" name="password" id="password" placeholder="Password" required>
+                </div>
+            </div>
+
+            <p><input type="submit" value="Register" class="btn btn-primary" id="btnSave"></p>
+        </form>
+    </div>
+    <div id="createSong">
+        Create Song
+    </div>
+    <div id="searchSong" data-ng-app="myApp">
+        Search Song
+        <input type="text" data-ng-model="searchText.$">
+
+        <table data-ng-controller="songsCtrl">
+            <tr data-ng-repeat="song in songs.testarray | filter: searchText">
+                <td> {{song.name}}</td>
+                <td> {{song.author}}</td>
+                <td> {{song.speed}}</td>
+                <td> {{song.volume}}</td>
+                <td> {{song.instrument[0].type}}</td>
+            </tr>
+        </table>
+    </div>
+
+</section>
+
+<footer>
+    Disclaimer/ Terms of use/ Contact
+</footer>
+
+<script type="text/javascript" src="http://localhost:1337/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="javascript/libs/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="javascript/libs/angular.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript" src="javascript/plugins/jquery/SerializeFormJSON.jq.js"></script>
+
+<script type="text/javascript" src="javascript/Login.js"></script>
+
+<script type="text/javascript" src="javascript/Controller.js"></script>
+<script type="text/javascript" src="javascript/Services.js"></script>
+<script type="text/javascript" src="javascript/app.js"></script>
+
+<script type="text/javascript" src="javascript/SocketIOConnector.js"></script>
+<script type="text/javascript" src="javascript/FormHandler.js"></script>
+<script type="text/javascript" src="javascript/songData.js"></script>
+<script type="text/javascript" src="javascript/Register.js"></script>
+
+
+
+</body>
+</html>
