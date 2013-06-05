@@ -82,7 +82,7 @@ http.createServer(function(request, response) {
     if (fs.statSync(filename).isDirectory()) filename += 'index.html';
 
     fs.readFile(filename, "binary", function(err, file) {
-      if(err) {        
+      if(err) {
         response.writeHead(500, {"Content-Type": "text/plain"});
         response.write(err + "\n");
         response.end();

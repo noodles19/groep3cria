@@ -1,5 +1,5 @@
 <!DOCTYPE html >
-<html data-ng-app="myController">
+<html data-ng-app="myApp">
 <head>
     <title>Groep 3 CRIA project</title>
     <link type="text/css" rel="stylesheet" href="style/style.css"/>
@@ -30,10 +30,15 @@
     </div>
 
     <nav>
-        <header><a href="#/home">home</a> - <a href="#/detail">detail</a></header>
-        <content ng-view>
-            test
-        </content>
+        <header>
+            <ul>
+                <li><a href="#/home">Home</a></li>
+                <li><a href="#/yql">Countries</a></li>
+            </ul>
+            <div data-ng-view></div>
+        </header>
+
+
     </nav>
 
 </header>
@@ -100,27 +105,23 @@
 </footer>
 
 <script type="text/javascript" src="http://localhost:1337/socket.io/socket.io.js"></script>
-<script type="text/javascript" src="script/libs/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="script/libs/angular.js"></script>
+<script type="text/javascript" src="javascript/libs/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="javascript/libs/angular.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-<script type="text/javascript" src="script/plugins/jquery/SerializeFormJSON.jq.js"></script>
+<script type="text/javascript" src="javascript/plugins/jquery/SerializeFormJSON.jq.js"></script>
 
-<script type="text/javascript" src="script/Login.js"></script>
-<script type="text/javascript" src="script/Controller.js"></script>
+<script type="text/javascript" src="javascript/Login.js"></script>
 
-<script type="text/javascript" src="script/SocketIOConnector.js"></script>
-<script type="text/javascript" src="script/FormHandler.js"></script>
-<script type="text/javascript" src="script/Comments.js"></script>
-<script type="text/javascript" src="script/Instruments.js"></script>
-<script type="text/javascript" src="script/Notes.js"></script>
-<script type="text/javascript" src="script/PrivateMessages.js"></script>
-<script type="text/javascript" src="script/Ratings.js"></script>
-<script type="text/javascript" src="script/Songs.js"></script>
-<script type="text/javascript" src="script/Users.js"></script>
-<script type="text/javascript" src="script/songData.js"></script>
-<script type="text/javascript" src="script/Register.js"></script>
+<script type="text/javascript" src="javascript/Controller.js"></script>
+<script type="text/javascript" src="javascript/Services.js"></script>
+<script type="text/javascript" src="javascript/app.js"></script>
 
-<script type="text/javascript" src="script/app.js"></script>
+<script type="text/javascript" src="javascript/SocketIOConnector.js"></script>
+<script type="text/javascript" src="javascript/FormHandler.js"></script>
+<script type="text/javascript" src="javascript/songData.js"></script>
+<script type="text/javascript" src="javascript/Register.js"></script>
+
+
 
 </body>
 </html>
