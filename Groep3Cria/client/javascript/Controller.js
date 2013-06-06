@@ -1,8 +1,11 @@
 var Controller = {
     login: new Login(),
+    register: new Register(),
     start: function () {
-
+        this.register.registerForm;
         this.login.loginMain();
+
+
     },
 
     checkCredentials: function () {
