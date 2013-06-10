@@ -1,0 +1,66 @@
+<!doctype html>
+<html data-ng-app="myApp">
+<head>
+    <title>Angular Demo</title>
+    <link type="text/css" rel="stylesheet" href="style/style.css"/>
+    <link type="text/css" rel="stylesheet" href="style/reset.css"/>
+</head>
+
+<header>
+    <img id="logo"/> Logo
+
+    <div id="account">
+        <form id="loginForm" name="login" users="/admin/login" method="post">
+            <div>
+                <label>Username
+                    <input type="text" name="userid"/>
+                </label>
+            </div>
+            <div>
+                <label>Password
+                    <input type="password" name="pswrd"/>
+                </label>
+            </div>
+            <input type="reset" value="Cancel"/>
+            <input id="loginBtn" type="submit" value="Login"/>
+            <a href="#/Register">Register</a>
+
+        </form>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#/Home">Home</a></li>
+            <li><a href="#/Learn">Learn</a></li>
+            <li><a href="#/MySongs">My Songs</a></li>
+            <li><a href="#/Friends">Friends</a></li>
+            <li><a href="#/view">View</a></li>
+            <li><a href="#/employees">Employees</a></li>
+        </ul>
+    </nav>
+
+</header>
+
+<body>
+
+
+<div data-ng-view></div>
+
+
+<footer>
+    Disclaimer/ Terms of use/ Contact
+</footer>
+
+<!-- Lib -->
+<script src="./javascript/lib/angular.min.js"></script>
+<script src="./javascript/lib/angular-resource.js"></script>
+
+<!-- App -->
+<script src="./javascript/Login.js"></script>
+<script src="./javascript/songData.js"></script>
+<script src="./javascript/app.js"></script>
+<script src="./javascript/controllers.js" defer="defer"></script>
+<script src="./javascript/services.js"></script>
+<script src="./javascript/Register.js"></script>
+</body>
+</html>

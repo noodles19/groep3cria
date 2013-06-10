@@ -1,0 +1,26 @@
+<section>
+    <div id="news">
+        Introductie/ Hot news
+
+    </div>
+    <div id="createSong">
+        Create Song
+    </div>
+    <div id="searchSong" data-ng-app="myApp">
+        Search Song
+        <input type="text" data-ng-model="searchText.$">
+
+        <table data-ng-controller="songsCtrl">
+            <tr data-ng-repeat="song in songs.testarray | filter: searchText">
+                <td> {{song.name}}</td>
+                <td> {{song.author}}</td>
+                <td> {{song.speed}}</td>
+                <td> {{song.volume}}</td>
+                <td> {{song.instrument[0].type}}</td>
+            </tr>
+        </table>
+    </div>
+
+</section>
+
+<script src="../javascript/songData.js"></script>

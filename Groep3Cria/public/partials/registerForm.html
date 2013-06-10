@@ -1,0 +1,33 @@
+
+<form id="saveNewUserForm" class="form-horizontal" action="/user/" method="post" >
+    <div class="control-group">
+        <label class="control-label" for="displayName">Display naam</label>
+
+        <div class="controls">
+            <input type="text" name="displayName" id="displayName" placeholder="Display name" required>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="loginName">Login naam</label>
+
+        <div class="controls">
+            <input type="text" name="loginName" id="loginName" placeholder="Login name" required>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="email">Email</label>
+
+        <div class="controls">
+            <input type="email" name="email" id="email" placeholder="Email" >
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="password">Password</label>
+
+        <div class="controls">
+            <input type="password" name="password" id="password" placeholder="Password" required>
+        </div>
+    </div>
+
+    <p><input type="submit" value="Register" class="btn btn-primary" id="btnSaveUser"></p>
+</form>
