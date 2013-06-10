@@ -1,11 +1,28 @@
 /*********** Header ******************************************************/
-header {
-    background-color: blue;
+header, body, footer {
+    min-width: 500px;
+
+}
+#alphaheader{
+    background-color: #eeecee;
+    min-width: 500px;
+    max-width: 60%;
+    height: 100px;
+    margin-left: 20%;
+}
+
+
+
+body{
+
 }
 /*********** Logo *****************/
 
 
 /*********** Account **************/
+#logo{
+
+}
 #account{
     float: right;
 
@@ -24,16 +41,30 @@ header {
 #greeting{
     background-color: red;
 }
-
+#centerdiv{
+    min-height: 500px;
+    max-width: 60%;
+    margin-left: 20%;
+    background-color: #eeecee;
+}
 /************ Nav **************/
 nav {
-    background-color: lightgoldenrodyellow;
+    background-image:url('../images/header_balk.png');
     clear: both;
-    height: 50px;
+    height: 100px;
+    text-align: center;
+    color: white;
+
+}
+
+a:link ,a:hover ,a:visited ,a:active{
+    color: white;
+
 }
 
 nav ul li{
     display: inline;
+    margin: 0 0 0 5%;
 
 }
 
@@ -43,7 +74,7 @@ section {
     background-color: purple;
 }
 
-#news {
+#news,  {
     background-color: orange;
     height: 150px;
     margin: 20px 10% 20px 10%;
@@ -74,4 +105,5 @@ footer {
     clear: both;
     margin: 50px 0 0 0 !important;
     position: relative;
+    text-align: center;
 }

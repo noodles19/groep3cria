@@ -6,7 +6,7 @@
     <link type="text/css" rel="stylesheet" href="style/reset.css"/>
 </head>
 
-<header>
+<div id="alphaheader">
     <img id="logo"/> Logo
 
     <div id="account">
@@ -27,9 +27,12 @@
 
         </form>
     </div>
+</div>
+
+<header>
+
 
     <nav>
-        <img alt="navigatiebalk" src="images/header_balk.png"/>
         <ul>
             <li><a href="#/Home">Home</a></li>
             <li><a href="#/Learn">Learn</a></li>
@@ -43,7 +46,7 @@
 </header>
 
 <body>
-<div data-ng-view></div>
+<div id="centerdiv" data-ng-view></div>
 </body>
 
 
@@ -62,6 +65,6 @@
 <script src="./javascript/controllers.js" defer="defer"></script>
 <script src="./javascript/services.js"></script>
 <script src="./javascript/Register.js"></script>
-</body>
+
 
 </html>
