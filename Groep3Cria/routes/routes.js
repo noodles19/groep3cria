@@ -20,5 +20,14 @@ module.exports = function (app) {
     // ADMIN
     app.post('/admin/login', users.login);
 
-
+    var songs = require('../app/controllers/songs.js');
+    // CREATE
+    app.post('/songs/', songs.create);
+    // RETRIEVE
+    app.get('/songs', songs.list);
+    app.get('/song/:name', songs.listSingleSong);
+    // UPDATE
+    app.put('/songs/', songs.update);
+    // DELETE
+    app.delete('/songs/', songs.delete);
 }
