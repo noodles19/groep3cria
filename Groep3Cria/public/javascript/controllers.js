@@ -14,6 +14,12 @@ var Controller = {
     }
 }
 
+
+function songsCtrl($scope, Songs) {
+    $scope.songs = Songs;
+
+}
+
 function testCtrl($scope, local) {
 
 }
