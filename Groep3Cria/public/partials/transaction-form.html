@@ -1,0 +1,32 @@
+<h2>Place a bid</h2>
+<form name="transactionForm">
+
+    <input type="hidden" data-ng-model="transaction.carId"
+           data-ng-init="transaction.carId=getInitialValueForCarId()">
+
+    <p><label>Name:</label> <input type="text" data-ng-model="transaction.name" required
+                                   placeholder="Your name"/></p>
+
+    <p><label>Phone:</label> <input type="text" data-ng-model="transaction.phone" required
+                                    placeholder="06-12345678" pattern="06-{0,1}\d{8}"/></p>
+
+    <p><label>Bid (at least 80% of {{price}}):</label> <input type="number"
+                                                              data-ng-model="transaction.bid" required
+                                                              placeholder="At least {{minPrice}}"
+                                                              min="{{minPrice}}"/></p>
+
+    <p>
+        <button data-ng-click="cancel()">Cancel</button>
+        <button data-ng-click="save()" data-ng-disabled="transactionForm.$invalid">Save</button>
+    </p>
+</form>
+<p data-ng-class="class='text-error'" id="errorMessage">{{err}}</p>
+
+<!--<hr/>-->
+<!--Debug View:-->
+<!--<pre>form ={{transaction}} <br>-->
+<!--carId={{transaction.carId}} <br>-->
+<!--name ={{transaction.name}} <br>-->
+<!--phone={{transaction.phone}} <br>-->
+<!--bid  ={{transaction.bid}} <br>-->
+<!--</pre>-->
