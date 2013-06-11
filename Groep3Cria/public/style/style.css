@@ -46,7 +46,7 @@ body{
     max-width: 60%;
     margin-left: 20%;
     background-color: #eeecee;
-}
+    }
 /************ Nav **************/
 nav {
     background-image:url('../images/header_balk.png');
@@ -103,7 +103,9 @@ tr{
 footer {
     background-color: green;
     clear: both;
-    margin: 50px 0 0 0 !important;
-    position: relative;
+    margin: 0 0 0 20%  !important;
+    width: 60%;
+    position: absolute;
+    bottom:0;
     text-align: center;
 }
