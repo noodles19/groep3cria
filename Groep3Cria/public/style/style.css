@@ -74,18 +74,13 @@ section {
     background-color: purple;
 }
 
-#news,  {
+#news {
     background-color: orange;
     height: 150px;
-    margin: 20px 10% 20px 10%;
-}
+    width: 60%;
+    margin: 0 20% 0 20%;
 
-#createSong {
-    background-color: gray;
-    height: 300px;
-    float: left;
-    width: 50%;
-    margin: 0 0 20px 0;
+
 }
 
 #searchSong {
