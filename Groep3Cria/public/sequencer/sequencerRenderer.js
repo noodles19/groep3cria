@@ -20,6 +20,173 @@ var sequencerRenderer = {
 
     pitchToRect: [2.0, 1.5, 1, 0.667, 0.5],
 
+    song1: {
+        "_id": "51b07731f61f961805000000",
+        "author": {
+            "_id": "51ac822bf61f96380a000001",
+            "loginName": "Ersanio",
+            "displayName": "Ersan",
+            "email": "ersan_computeren@hotmail.com",
+            "password": "gjyrwegt872trg7289uibgirg",
+            "modificationDate": "2013-06-12T08:47:45.517Z"
+        },
+        "based_on": null,
+        "comments": [
+            {
+                "UserID": {
+                    "_id": "51ac822bf61f96380a000001",
+                    "loginName": "Ersanio",
+                    "displayName": "Ersan",
+                    "email": "ersan_computeren@hotmail.com",
+                    "password": "gjyrwegt872trg7289uibgirg",
+                    "modificationDate": "2013-06-12T08:47:45.516Z"
+                },
+                "comment": "THIS IS GREATER."
+            },
+            {
+                "UserID": {
+                    "_id": "51ac8212f61f96380a000000",
+                    "loginName": "Mike",
+                    "displayName": "Mike",
+                    "email": "etc@etc.etc",
+                    "password": "gjyrwegt872trg7289uibgirg",
+                    "modificationDate": "2013-06-12T08:47:45.507Z"
+                },
+                "comment": "THIS IS BETTER."
+            }
+        ],
+        "instruments": [
+            {
+                "instrumenttype": "Distortion Guitar",
+                "notes": [
+                    {
+                        "pitch": 1,
+                        "position": 0,
+                        "duration": 0.25,
+                        "volume": 1
+                    },
+                    {
+                        "pitch": 1,
+                        "position": 1,
+                        "duration": 0.25,
+                        "volume": 1
+                    },
+                    {
+                        "pitch": 2,
+                        "position": 4,
+                        "duration": 0.25,
+                        "volume": 1
+                    }
+                ]
+            }
+        ],
+        "name": "Remember me V2",
+        "ratings": [
+            {
+                "UserID": {
+                    "_id": "51ac822bf61f96380a000001",
+                    "loginName": "Ersanio",
+                    "displayName": "Ersan",
+                    "email": "ersan_computeren@hotmail.com",
+                    "password": "gjyrwegt872trg7289uibgirg",
+                    "modificationDate": "2013-06-12T08:47:45.517Z"
+                },
+                "rating": "Like"
+            },
+            {
+                "UserID": {
+                    "_id": "51ac8212f61f96380a000000",
+                    "loginName": "Mike",
+                    "displayName": "Mike",
+                    "email": "etc@etc.etc",
+                    "password": "gjyrwegt872trg7289uibgirg",
+                    "modificationDate": "2013-06-12T08:47:45.517Z"
+                },
+                "rating": "Dislike"
+            }
+        ],
+        "speed": 60,
+        "volume": 100
+    },
+
+
+    song2: {
+        "_id": "51ac8357f61f963c13000000",
+        "author": "51ac822bf61f96380a000001",
+        "based_on": null,
+        "name": "Remember me",
+        "speed": 20,
+        "volume": 100,
+        "ratings": [
+            {
+                "UserID": "51ac822bf61f96380a000001",
+                "rating": "Like"
+            },
+            {
+                "UserID": "51ac822bf61f96380a000000",
+                "rating": "Dislike"
+            }
+        ],
+        "instruments": [
+            {
+                "instrumenttype": "Xylophone",
+                "notes": [
+                    {
+                        "pitch": 1,
+                        "position": 0,
+                        "duration": 0.25,
+                        "volume": 1
+                    },
+                    {
+                        "pitch": 1,
+                        "position": 1,
+                        "duration": 0.25,
+                        "volume": 1
+                    }
+                ]
+            },
+            {
+                "instrumenttype": "Piano",
+                "notes": [
+                    {
+                        "pitch": 1,
+                        "position": 0,
+                        "duration": 0.25,
+                        "volume": 1
+                    },
+                    {
+                        "pitch": 1,
+                        "position": 1,
+                        "duration": 0.25,
+                        "volume": 1
+                    },
+                    {
+                        "pitch": 1,
+                        "position": 2,
+                        "duration": 0.25,
+                        "volume": 1
+                    },
+                    {
+                        "pitch": 1,
+                        "position": 3,
+                        "duration": 0.25,
+                        "volume": 1
+                    }
+                ]
+            }
+        ],
+        "comments": [
+            {
+                "UserID": "51ac822bf61f96380a000001",
+                "comment": "THIS IS GREAT."
+            },
+            {
+                "UserID": "51ac822bf61f96380a000000",
+                "comment": "THIS IS GOOD."
+            }
+        ]
+    },
+
     setUpCanvas: function (x, y) {
 
         this.stage = new Kinetic.Stage({
@@ -117,7 +284,7 @@ var sequencerRenderer = {
 
     createMarker: function (markerLayer, y) {
         var rect = new Kinetic.Rect({
-            x: 49,
+            x: 209,
             y: y,
             width: 37,
             height: 192,
@@ -135,7 +302,7 @@ var sequencerRenderer = {
 
         for (var i = 0; i < this.instrumentLayers.length; i++) {
             var self = this;
-            this.instrumentLayers[i].on('click',  function (event) {
+            this.instrumentLayers[i].on('click', function (event) {
                 //get the shape that was clicked on
                 var shape = event.targetNode;
                 var group = shape.getParent();
@@ -172,16 +339,16 @@ var sequencerRenderer = {
 //                    self._updateLayer(layer);
 
                 }
-            }); 
+            });
         }
-        i=0; // needed?
+        i = 0; // needed?
 
     },
 
     createColumn: function (note, layer, x, y, group) {
         var origin = 0;
         // detecting the note depending on pitch, rest of the rectangles do nothing for now
-        if(group == null) {
+        if (group == null) {
             group = new Kinetic.Group({
                 x: x,
                 y: layer.getY(),
@@ -221,7 +388,6 @@ var sequencerRenderer = {
             }
 
 
-
             group.add(rect);
             origin += 40;
         }
@@ -232,22 +398,22 @@ var sequencerRenderer = {
 
         var children = markerLayer.getChildren();
 
-        for(var i = 0; i < children.length; i++) {
+        for (var i = 0; i < children.length; i++) {
             var x = children[i].getX();
-            children[i].setX(x+40);
+            children[i].setX(x + 40);
             markerLayer.draw();
         }
 
     },
 
-    resetMarker: function(markerLayer) {
+    resetMarker: function (markerLayer) {
         var children = markerLayer.getChildren();
 
-        for(var i =0; i < children.length; i++) {
-		var x = 49;
-		children[i].setX(x);
-		markerLayer.draw();
-	}
+        for (var i = 0; i < children.length; i++) {
+            var x = 49;
+            children[i].setX(x);
+            markerLayer.draw();
+        }
     },
 
 
@@ -266,20 +432,20 @@ var sequencerRenderer = {
 
     },
 
-    _replaceEmptyNote: function(position, pitch,  layer) {
+    _replaceEmptyNote: function (position, pitch, layer) {
         layer.getAttr('notes').splice(position, 1, {position: position, pitch: pitch, volume: 1, duration: 1});
-        for(var i =0; i < layer.getAttr('visualNotes').length; i++) {
-            if(i == position) {
+        for (var i = 0; i < layer.getAttr('visualNotes').length; i++) {
+            if (i == position) {
                 layer.getAttr('visualNotes').splice(i, 1, {position: position, pitch: pitch, volume: 1, duration: 1});
             }
         }
         this.sortNotes(layer.getAttr('notes'));
     },
 
-    _replaceNoteSamePitch: function(position, pitch,  layer) {
+    _replaceNoteSamePitch: function (position, pitch, layer) {
         layer.getAttr('notes').splice(position, 1);
-        for(var i =0; i < layer.getAttr('visualNotes').length; i++) {
-            if(i == position) {
+        for (var i = 0; i < layer.getAttr('visualNotes').length; i++) {
+            if (i == position) {
                 layer.getAttr('visualNotes').splice(i, 1, {position: null, pitch: null, volume: null, duration: null});
             }
         }
@@ -288,7 +454,7 @@ var sequencerRenderer = {
 
     createEmptyColumn: function (layer, x, y, position, group) {
         var origin = 0;
-        if(group == null) {
+        if (group == null) {
             group = new Kinetic.Group({
                 y: layer.getY(),
                 x: x,
@@ -348,7 +514,7 @@ var sequencerRenderer = {
 
     },
 
-    _updateLayer: function(layer) {
+    _updateLayer: function (layer) {
         var x = layer.getX();
         var y = layer.getY();
         layer.removeChildren();
@@ -359,7 +525,7 @@ var sequencerRenderer = {
         layer.draw();
 
     },
-    _updateEmptyColumn: function(layer, shape, group) {
+    _updateEmptyColumn: function (layer, shape, group) {
 
         var position = shape.getAttr('notePosition');
         var pitch = shape.getAttr('pitchValue');
@@ -371,7 +537,7 @@ var sequencerRenderer = {
         this.createColumn({position: position, pitch: pitch, volume: 1, duration: 1}, layer, x, y, group);
         group.draw();
     },
-    _updateColumnSamePitch: function(layer, shape, group) {
+    _updateColumnSamePitch: function (layer, shape, group) {
 
         var position = shape.getAttr('notePosition');
         var pitch = shape.getAttr('pitchValue');
@@ -384,7 +550,7 @@ var sequencerRenderer = {
         group.draw();
     },
 
-    _updateColumn: function(layer, shape, group) {
+    _updateColumn: function (layer, shape, group) {
 
         var position = shape.getAttr('notePosition');
         var pitch = shape.getAttr('pitchValue');
@@ -395,8 +561,8 @@ var sequencerRenderer = {
 
         group.removeChildren();
 
-        for(var i =0; i < length; i++) {
-            if(i == position) {
+        for (var i = 0; i < length; i++) {
+            if (i == position) {
                 this.createColumn(layer.getAttr('notes')[i], layer, x, y, group);
             }
         }
@@ -412,8 +578,16 @@ var sequencerRenderer = {
         visualNotes = this.createVisualArray(visualNotes, notes);
         var y = 0;
 
-        for(var i = 0; i < this.instrumentLayers.length; i++) {
+        for (var i = 0; i < this.instrumentLayers.length; i++) {
             y += 67
+        }
+        //last element of the visualnotes array
+        if (visualNotes[visualNotes.length - 1].position != null) {
+            for (var j = 0; j < 4; j++) {
+                var emptyNote = {position: null, pitch: null, volume: null, duration: null};
+                visualNotes.push(emptyNote);
+            }
+
         }
 
 
@@ -425,6 +599,7 @@ var sequencerRenderer = {
             notes: instrument.notes,
             visualNotes: visualNotes
         });
+
 
         this.instrumentLayers.push(layer);
         this.stage.add(layer);
@@ -442,20 +617,76 @@ var sequencerRenderer = {
         }
     },
 
-    drawInstruments: function() {
-        for(var i = 0; i < this.instrumentLayers.length; i++) {
+    drawCP: function(layer) {
+        var correction = 0;
+        if(layer.getY() != 0) {
+            correction = 67 * (layer.getY() / 67);
+        }
+            var bg = new Kinetic.Rect({
+                x: layer.getX(),
+                y: layer.getY()+correction,
+                width: 185,
+                height: 192,
+                fill: 'gray',
+                strokeWidth: 0,
+                name: 'cpbg',
+                opacity: 1
+
+            });
+
+
+        var instrumentText = new Kinetic.Text({
+            x: layer.getX()+2,
+            y: layer.getY()+correction+2,
+            text: layer.getAttr('instrumenttype'),
+            fontSize: 20,
+            fontFamily: 'Calibri',
+            fill: 'black'
+        });
+
+        var minButton = new Kinetic.Circle({
+            x: layer.getX()+ 155,
+            y: layer.getY() + correction + 15,
+            radius: 5,
+            fill: 'white',
+            sroke: 'black',
+            strokeWidth: 1
+        });
+
+        var killButton = new Kinetic.Circle({
+            x: layer.getX()+ 170,
+            y: layer.getY() + correction + 15,
+            radius: 5,
+            fill: 'white',
+            sroke: 'black',
+            strokeWidth: 1
+        });
+
+
+        layer.add(bg);
+        layer.add(instrumentText);
+        layer.add(minButton);
+        layer.add(killButton);
+        },
+
+    drawInstruments: function () {
+        for (var i = 0; i < this.instrumentLayers.length; i++) {
             var layer = this.instrumentLayers[i];
-            var y= this.instrumentLayers[i].getY();
-                this.createRaster(this.instrumentLayers[i], this.instrumentLayers[i].getX(), this.instrumentLayers[i].getY());
-                this.instrumentLayers[i].draw();
+            var y = this.instrumentLayers[i].getY();
+            this.createRaster(this.instrumentLayers[i], this.instrumentLayers[i].getX()+40, this.instrumentLayers[i].getY());
+            this.drawCP(this.instrumentLayers[i]);
+            this.instrumentLayers[i].draw();
 
         }
 
     },
 
-    init: function (x, y, songs) {
+    init: function (x, y/*, songs*/) {
 
         this.setUpCanvas(x, y);
+        var songs = [];
+        songs.push(this.song1);
+        songs.push(this.song2);
 
         this.setupInstruments(songs);
         this.drawInstruments();
@@ -465,24 +696,24 @@ var sequencerRenderer = {
         });
 //        this.createMarker(this.markerLayer);
         var y = 0;
-        for(var i = 0; i < this.instrumentLayers.length; i++) {
+        for (var i = 0; i < this.instrumentLayers.length; i++) {
             this.createMarker(this.markerLayer, y);
             this.stage.add(this.markerLayer);
-            y+=200;
+            y += 200;
         }
 //        this.stage.add(this.markerLayer);
 
         this.clickEvents();
     },
 
-    sortNotes: function(notes) {
-        notes.sort(function(a, b) {
-                if(a.position < b.position)
-                    return -1;
-                if(a.position > b.position)
-                    return 1;
-                return 0;
-            });
-        }
+    sortNotes: function (notes) {
+        notes.sort(function (a, b) {
+            if (a.position < b.position)
+                return -1;
+            if (a.position > b.position)
+                return 1;
+            return 0;
+        });
+    }
 };
 

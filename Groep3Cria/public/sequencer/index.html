@@ -3,13 +3,14 @@
 	<head>
 		<title>Test page</title>
 		<script type="text/javascript" src="angular.min.js"></script>
-		<script type="text/javascript" src="sequencer.js"></script>
 		<script type="text/javascript" src="kinetic-v4.5.2.min.js"></script>
 		<script type="text/javascript" src="sequencerRenderer.js"></script>
 	</head>
 	
 	<body>
-		<span onclick="play()">Play</span>
 		<div id="container"></div>
+    <script>
+        sequencerRenderer.init(0, 0);
+    </script>
 	</body>
 </html>
