@@ -84,7 +84,7 @@ function loadSongsIntoArray(songname)
 
 	var http = new XMLHttpRequest();
 
-	var url = "http://localhost:33001/song/" + songname;
+	var url = "/song/" + songname;
 	http.open("GET", url, false);
 	http.onreadystatechange = function() {//Call a function when the state changes.
 		if(http.readyState == 4 && http.status == 200) {
