@@ -352,7 +352,8 @@ var sequencerRenderer = {
             group = new Kinetic.Group({
                 x: x,
                 y: layer.getY(),
-                id: note.position
+                id: note.position,
+                name: 'group'
 
             });
         }
@@ -458,7 +459,8 @@ var sequencerRenderer = {
             group = new Kinetic.Group({
                 y: layer.getY(),
                 x: x,
-                id: position
+                id: position,
+                name: 'group'
             });
         }
         for (var i = 0; i < 5; i++) {
@@ -562,10 +564,13 @@ var sequencerRenderer = {
         group.removeChildren();
 
         for (var i = 0; i < length; i++) {
-            if (i == position) {
+            if (notes[i].position == position) {
                 this.createColumn(layer.getAttr('notes')[i], layer, x, y, group);
             }
         }
+//        if(i == length) {
+//            this.createColumn(layer.getAttr('notes')[position], layer, x, y, group);
+//        }
 
 //        this.createColumn(layer.notes[position], layer, x, y, group);
         group.draw();
@@ -650,7 +655,8 @@ var sequencerRenderer = {
             radius: 5,
             fill: 'white',
             sroke: 'black',
-            strokeWidth: 1
+            strokeWidth: 1,
+            name: 'minimize'
         });
 
         var killButton = new Kinetic.Circle({
@@ -659,7 +665,8 @@ var sequencerRenderer = {
             radius: 5,
             fill: 'white',
             sroke: 'black',
-            strokeWidth: 1
+            strokeWidth: 1,
+            name: 'killinstr'
         });
 
 
@@ -679,6 +686,16 @@ var sequencerRenderer = {
 
         }
 
+    },
+
+    sortNotes: function (notes) {
+        notes.sort(function (a, b) {
+            if (a.position < b.position)
+                return -1;
+            if (a.position > b.position)
+                return 1;
+            return 0;
+        });
     },
 
     init: function (x, y/*, songs*/) {
@@ -704,16 +721,7 @@ var sequencerRenderer = {
 //        this.stage.add(this.markerLayer);
 
         this.clickEvents();
-    },
-
-    sortNotes: function (notes) {
-        notes.sort(function (a, b) {
-            if (a.position < b.position)
-                return -1;
-            if (a.position > b.position)
-                return 1;
-            return 0;
-        });
     }
-};
+}
+
 
