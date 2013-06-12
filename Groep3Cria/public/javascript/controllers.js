@@ -48,7 +48,7 @@ function friendsCtrl($scope, $location, $routeParams, friendsModel){
     };
 }
 
-app.controller('loginCtrl',function($scope, $location, $http, $resource) {
+/*app.controller('loginCtrl',function($scope, $location, $http, $resource) {
     var User = $resource('http://autobay.tezzt.nl\\:',{},
         {charge: {method:'POST', params:{charge:true}}}
     );
@@ -60,7 +60,7 @@ app.controller('loginCtrl',function($scope, $location, $http, $resource) {
 
 
 })
-
+*/
 function loginCtrl($scope, $location, $http, $resource, loginModel){
     $scope.err = ""; // Initialize err as empty string. We start with no errors.
     $scope.get = function () {
