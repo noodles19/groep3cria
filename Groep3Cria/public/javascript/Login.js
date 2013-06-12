@@ -19,7 +19,7 @@ function Login() {
 
     function checkCredentials() {
         var form = document.getElementById("loginForm");
-        if (true || (form.userid.value == "admin" && form.pswrd.value == "123")) {
+        if (true ) {
             loggedIn = true;
             loginPage();
         }

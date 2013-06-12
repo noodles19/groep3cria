@@ -1,10 +1,11 @@
+var app = angular.module('myApp', ['ngResource'])
+
 // Declare app level module which depends on filters, and services
-angular.module('myApp', [ 'myApp.services']).
-    config(['$routeProvider', function ($routeProvider) {
+app.config(['$routeProvider', function ($routeProvider) {
         // Cars
         $routeProvider.when('/Home', {
-            templateUrl: './partials/home.html',
-            controller: testCtrl
+            templateUrl: 'partials/home.html',
+            controller: loginCtrl
         });
         $routeProvider.when('/Learn', {
             templateUrl: 'partials/learn.html',
@@ -16,19 +17,11 @@ angular.module('myApp', [ 'myApp.services']).
         });
         $routeProvider.when('/Friends', {
             templateUrl: 'partials/friends.html',
-            controller: testCtrl
+            controller: friendsCtrl
         });
         $routeProvider.when('/Register', {
             templateUrl: 'partials/registerForm.html',
-            controller: testCtrl
-        });
-        $routeProvider.when('/employees', {
-            templateUrl: 'partials/local-employees.html',
-            controller: localCtrl
-        });
-        $routeProvider.when('/transactions/new/:carId/:price', {
-            templateUrl: 'partials/transaction-form.html',
-            controller: TransactionNewCtrl
+            controller: 'registerCtrl'
         });
 
         $routeProvider.otherwise({ redirectTo: '/Home' });

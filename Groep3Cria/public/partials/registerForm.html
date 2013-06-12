@@ -1,3 +1,29 @@
+<form name="registerForm">
+
+    <p><label>displayName:</label> <input type="text" data-ng-model="userForm.displayName" required
+                                          placeholder="displayName"/></p>
+
+    <p><label>loginName:</label> <input type="text" data-ng-model="userForm.loginName" required
+                                        placeholder="loginName"/></p>
+
+    <p><label>email:</label> <input type="email"
+                                    data-ng-model="userForm.email" required
+                                    placeholder="email"/></p>
+
+    <p><label>password:</label> <input type="password"
+                                       data-ng-model="userForm.password" required
+                                       placeholder="password"/></p>
+
+    <p>
+        <button data-ng-click="cancel()">Cancel</button>
+        <button data-ng-click="save()" data-ng-disabled="registerForm.$invalid">Save</button>
+    </p>
+</form>
+
+
+
+
+<!--
 
 <form id="saveNewUserForm" class="form-horizontal" action="/user/" method="post" >
     <div class="control-group">
@@ -30,4 +56,4 @@
     </div>
 
     <p><input type="submit" value="Register" class="btn btn-primary" id="btnSaveUser"></p>
-</form>
+</form>-->

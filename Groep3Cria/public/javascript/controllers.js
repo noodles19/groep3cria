@@ -15,39 +15,86 @@ var Controller = {
 }
 
 
+/*
 function songsCtrl($scope, Songs) {
     $scope.songs = Songs;
 
 }
+*/
 
 function testCtrl($scope, local) {
 
 }
-function localCtrl($scope, local) {
-    $scope.employees = local.get();
+
+function friendsCtrl($scope, $location, $routeParams, friendsModel){
+    $scope.err = ""; // Initialize err as empty string. We start with no errors.
+    $scope.get = function () {
+
+        $scope.loginName = $routeParams.loginName;
+        $scope.displayName = $routeParams.displayName;
+        $scope.email = $routeParams.email;
+
+
+        console.log(friendsModel);
+        friendsModel.get({}, $scope.friendsForm, function (res) {
+            if (res.err === null) {
+                $location.path("/Friends");
+                console.log("succesfull");
+            } else {
+                $scope.err = res.err.err;
+                console.log("error");
+            }
+        });
+    };
+}
+
+app.controller('loginCtrl',function($scope, $location, $http, $resource) {
+    var User = $resource('http://autobay.tezzt.nl\\:',{},
+        {charge: {method:'POST', params:{charge:true}}}
+    );
+
+    var user = new User($scope.user);
+    user.$save(function(data) {
+
+    })
+
+
+})
+
+function loginCtrl($scope, $location, $http, $resource, loginModel){
+    $scope.err = ""; // Initialize err as empty string. We start with no errors.
+    $scope.get = function () {
+        console.log(loginModel);
+        loginModel.save({}, $scope.loginForm, function (res) {
+
+            if (res.result.loginName === $scope.user.username) {
+                $location.path("/Home");
+                console.log("succesfull");
+            } else  {
+                $scope.err = res.err.err;
+                console.log("error");
+            }
+        });
+    };
 }
 
 
-function TransactionNewCtrl($scope, $routeParams, $location, Transaction) {
-    $scope.carId = $routeParams.carId;
-    $scope.price = $routeParams.price;
-    $scope.minPrice = parseFloat($routeParams.price, 10) * 0.8;
-    $scope.err = ""; // Initialize err as empty string. We start with no errors.
 
+
+function registerCtrl($scope, $location, usersModel) {
+    $scope.err = ""; // Initialize err as empty string. We start with no errors.
     $scope.save = function () {
-        Transaction.save({}, $scope.transaction, function (res) {
+        console.log(123);
+        console.log($scope.userForm);
+        console.log(usersModel);
+        usersModel.save({}, $scope.userForm, function (res) {
             if (res.err === null) {
-                $location.path("/cars");
+                $location.path("/Register");
             } else {
                 $scope.err = res.err.err;
             }
         });
     };
-
-    $scope.getInitialValueForCarId = function () {
-        return $routeParams.carId;
-    };
 }
-
 
 Controller.start();

@@ -9,37 +9,37 @@
 <div id="alphaheader">
     <img id="logo"/> Logo
 
-    <div id="account">
-        <form id="loginForm" name="login" users="/admin/login" method="post">
+    <div id="account" data-ng-controller="loginCtrl">
+        <form id="loginForm" name="loginForm">
             <div>
-                <label>Username
-                    <input type="text" name="userid"/>
-                </label>
+                <label>Username</label>
+                <input type="text" name="userid" data-ng-model="loginModel.loginName" required/>
+
             </div>
             <div>
-                <label>Password
-                    <input type="password" name="pswrd"/>
-                </label>
+                <label>Password</label>
+                <input type="password" name="pswrd" data-ng-model="loginModel.password" required/>
+
             </div>
             <input type="reset" value="Cancel"/>
             <input id="loginBtn" type="submit" value="Login"/>
-            <a href="#/Register">Register</a>
+            <button data-ng-click="get()" data-ng-disabled="loginForm.$invalid">Save</button>
 
+            <a href="#/Register">Register</a>
         </form>
+
+
     </div>
 </div>
 
 <header>
-
-
     <nav>
         <ul>
             <li><a href="#/Home">Home</a></li>
             <li><a href="#/Learn">Learn</a></li>
             <li><a href="#/MySongs">My Songs</a></li>
             <li><a href="#/Friends">Friends</a></li>
-            <li><a href="#/view">View</a></li>
-            <li><a href="#/employees">Employees</a></li>
+
         </ul>
     </nav>
 
@@ -57,14 +57,16 @@
 <!-- Lib -->
 <script src="./javascript/lib/angular.min.js"></script>
 <script src="./javascript/lib/angular-resource.js"></script>
+<script src="./javascript/lib/jquery.min.js"></script>
 
 <!-- App -->
 <script src="./javascript/Login.js"></script>
-<script src="javascript/songData.js"></script>
+<script src="./javascript/songData.js"></script>
 <script src="./javascript/app.js"></script>
 <script src="./javascript/controllers.js" defer="defer"></script>
 <script src="./javascript/services.js"></script>
 <script src="./javascript/Register.js"></script>
+
 
 
 </html>
