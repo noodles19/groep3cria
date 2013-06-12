@@ -1,7 +1,8 @@
-var app = angular.module('myApp', ['ngResource'])
+//var app = angular.module('myApp', ['ngResource'])
 
 // Declare app level module which depends on filters, and services
-app.config(['$routeProvider', function ($routeProvider) {
+angular.module('myApp', [ 'myApp.services']).
+    config(['$routeProvider', function ($routeProvider) {
         // Cars
         $routeProvider.when('/Home', {
             templateUrl: 'partials/home.html',
