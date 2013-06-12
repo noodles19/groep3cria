@@ -29,7 +29,24 @@ var songLength = 0;		//in beats
 
 var source = [];		//The instruments
 
-var availableInstruments = ["Xylophone", "Piano", "Distortion Guitar"];
+ var availableInstruments = [
+ {instrumenttype: "Bass", instrumenturl: "audio/bass.wav"},
+ {instrumenttype: "Bongo", instrumenturl: "audio/bongo.wav"},
+ {instrumenttype: "Cannon", instrumenturl: "audio/cannon.wav"},
+ {instrumenttype: "Hi-hat", instrumenturl: "audio/hihat.wav"},
+ {instrumenttype: "Distortion Guitar", instrumenturl: "audio/distortionguitar.wav"},
+ {instrumenttype: "Guitar", instrumenturl: "audio/guitar.wav"},
+ {instrumenttype: "Kick", instrumenturl: "audio/kick.wav"},
+ {instrumenttype: "Orchestra Hit", instrumenturl: "audio/orchestra hit.wav"},
+ {instrumenttype: "Piano", instrumenturl: "audio/piano.wav"},
+ {instrumenttype: "Snare Drum", instrumenturl: "audio/snare.wav"},
+ {instrumenttype: "Trap", instrumenturl: "audio/trap.wav"},
+ {instrumenttype: "Xylophone 2", instrumenturl: "audio/xylophone (2).wav"},
+ {instrumenttype: "Xylophone 3", instrumenturl: "audio/xylophone.wav"},
+ {instrumenttype: "Xylophone", instrumenturl: "audio/xylophone (3).wav"}
+ ];
+
+var instrumenttypes = []; //The array of instrument names
 
 var songs = []; //The array of related songs
 
@@ -79,7 +96,6 @@ function loadSongsIntoArray(songname)
 	
 	console.log("[LOG] Songs fetched! Processing into song arrays...");
 	//Now we got the songs.
-	console.log("TEST1")
 
 	if(base.based_on == null)
 	{
@@ -116,11 +132,7 @@ function loadAudioSources()
 	audioContext = new webkitAudioContext();
 	bufferLoader = new BufferLoader(
 		audioContext,
-		[
-			'http://localhost/Web%20Audio%20API/instruments.php?instrument=4',
-			'http://localhost/Web%20Audio%20API/instruments.php?instrument=5',
-			'http://localhost/Web%20Audio%20API/instruments.php?instrument=11',
-		],
+        availableInstruments,
 		finishedLoading
 	);
 	bufferLoader.load();
@@ -184,11 +196,15 @@ function nextNote() {
         currentNote = 0;
 
     }
-}		
-		
+}
+
 function playNote( beatNumber, time ) {
 
-	
+    for(var i=0;i<availableInstruments.length;i++)
+    {
+        instrumenttypes.push(availableInstruments[i].instrumenttype);
+    }
+
 	for(var j=0;j<sequencerRenderer.instrumentLayers.length;j++)
 	{
 		for(var i=0;i<sequencerRenderer.instrumentLayers[j].getAttr("notes").length;i++)
@@ -199,7 +215,7 @@ function playNote( beatNumber, time ) {
 			else
 			{
 				var sound = audioContext.createBufferSource();
-				sound.buffer = source[availableInstruments.indexOf(sequencerRenderer.instrumentLayers[j].getAttr("instrumenttype"))].buffer;
+				sound.buffer = source[instrumenttypes.indexOf(sequencerRenderer.instrumentLayers[j].getAttr("instrumenttype"))].buffer;
 				sound.connect(audioContext.destination);
 				sound.playbackRate.value = sequencerRenderer.instrumentLayers[j].getAttr("notes")[i].pitch;
 				// TODO: Once start()/stop() deploys on Safari and iOS, these should be changed.
@@ -209,7 +225,6 @@ function playNote( beatNumber, time ) {
 			}
 		}
 	}
-	
 }
 
 function scheduler() {
@@ -265,7 +280,7 @@ BufferLoader.prototype.loadBuffer = function (url, index) {
             }
             loader.bufferList[index] = buffer;
             if (++loader.loadCount == loader.urlList.length)
-                loader.onload(loader.bufferList);
+            loader.onload(loader.bufferList);
         }, function (error) {
             console.error('decodeAudioData error', error);
         });
@@ -278,7 +293,7 @@ BufferLoader.prototype.loadBuffer = function (url, index) {
 BufferLoader.prototype.load = function () {
     for (var i = 0; i < this.urlList.length; ++i)
     {
-	console.log("[LOG] Loading instrument \"" + availableInstruments[i] + "\"");
-        this.loadBuffer(this.urlList[i], i);
+	console.log("[LOG] Loading instrument \"" + availableInstruments[i].instrumenttype + "\"");
+        this.loadBuffer(this.urlList[i].instrumenturl, i);
     }
 }
