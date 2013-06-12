@@ -9,11 +9,11 @@
 <div id="alphaheader">
     <img id="logo"/> Logo
 
-    <div id="account" ><!--data-ng-controller="testCtrl"-->
+    <div id="account" data-ng-controller="loginCtrl">
         <form id="loginForm" name="loginForm">
             <div>
-                <label>Username</label>
-                <input type="text" name="userid" data-ng-model="loginModel.loginName" required/>
+                <label>Login Name</label>
+                <input type="text" name="userid" data-ng-model="loginModel.username" required/>
             </div>
             <div>
                 <label>Password</label>
@@ -22,7 +22,7 @@
             </div>
             <input type="reset" value="Cancel"/>
             <input id="loginBtn" type="submit" value="Login"/>
-            <button data-ng-click="get()" data-ng-disabled="loginForm.$invalid">Save</button>
+            <button data-ng-click="loginUser()" data-ng-disabled="loginForm.$invalid">Save</button>
 
             <a href="#/Register">Register</a>
         </form>
