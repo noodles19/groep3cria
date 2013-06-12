@@ -200,6 +200,56 @@ var sequencerRenderer = {
 
     },
 
+    _minimizeInstrument: function(layer) {
+      var groups = layer.get('.notes');
+/*
+        for(var i = 0; i < this.instrumentLayers.length; i++) {
+//            if(this.instrumentLayers[i] != layer) {
+                var group = this.instrumentLayers[i].get('.uigroup')[0];
+                this.instrumentLayers[i].setY(this.instrumentLayers[i].getY() - 200);
+
+//            }
+        }
+*/
+        groups.each(function(group, index) {
+
+            group.getChildren().each(function(rect, index) {
+               if(rect.getAttr('hasNote') == false) {
+                   //for some reason listening doesn't return a boolean, we're going to use a custom attribute instead
+                   // fuck the police
+                   if(rect.getAttr('enabled') == true) {
+                       rect.setOpacity(0);
+                       rect.setListening(false);
+                       layer.get('.addcolumns')[0].setListening(false);
+                       rect.setAttr('enabled', false);
+                   } else {
+                       rect.setOpacity(1);
+                       rect.setListening(true);
+                       layer.get('.addcolumns')[0].setListening(true);
+                       rect.setAttr('enabled', true);
+                   }
+
+               } else  {
+                   if(rect.getAttr('enabled') == true) {
+                       rect.setListening(false);
+                       rect.setAttr('enabled', false)
+                       rect.setAttr('lastY', rect.getY());
+                       layer.get('.addcolumns')[0].setListening(false);
+                       rect.setY(group.getY());
+                   } else {
+                       rect.setListening(true);
+                       rect.setAttr('enabled', true);
+                       layer.get('.addcolumns')[0].setListening(true);
+                       rect.setY(rect.getAttr('lastY'));
+                   }
+
+               }
+            });
+
+        });
+
+    },
+
     update: function (dt) {
         //TODO add audio scheduling and stuff
         //TODO do something with dt
@@ -291,7 +341,8 @@ var sequencerRenderer = {
             fill: 'red',
             strokeWidth: 0,
             name: 'marker',
-            opacity: 0.7
+            opacity: 0.7,
+            isListening: false
         });
 
         markerLayer.add(rect);
@@ -339,6 +390,23 @@ var sequencerRenderer = {
 //                    self._updateLayer(layer);
 
                 }
+
+                if(name == 'minimize') {
+                    self._minimizeInstrument(layer);
+                    layer.draw();
+                }
+
+                if(name == 'addcolumns') {
+//                    var furthestX = layer.getAttr('
+                    var length = layer.getAttr('visualNotes').length;
+                    var spacing = 0;
+                    var offset = 100+ (  (length* 20) + (spacing * length));
+                    self.insertEmptyNote(length -1, layer.getAttr('visualNotes'));
+                    self.createEmptyColumn(layer, offset, layer.getY(), length, null); // no -1 because we just added a new note!
+                    layer.draw();
+
+
+                }
             });
         }
         i = 0; // needed?
@@ -353,7 +421,7 @@ var sequencerRenderer = {
                 x: x,
                 y: layer.getY(),
                 id: note.position,
-                name: 'group'
+                name: 'notes'
 
             });
         }
@@ -362,6 +430,7 @@ var sequencerRenderer = {
                 var rect = new Kinetic.Rect({
                     x: x,
                     y: y + origin,
+                    lastY: y + origin,
                     width: 35,
                     height: 30,
                     fill: "red",
@@ -370,12 +439,15 @@ var sequencerRenderer = {
                     pitchValue: note.pitch,
                     notePosition: note.position,
                     hasNote: true,
-                    name: 'n' + note.position
+                    name: 'n' + note.position,
+                    enabled: true,
+                    opacity: 1
                 });
             } else {
                 var rect = new Kinetic.Rect({
                     x: x,
                     y: y + origin,
+                    lastY: y + origin,
                     width: 35,
                     height: 30,
                     fill: "green",
@@ -384,6 +456,8 @@ var sequencerRenderer = {
                     pitchValue: this.pitchToRect[i],
                     notePosition: note.position,
                     hasNote: false,
+                    opacity: 1,
+                    enabled: true,
                     name: 'n' + note.position
                 });
             }
@@ -460,13 +534,14 @@ var sequencerRenderer = {
                 y: layer.getY(),
                 x: x,
                 id: position,
-                name: 'group'
+                name: 'notes'
             });
         }
         for (var i = 0; i < 5; i++) {
             var rect = new Kinetic.Rect({
                 x: x,
                 y: y + origin,
+                lastY: y + origin,
                 width: 35,
                 height: 30,
                 fill: "blue",
@@ -475,6 +550,7 @@ var sequencerRenderer = {
                 pitchValue: this.pitchToRect[i],
                 notePosition: position,
                 hasNote: false,
+                enabled: true,
                 name: 'u' + position
             });
             group.add(rect);
@@ -627,6 +703,11 @@ var sequencerRenderer = {
         if(layer.getY() != 0) {
             correction = 67 * (layer.getY() / 67);
         }
+
+        var group = new Kinetic.Group({
+            name: 'uigroup'
+
+        });
             var bg = new Kinetic.Rect({
                 x: layer.getX(),
                 y: layer.getY()+correction,
@@ -644,7 +725,7 @@ var sequencerRenderer = {
             x: layer.getX()+2,
             y: layer.getY()+correction+2,
             text: layer.getAttr('instrumenttype'),
-            fontSize: 20,
+            fontSize: 15,
             fontFamily: 'Calibri',
             fill: 'black'
         });
@@ -669,11 +750,22 @@ var sequencerRenderer = {
             name: 'killinstr'
         });
 
+        var addColumnsButton = new Kinetic.Circle({
+            x: layer.getX()+ 140,
+            y: layer.getY() + correction + 15,
+            radius: 5,
+            fill: 'red',
+            sroke: 'black',
+            strokeWidth: 1,
+            name: 'addcolumns'
+        });
 
-        layer.add(bg);
-        layer.add(instrumentText);
-        layer.add(minButton);
-        layer.add(killButton);
+        group.add(bg);
+        group.add(instrumentText);
+        group.add(minButton);
+        group.add(killButton);
+        group.add(addColumnsButton);
+        layer.add(group);
         },
 
     drawInstruments: function () {
