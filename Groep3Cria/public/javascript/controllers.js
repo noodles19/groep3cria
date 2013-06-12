@@ -48,18 +48,21 @@ function friendsCtrl($scope, $location, $routeParams, friendsModel){
     };
 }
 
-app.controller('loginCtrl',function($scope, $location, $http, $resource) {
-    var User = $resource('http://autobay.tezzt.nl\\:',{},
-        {charge: {method:'POST', params:{charge:true}}}
-    );
 
-    var user = new User($scope.user);
-    user.$save(function(data) {
+/*
 
-    })
+ app.controller('loginCtrl',function($scope, $location, $http, $resource) {
+ var User = $resource('http://autobay.tezzt.nl\\:',{},
+ {charge: {method:'POST', params:{charge:true}}}
+ );
+
+ var user = new User($scope.user);
+ user.$save(function(data) {
+
+ })
 
 
-})
+ })*/
 
 function loginCtrl($scope, $location, $http, $resource, loginModel){
     $scope.err = ""; // Initialize err as empty string. We start with no errors.
@@ -77,6 +80,7 @@ function loginCtrl($scope, $location, $http, $resource, loginModel){
         });
     };
 }
+
 
 
 
