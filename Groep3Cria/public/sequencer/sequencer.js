@@ -61,9 +61,9 @@ function init() {
 		
 		var http = new XMLHttpRequest();
 
-		loadSongsIntoArray("Remember me V2");
-		
-		getMaxSongLength();		
+        loadSongsIntoArray("Remember me V2");
+
+		getMaxSongLength();
 		
 		//drawGUI();
 		

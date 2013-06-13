@@ -39,7 +39,8 @@ var schemaName = Schema({
     speed:Number,
     volume:Number,
     author:{type:Schema.Types.ObjectId, ref:'User'},
-    based_on:{type:Schema.Types.ObjectId, ref:'Song'}
+    based_on:{type:Schema.Types.ObjectId, ref:'Song'},
+    _id:{type:Schema.Types.ObjectId}
 });
 
 var modelName = "Song";

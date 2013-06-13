@@ -62,7 +62,7 @@ exports.listSingleSong = function (req, res) {
 
     Song
         .findOne(conditions, fields, options)
-        .populate('based_on comments.UserID ratings.UserID author')
+        .populate('comments.UserID ratings.UserID author')
         .exec(function (err, doc) {
             var retObj = {
                 songs: doc
