@@ -24,22 +24,10 @@ var sequencerRenderer = {
         "instrumenttype": "New Instr",
         "notes": [
             {
-                "pitch": 1,
-                "position": 0,
-                "duration": 0.25,
-                "volume": 1
-            },
-            {
-                "pitch": 1,
-                "position": 1,
-                "duration": 0.25,
-                "volume": 1
-            },
-            {
-                "pitch": 2,
-                "position": 4,
-                "duration": 0.25,
-                "volume": 1
+                "pitch": null,
+                "position": null,
+                "duration": null,
+                "volume": null
             }
         ]
     },
