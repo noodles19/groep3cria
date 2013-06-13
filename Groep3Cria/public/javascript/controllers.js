@@ -13,18 +13,11 @@ var Controller = {
 }
 
 
-/*
- function songsCtrl($scope, Songs) {
- $scope.songs = Songs;
-
- }
- */
-
-function testCtrl($scope, local) {
+function testCtrl($scope) {
 
 }
 
-function friendsCtrl($scope, $location, $routeParams, friendsModel) {
+/*function friendsCtrl($scope, $location, $routeParams, friendsModel) {
     $scope.err = ""; // Initialize err as empty string. We start with no errors.
     $scope.get = function () {
 
@@ -44,7 +37,21 @@ function friendsCtrl($scope, $location, $routeParams, friendsModel) {
             }
         });
     };
-}
+}*/
+
+
+app.controller('songCtrl', function ($scope, $location, $http, $resource) {
+    $scope.searchSong =function(){
+        var Song = $resource('http://cria.tezzt.nl\\:43058/songs', {},
+            {charge: {method: 'GET', params: {charge: true}}}
+        );
+        var songs = Song.get(function(data){
+            console.log(data);
+           $scope.songs=data;
+        });
+    }
+
+})
 
 
 app.controller('loginCtrl', function ($scope, $location, $http, $resource) {

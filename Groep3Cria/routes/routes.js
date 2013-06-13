@@ -30,7 +30,7 @@ module.exports = function (app) {
 
 
 
-    /*var songs = require('../app/controllers/songs.js');
+    var songs = require('../app/controllers/songs.js');
     // CREATE
     app.post('/songs/', songs.create);
     // RETRIEVE
@@ -39,5 +39,5 @@ module.exports = function (app) {
     // UPDATE
     app.put('/songs/', songs.update);
     // DELETE
-    app.delete('/songs/', songs.delete);*/
+    app.delete('/songs/', songs.delete);
 }

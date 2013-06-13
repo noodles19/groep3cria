@@ -14,11 +14,11 @@ var app = angular.module('myApp', ['ngResource'])
         });
         $routeProvider.when('/MySongs', {
             templateUrl: 'partials/mySongs.html',
-            controller: testCtrl
+            controller: 'songCtrl'
         });
         $routeProvider.when('/Friends', {
             templateUrl: 'partials/friends.html',
-            controller: friendsCtrl
+            controller: 'testCtrl'
         });
         $routeProvider.when('/Register', {
             templateUrl: 'partials/registerForm.html',
