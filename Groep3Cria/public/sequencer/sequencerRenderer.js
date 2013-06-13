@@ -20,6 +20,30 @@ var sequencerRenderer = {
 
     pitchToRect: [2.0, 1.5, 1, 0.667, 0.5],
 
+    instrumentnew: {
+        "instrumenttype": "New Instr",
+        "notes": [
+            {
+                "pitch": 1,
+                "position": 0,
+                "duration": 0.25,
+                "volume": 1
+            },
+            {
+                "pitch": 1,
+                "position": 1,
+                "duration": 0.25,
+                "volume": 1
+            },
+            {
+                "pitch": 2,
+                "position": 4,
+                "duration": 0.25,
+                "volume": 1
+            }
+        ]
+    },
+
     song1: {
         "_id": "51b07731f61f961805000000",
         "author": {
@@ -200,50 +224,50 @@ var sequencerRenderer = {
 
     },
 
-    _minimizeInstrument: function(layer) {
-      var groups = layer.get('.notes');
-/*
-        for(var i = 0; i < this.instrumentLayers.length; i++) {
-//            if(this.instrumentLayers[i] != layer) {
-                var group = this.instrumentLayers[i].get('.uigroup')[0];
-                this.instrumentLayers[i].setY(this.instrumentLayers[i].getY() - 200);
+    _minimizeInstrument: function (layer) {
+        var groups = layer.get('.notes');
+        /*
+         for(var i = 0; i < this.instrumentLayers.length; i++) {
+         //            if(this.instrumentLayers[i] != layer) {
+         var group = this.instrumentLayers[i].get('.uigroup')[0];
+         this.instrumentLayers[i].setY(this.instrumentLayers[i].getY() - 200);
 
-//            }
-        }
-*/
-        groups.each(function(group, index) {
+         //            }
+         }
+         */
+        groups.each(function (group, index) {
 
-            group.getChildren().each(function(rect, index) {
-               if(rect.getAttr('hasNote') == false) {
-                   //for some reason listening doesn't return a boolean, we're going to use a custom attribute instead
-                   // fuck the police
-                   if(rect.getAttr('enabled') == true) {
-                       rect.setOpacity(0);
-                       rect.setListening(false);
-                       layer.get('.addcolumns')[0].setListening(false);
-                       rect.setAttr('enabled', false);
-                   } else {
-                       rect.setOpacity(1);
-                       rect.setListening(true);
-                       layer.get('.addcolumns')[0].setListening(true);
-                       rect.setAttr('enabled', true);
-                   }
+            group.getChildren().each(function (rect, index) {
+                if (rect.getAttr('hasNote') == false) {
+                    //for some reason listening doesn't return a boolean, we're going to use a custom attribute instead
+                    // fuck the police
+                    if (rect.getAttr('enabled') == true) {
+                        rect.setOpacity(0);
+                        rect.setListening(false);
+                        layer.get('.addcolumns')[0].setListening(false);
+                        rect.setAttr('enabled', false);
+                    } else {
+                        rect.setOpacity(1);
+                        rect.setListening(true);
+                        layer.get('.addcolumns')[0].setListening(true);
+                        rect.setAttr('enabled', true);
+                    }
 
-               } else  {
-                   if(rect.getAttr('enabled') == true) {
-                       rect.setListening(false);
-                       rect.setAttr('enabled', false)
-                       rect.setAttr('lastY', rect.getY());
-                       layer.get('.addcolumns')[0].setListening(false);
-                       rect.setY(group.getY());
-                   } else {
-                       rect.setListening(true);
-                       rect.setAttr('enabled', true);
-                       layer.get('.addcolumns')[0].setListening(true);
-                       rect.setY(rect.getAttr('lastY'));
-                   }
+                } else {
+                    if (rect.getAttr('enabled') == true) {
+                        rect.setListening(false);
+                        rect.setAttr('enabled', false)
+                        rect.setAttr('lastY', rect.getY());
+                        layer.get('.addcolumns')[0].setListening(false);
+                        rect.setY(group.getY());
+                    } else {
+                        rect.setListening(true);
+                        rect.setAttr('enabled', true);
+                        layer.get('.addcolumns')[0].setListening(true);
+                        rect.setY(rect.getAttr('lastY'));
+                    }
 
-               }
+                }
             });
 
         });
@@ -391,21 +415,25 @@ var sequencerRenderer = {
 
                 }
 
-                if(name == 'minimize') {
+                if (name == 'minimize') {
                     self._minimizeInstrument(layer);
                     layer.draw();
                 }
 
-                if(name == 'addcolumns') {
+                if (name == 'addcolumns') {
 //                    var furthestX = layer.getAttr('
                     var length = layer.getAttr('visualNotes').length;
                     var spacing = 0;
-                    var offset = 100+ (  (length* 20) + (spacing * length));
-                    self.insertEmptyNote(length -1, layer.getAttr('visualNotes'));
+                    var offset = 100 + (  (length * 20) + (spacing * length));
+                    self.insertEmptyNote(length - 1, layer.getAttr('visualNotes'));
                     self.createEmptyColumn(layer, offset, layer.getY(), length, null); // no -1 because we just added a new note!
                     layer.draw();
 
 
+                }
+
+                if(name == 'killinstr') {
+                    self.removeInstrument(layer);
                 }
             });
         }
@@ -687,20 +715,22 @@ var sequencerRenderer = {
 
     },
 
-    removeInstrument: function (instrument) { // Removes the instrument by type
-        for (var i = 0; i < this.instrumentLayers.length; i++) {
-            var layer = this.instrumentLayers[i];
-            var type = layer.getAttr("instrumenttype");
-            if (this.instrumentLayers[i].getAttr("instrumenttype") == instrument.instrumenttype) {
-                this.instrumentLayers[i].destroy();
-                this.instrumentLayers.splice(i, i + 1);
-            }
+    removeInstrument: function (layer) { // Removes the instrument by type
+
+
+        for(var index = this.instrumentLayers.indexOf(layer)+1; index < this.instrumentLayers.length; index++) {
+            this.instrumentLayers[index].setY(this.instrumentLayers[index].getY()-200);
+            this.instrumentLayers[index].draw();
+
         }
+        var index = this.instrumentLayers.indexOf(layer);
+        this.instrumentLayers.splice(index, 1);
+        layer.destroy();
     },
 
-    drawCP: function(layer) {
+    drawCP: function (layer) {
         var correction = 0;
-        if(layer.getY() != 0) {
+        if (layer.getY() != 0) {
             correction = 67 * (layer.getY() / 67);
         }
 
@@ -708,22 +738,22 @@ var sequencerRenderer = {
             name: 'uigroup'
 
         });
-            var bg = new Kinetic.Rect({
-                x: layer.getX(),
-                y: layer.getY()+correction,
-                width: 185,
-                height: 192,
-                fill: 'gray',
-                strokeWidth: 0,
-                name: 'cpbg',
-                opacity: 1
+        var bg = new Kinetic.Rect({
+            x: layer.getX(),
+            y: layer.getY() + correction,
+            width: 185,
+            height: 192,
+            fill: 'gray',
+            strokeWidth: 0,
+            name: 'cpbg',
+            opacity: 1
 
-            });
+        });
 
 
         var instrumentText = new Kinetic.Text({
-            x: layer.getX()+2,
-            y: layer.getY()+correction+2,
+            x: layer.getX() + 2,
+            y: layer.getY() + correction + 2,
             text: layer.getAttr('instrumenttype'),
             fontSize: 15,
             fontFamily: 'Calibri',
@@ -731,7 +761,7 @@ var sequencerRenderer = {
         });
 
         var minButton = new Kinetic.Circle({
-            x: layer.getX()+ 155,
+            x: layer.getX() + 155,
             y: layer.getY() + correction + 15,
             radius: 5,
             fill: 'white',
@@ -741,7 +771,7 @@ var sequencerRenderer = {
         });
 
         var killButton = new Kinetic.Circle({
-            x: layer.getX()+ 170,
+            x: layer.getX() + 170,
             y: layer.getY() + correction + 15,
             radius: 5,
             fill: 'white',
@@ -751,7 +781,7 @@ var sequencerRenderer = {
         });
 
         var addColumnsButton = new Kinetic.Circle({
-            x: layer.getX()+ 140,
+            x: layer.getX() + 140,
             y: layer.getY() + correction + 15,
             radius: 5,
             fill: 'red',
@@ -766,13 +796,23 @@ var sequencerRenderer = {
         group.add(killButton);
         group.add(addColumnsButton);
         layer.add(group);
-        },
+    },
+
+    //draws a new instrument
+    drawLastInstrument: function () {
+        var y = this.instrumentLayers[this.instrumentLayers.length - 2].getY() + 200;
+        var layer = this.instrumentLayers[this.instrumentLayers.length - 1];
+        this.createRaster(layer, layer.getX() + 40, layer.getY());
+        this.drawCP(layer);
+        layer.draw();
+//        this.createRaster(instrumentLayer, 10, this.)
+    },
 
     drawInstruments: function () {
         for (var i = 0; i < this.instrumentLayers.length; i++) {
             var layer = this.instrumentLayers[i];
             var y = this.instrumentLayers[i].getY();
-            this.createRaster(this.instrumentLayers[i], this.instrumentLayers[i].getX()+40, this.instrumentLayers[i].getY());
+            this.createRaster(this.instrumentLayers[i], this.instrumentLayers[i].getX() + 40, this.instrumentLayers[i].getY());
             this.drawCP(this.instrumentLayers[i]);
             this.instrumentLayers[i].draw();
 
@@ -811,6 +851,9 @@ var sequencerRenderer = {
             y += 200;
         }
 //        this.stage.add(this.markerLayer);
+
+        this.addInstrument(this.instrumentnew);
+        this.drawLastInstrument();
 
         this.clickEvents();
     }
