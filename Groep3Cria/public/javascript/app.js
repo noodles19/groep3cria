@@ -1,12 +1,12 @@
-//var app = angular.module('myApp', ['ngResource'])
+var app = angular.module('myApp', ['ngResource'])
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', [ 'myApp.services']).
-    config(['$routeProvider', function ($routeProvider) {
+//angular.module('myApp', [ 'myApp.services']).
+    app.config(['$routeProvider', function ($routeProvider) {
         // Cars
         $routeProvider.when('/Home', {
             templateUrl: 'partials/home.html',
-            controller: loginCtrl
+            controller: 'loginCtrl'
         });
         $routeProvider.when('/Learn', {
             templateUrl: 'partials/learn.html',
@@ -14,11 +14,11 @@ angular.module('myApp', [ 'myApp.services']).
         });
         $routeProvider.when('/MySongs', {
             templateUrl: 'partials/mySongs.html',
-            controller: testCtrl
+            controller: 'songCtrl'
         });
         $routeProvider.when('/Friends', {
             templateUrl: 'partials/friends.html',
-            controller: friendsCtrl
+            controller: 'testCtrl'
         });
         $routeProvider.when('/Register', {
             templateUrl: 'partials/registerForm.html',

@@ -9,24 +9,15 @@ var Controller = {
 
     checkCredentials: function () {
         return this.view.checkCredentials();
-
-
     }
 }
 
 
-/*
-function songsCtrl($scope, Songs) {
-    $scope.songs = Songs;
-
-}
-*/
-
-function testCtrl($scope, local) {
+function testCtrl($scope) {
 
 }
 
-function friendsCtrl($scope, $location, $routeParams, friendsModel){
+/*function friendsCtrl($scope, $location, $routeParams, friendsModel) {
     $scope.err = ""; // Initialize err as empty string. We start with no errors.
     $scope.get = function () {
 
@@ -46,59 +37,60 @@ function friendsCtrl($scope, $location, $routeParams, friendsModel){
             }
         });
     };
-}
+}*/
 
 
-/*
-
- app.controller('loginCtrl',function($scope, $location, $http, $resource) {
- var User = $resource('http://autobay.tezzt.nl\\:',{},
- {charge: {method:'POST', params:{charge:true}}}
- );
-
- var user = new User($scope.user);
- user.$save(function(data) {
-
- })
-
-
- })*/
-
-function loginCtrl($scope, $location, $http, $resource, loginModel){
-    $scope.err = ""; // Initialize err as empty string. We start with no errors.
-    $scope.get = function () {
-        console.log(loginModel);
-        loginModel.save({}, $scope.loginForm, function (res) {
-
-            if (res.result.loginName === $scope.user.username) {
-                $location.path("/Home");
-                console.log("succesfull");
-            } else  {
-                $scope.err = res.err.err;
-                console.log("error");
-            }
+app.controller('songCtrl', function ($scope, $location, $http, $resource) {
+    $scope.searchSong =function(){
+        var Song = $resource('http://cria.tezzt.nl\\:43058/songs', {},
+            {charge: {method: 'GET', params: {charge: true}}}
+        );
+        var songs = Song.get(function(data){
+            console.log(data);
+           $scope.songs=data;
         });
-    };
-}
+    }
+
+})
 
 
+app.controller('loginCtrl', function ($scope, $location, $http, $resource) {
+    $scope.loginUser =function(){
+        var User = $resource('http://cria.tezzt.nl\\:43058/signin', {},
+            {charge: {method: 'POST', params: {charge: true}}}
+        );
+        console.log($scope.loginModel);
+    var user = new User($scope.loginModel);
+    user.$save(function (data) {
+        console.log(data);
 
+        /*if (data.result.loginName === $scope.user.username) {
+            $location.path("/Home");
+            console.log("succesfull");
+        } else {
+            $scope.err = res.err.err;
+            console.log("error");
+        }*/
+    })
+    }
 
+})
 
-function registerCtrl($scope, $location, usersModel) {
-    $scope.err = ""; // Initialize err as empty string. We start with no errors.
-    $scope.save = function () {
-        console.log(123);
+app.controller('registerCtrl', function ($scope, $location, $http, $resource) {
+console.log("test")
+    $scope.registerUser =function(){
+        console.log("test1")
+        var User = $resource('http://cria.tezzt.nl\\:43058/user', {},
+            {charge: {method: 'POST', params: {charge: true}}}
+        );
         console.log($scope.userForm);
-        console.log(usersModel);
-        usersModel.save({}, $scope.userForm, function (res) {
-            if (res.err === null) {
-                $location.path("/Register");
-            } else {
-                $scope.err = res.err.err;
-            }
-        });
-    };
-}
+        var user = new User($scope.userForm);
+        user.$save(function (data) {
+            console.log(data);
+    })
+    }
+})
+
+
 
 Controller.start();
