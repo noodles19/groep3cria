@@ -34,7 +34,7 @@ module.exports = function (app) {
     app.post('/songs', songs.create);
     // RETRIEVE
     app.get('/songs/', songs.list);
-    app.get('/song/:name', songs.listSingleSong);
+    app.get('/song/:id', songs.listSingleSong);
     // UPDATE
     app.put('/songs/', songs.update);
     // DELETE

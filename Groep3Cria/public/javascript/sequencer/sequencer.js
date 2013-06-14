@@ -52,16 +52,16 @@ var songs = []; //The array of related songs
 
 var seed; //The seed song to extract the basic song info from.
 
-window.addEventListener("load", init );
+//window.addEventListener("load", init );
 
-function init() {
-	try {
+function init(id) {
+//	try {
 		console.log("[LOG] Initializing resources...");
 		loadAudioSources();
 		
 		var http = new XMLHttpRequest();
 
-        loadSongsIntoArray("Remember me V2");
+        loadSongsIntoArray(id);
 
 		getMaxSongLength();
 		
@@ -70,21 +70,21 @@ function init() {
 		sequencerRenderer.init(0,0, songs);
 		
 		console.log("[LOG] Done!");
-	}
-	catch(e) {
-		alert(e);
-		alert('Web Audio API is not supported in this browser');
-	}
+//    }
+//	catch(e) {
+//		alert(e);
+//		alert('Web Audio API is not supported in this browser');
+//	}
 }
 
-function loadSongsIntoArray(songname)
+function loadSongsIntoArray(id)
 {	
 	console.log("[LOG] Begin fetching songs...");
 	var base;
 
 	var http = new XMLHttpRequest();
 
-	var url = "/song/" + songname;
+	var url = "/song/" + id;
 	http.open("GET", url, false);
 	http.onreadystatechange = function() {//Call a function when the state changes.
 		if(http.readyState == 4 && http.status == 200) {
@@ -218,7 +218,6 @@ function playNote( beatNumber, time ) {
 				sound.buffer = source[instrumenttypes.indexOf(sequencerRenderer.instrumentLayers[j].getAttr("instrumenttype"))].buffer;
 				sound.connect(audioContext.destination);
 				sound.playbackRate.value = sequencerRenderer.instrumentLayers[j].getAttr("notes")[i].pitch;
-				// TODO: Once start()/stop() deploys on Safari and iOS, these should be changed.
 				sound.start( time );
 				sound.stop( time + sequencerRenderer.instrumentLayers[j].getAttr("notes")[i].duration );
 				break;
@@ -294,6 +293,6 @@ BufferLoader.prototype.load = function () {
     for (var i = 0; i < this.urlList.length; ++i)
     {
 	console.log("[LOG] Loading instrument \"" + availableInstruments[i].instrumenttype + "\"");
-        this.loadBuffer(this.urlList[i].instrumenturl, i);
+        this.loadBuffer("javascript/sequencer/" +this.urlList[i].instrumenturl, i);
     }
 }

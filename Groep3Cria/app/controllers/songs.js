@@ -56,9 +56,8 @@ exports.listSingleSong = function (req, res) {
     var conditions, fields, options;
 
     console.log('list a single song');
-    console.log(req.params.name);
     conditions = {
-        name: req.params.name
+        _id: req.params.id
     };
     fields = {};
     options = {};
