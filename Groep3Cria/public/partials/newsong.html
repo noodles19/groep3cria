@@ -1,5 +1,5 @@
 <form name="createNewSongForm">
-<label for="songname">Song name:</label><input id="songname" type="text" placeholder="Song name" /><br />
-<label for="bpm">BPM:</label><input id="bpm" type="number" min="0" /><br />
-<button data-ng-click="save()" value="Create!" />
+<label for="songname">Song name:</label><input id="songname" type="text" placeholder="Song name" data-ng-model="songForm.name" /><br />
+<label for="bpm">BPM:</label><input id="bpm" type="number" min="0" data-ng-model="songForm.speed" /><br />
+<button data-ng-click="startNewSong()">Create!</button>
 </form>

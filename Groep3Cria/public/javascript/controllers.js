@@ -1,9 +1,7 @@
 var Controller = {
-    register: new Register(),
     login: new Login(),
 
     start: function () {
-        this.register.registerForm();
         this.login.loginMain();
     },
 
@@ -91,6 +89,23 @@ console.log("test")
     }
 })
 
+app.controller('newSongCtrl', function ($scope, $location, $http, $resource) {
+    $scope.startNewSong =function(){
+        var Song = $resource('http://localhost\\:33001/songs', {},
+            {charge: {method: 'POST', params: {charge: true}}}
+        );
+        console.log(Song);
+        var song = new Song($scope.songForm);
+        song.$save(function (data) {
+            console.log(data);
+            $location.path("/sequencer/sequencer.html");
+        });
+    }
+})
+
+app.controller('sequencerCtrl', function ($scope, $location, $http, $resource) {
+    console.log("test")
+})
 
 
 Controller.start();

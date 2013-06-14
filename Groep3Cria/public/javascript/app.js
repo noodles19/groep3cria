@@ -24,6 +24,14 @@ var app = angular.module('myApp', ['ngResource'])
             templateUrl: 'partials/registerForm.html',
             controller: 'registerCtrl'
         });
+        $routeProvider.when('/New', {
+            templateUrl: 'partials/newsong.html',
+            controller: 'newSongCtrl'
+        });
+        $routeProvider.when('/Sequencer', {
+            templateUrl: 'partials/sequencer.html',
+            controller: 'sequencerCtrl'
+        });
 
         $routeProvider.otherwise({ redirectTo: '/Home' });
 

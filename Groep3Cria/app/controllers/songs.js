@@ -3,17 +3,18 @@ var mongoose = require('mongoose')
     , passwordHash = require('password-hash');
 
 
-// CREATE
+// CREATE SONG
 // save @ http://mongoosejs.com/docs/api.html#model_Model-save
 exports.create = function (req, res) {
 
-    // Encrypt password
-    console.log('req.body.password ', req.body)
-    req.body.password = passwordHash.generate(req.body.password || "admin");
-    console.log('CREATE SONG');
-    console.log(req.body);
+    console.log("and there was a new song");
+    console.log(req.body.name);
+    console.log(req.body.speed);
 
     var doc = new Song(req.body);
+
+    doc.based_on = null;
+    doc.volume = 100;
 
     doc.save(function (err) {
         var retObj = {
@@ -23,7 +24,6 @@ exports.create = function (req, res) {
         };
         return res.send(retObj);
     });
-
 }
 
 // RETRIEVE
@@ -49,7 +49,10 @@ exports.list = function (req, res) {
         })
 }
 
+//RETRIEVE A SINGLE SONG
 exports.listSingleSong = function (req, res) {
+    console.log("Do we get in here at all?");
+
     var conditions, fields, options;
 
     console.log('list a single song');
@@ -62,7 +65,7 @@ exports.listSingleSong = function (req, res) {
 
     Song
         .findOne(conditions, fields, options)
-        .populate('comments.UserID ratings.UserID author')
+        .populate('based_on comments.UserID ratings.UserID author')
         .exec(function (err, doc) {
             var retObj = {
                 songs: doc
