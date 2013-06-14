@@ -16,9 +16,70 @@ var sequencerRenderer = {
     time_step: 1,
     frame_scale: 1000 / 60,
     lastUpdate: null,
+    bankLayer: null,
     markerLayer: null, //TODO remove and make an array of markers
 
     pitchToRect: [2.0, 1.5, 1, 0.667, 0.5],
+
+    instruments:[ {
+    "instrumenttype": "New Instr",
+    "notes": [
+        {
+            "pitch": null,
+            "position": null,
+            "duration": null,
+            "volume": null
+        }
+    ]   }, { "instrumenttype": "New Instr2",
+    "notes": [
+        {
+            "pitch": null,
+            "position": null,
+            "duration": null,
+            "volume": null
+        }
+    ] }, {  "instrumenttype": "New Instr3",
+    "notes": [
+        {
+            "pitch": null,
+            "position": null,
+            "duration": null,
+            "volume": null
+        }
+    ]}, { "instrumenttype": "New Instr4",
+    "notes": [
+        {
+            "pitch": null,
+            "position": null,
+            "duration": null,
+            "volume": null
+        }
+    ]}, { "instrumenttype": "New Instr5",
+    "notes": [
+        {
+            "pitch": null,
+            "position": null,
+            "duration": null,
+            "volume": null
+        }
+    ]},{ "instrumenttype": "New Instr6",
+    "notes": [
+        {
+            "pitch": null,
+            "position": null,
+            "duration": null,
+            "volume": null
+        }
+    ]},{ "instrumenttype": "New Instr7",
+    "notes": [
+        {
+            "pitch": null,
+            "position": null,
+            "duration": null,
+            "volume": null
+        }
+    ]
+    }],
 
     instrumentnew: {
         "instrumenttype": "New Instr",
@@ -362,8 +423,46 @@ var sequencerRenderer = {
     },
 
     clickEvents: function () {
+        var self = this;
+        var lengthglobal = this.instrumentLayers.length;
 
-        for (var i = 0; i < this.instrumentLayers.length; i++) {
+        this.bankLayer.on('click', function(event) {
+
+
+            var shape = event.targetNode;
+            var group = shape.getParent();
+            var layer = group.getParent();
+            var name = shape.getName();
+            var x =5;
+
+            if(name == 'addnewinstrument') {
+
+                var type = shape.getAttr('instrumenttype');
+                var instrument = {
+                    "instrumenttype": type,
+                    "notes": [
+                        {
+                            "pitch": null,
+                            "position": null,
+                            "duration": null,
+                            "volume": null
+                        }
+                    ]
+                }
+
+                self.addInstrument(instrument);
+
+
+                lengthglobal++;
+
+                self.drawLastInstrument();
+                self.clickEvents();
+            }
+        });
+
+
+
+        for (var i = 0; i < lengthglobal; i++) {
             var self = this;
             this.instrumentLayers[i].on('click', function (event) {
                 //get the shape that was clicked on
@@ -448,10 +547,10 @@ var sequencerRenderer = {
                     y: y + origin,
                     lastY: y + origin,
                     width: 35,
-                    height: 30,
+                    height: 35,
                     fill: "red",
-                    stroke: "black",
-                    strokeWidth: 2,
+//                    stroke: "black",
+//                    strokeWidth: 2,
                     pitchValue: note.pitch,
                     notePosition: note.position,
                     hasNote: true,
@@ -465,10 +564,10 @@ var sequencerRenderer = {
                     y: y + origin,
                     lastY: y + origin,
                     width: 35,
-                    height: 30,
-                    fill: "green",
-                    stroke: "black",
-                    strokeWidth: 2,
+                    height: 35,
+                    fill: "#343434",
+//                    stroke: "black",
+//                    strokeWidth: 0,
                     pitchValue: this.pitchToRect[i],
                     notePosition: note.position,
                     hasNote: false,
@@ -559,10 +658,10 @@ var sequencerRenderer = {
                 y: y + origin,
                 lastY: y + origin,
                 width: 35,
-                height: 30,
-                fill: "blue",
-                stroke: "black",
-                strokeWidth: 2,
+                height: 35,
+                fill: "#343434",
+//                stroke: "black",
+//                strokeWidth: 2,
                 pitchValue: this.pitchToRect[i],
                 notePosition: position,
                 hasNote: false,
@@ -668,6 +767,116 @@ var sequencerRenderer = {
         group.draw();
     },
 
+    addInstrumentBank: function(instruments) {
+        var y = this.instrumentLayers.length * 200 +4; // get the last instrumentLayer
+        var x = 20;
+
+        this.bankLayer = new Kinetic.Layer({
+            x: x,
+            y: y,
+            height: 200,
+            width: 200
+
+        });
+
+
+
+        var rect = new Kinetic.Rect({
+//            x: this.bankLayer.getX(),
+//            y: this.bankLayer.getY(),
+            x:0,
+            y: 0,
+            width: 185,
+            height: 0,
+            fill: 'red',
+            strokeWidth: 0,
+            name: 'instrbankbg',
+            opacity: 1
+        });
+
+
+        var group = new Kinetic.Group({
+//           x: this.bankLayer.getX(),
+//            y: this.bankLayer.getY(),
+            x:0,
+            y:0,
+            name: 'bankgroup'
+        });
+
+        group.add(rect);
+
+        var offset = 5;
+        var rectHeight = 0;
+        var length = instruments.length;
+
+        for(var i = 0; i < instruments.length; i++) {
+            var instrumentText = new Kinetic.Text({
+                x: 2,
+                y: 0+offset,
+                text: instruments[i].instrumenttype,
+                fontSize: 15,
+                fill: 'black',
+                fontFamily: 'Calibri'
+            });
+
+            var previewButton = new Kinetic.Shape({
+                drawFunc: function(canvas) {
+                    var context = canvas.getContext();
+                    context.beginPath();
+                    context.moveTo(0, 0);
+                    context.lineTo(16, 8);
+                    context.lineTo(0, 16);
+                    context.lineTo(0, 0);
+                    context.closePath();
+                    canvas.fillStroke(this);
+                },
+                fill:'black',
+                x: 145,
+                y: 0 +offset,
+                name: 'playsample',
+                instrumenttype: instruments[i].instrumenttype
+
+            });
+
+            var addInstrumentButton = new Kinetic.Shape({
+                drawFunc: function(canvas) {
+                    var context = canvas.getContext();
+                    context.beginPath();
+                    context.moveTo(8, 0);
+                    context.lineTo(8, 16);
+                    context.moveTo(0, 8);
+                    context.lineTo(16, 8);
+                    context.closePath();
+                    canvas.fillStroke(this);
+                },
+                fill:'black',
+                x: 165,
+                y: 0 +offset,
+                stroke: 'black',
+                strokeWidth: 4,
+                name: 'addnewinstrument',
+                instrumenttype: instruments[i].instrumenttype
+
+            });
+            group.add(addInstrumentButton)
+            group.add(previewButton);
+            group.add(instrumentText);
+            offset+=21;
+            rectHeight +=22;
+        }
+
+        rect.setHeight(rectHeight);
+
+//        group.add(rect);
+        this.bankLayer.add(group);
+        this.stage.add(this.bankLayer);
+        this.bankLayer.draw();
+
+
+
+
+    },
+
     addInstrument: function (instrument) {
 
         var visualNotes = [];
@@ -714,6 +923,9 @@ var sequencerRenderer = {
         var index = this.instrumentLayers.indexOf(layer);
         this.instrumentLayers.splice(index, 1);
         layer.destroy();
+        layer.draw();
+        this.bankLayer.setY(this.bankLayer.getY() - 200);
+        this.bankLayer.draw();
     },
 
     drawCP: function (layer) {
@@ -730,8 +942,8 @@ var sequencerRenderer = {
             x: layer.getX(),
             y: layer.getY() + correction,
             width: 185,
-            height: 192,
-            fill: 'gray',
+            height: 196,
+            fill: '#343434',
             strokeWidth: 0,
             name: 'cpbg',
             opacity: 1
@@ -793,6 +1005,10 @@ var sequencerRenderer = {
         this.createRaster(layer, layer.getX() + 40, layer.getY());
         this.drawCP(layer);
         layer.draw();
+
+        // update our instrumentbank aswell to expand
+        this.bankLayer.setY(this.bankLayer.getY() + 200);
+        this.bankLayer.draw();
 //        this.createRaster(instrumentLayer, 10, this.)
     },
 
@@ -840,8 +1056,9 @@ var sequencerRenderer = {
         }
 //        this.stage.add(this.markerLayer);
 
-        this.addInstrument(this.instrumentnew);
-        this.drawLastInstrument();
+
+
+        this.addInstrumentBank(this.instruments);
 
         this.clickEvents();
     }
