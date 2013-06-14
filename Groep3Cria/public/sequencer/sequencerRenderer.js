@@ -1034,12 +1034,12 @@ var sequencerRenderer = {
         });
     },
 
-    init: function (x, y/*, songs*/) {
+    init: function (x, y, songs) {
 
         this.setUpCanvas(x, y);
-        var songs = [];
-        songs.push(this.song1);
-        songs.push(this.song2);
+//        var songs = [];
+//        songs.push(this.song1);
+//        songs.push(this.song2);
 
         this.setupInstruments(songs);
         this.drawInstruments();
