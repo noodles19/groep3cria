@@ -3,18 +3,17 @@ var mongoose = require('mongoose')
     , passwordHash = require('password-hash');
 
 
-// CREATE SONG
+// CREATE
 // save @ http://mongoosejs.com/docs/api.html#model_Model-save
 exports.create = function (req, res) {
 
-    console.log("and there was a new song");
-    console.log(req.body.name);
-    console.log(req.body.speed);
+    // Encrypt password
+    console.log('req.body.password ', req.body)
+    req.body.password = passwordHash.generate(req.body.password || "admin");
+    console.log('CREATE SONG');
+    console.log(req.body);
 
     var doc = new Song(req.body);
-
-    doc.based_on = null;
-    doc.volume = 100;
 
     doc.save(function (err) {
         var retObj = {
@@ -24,6 +23,7 @@ exports.create = function (req, res) {
         };
         return res.send(retObj);
     });
+
 }
 
 // RETRIEVE
@@ -49,15 +49,13 @@ exports.list = function (req, res) {
         })
 }
 
-//RETRIEVE A SINGLE SONG
 exports.listSingleSong = function (req, res) {
-    console.log("Do we get in here at all?");
-
     var conditions, fields, options;
 
     console.log('list a single song');
+    console.log(req.params.name);
     conditions = {
-        _id: req.params.id
+        name: req.params.name
     };
     fields = {};
     options = {};
@@ -73,29 +71,6 @@ exports.listSingleSong = function (req, res) {
             return res.send(retObj);
         })
 }
-/*
-exports.listSong = function (req, res) {
-    var conditions, fields, options;
-
-    console.log('list a single song by id');
-    console.log(req.params.id);
-    conditions = {
-        _id: req.params.id
-    };
-    fields = {};
-    options = {};
-
-    Song
-        .findOne(conditions, fields, options)
-        .populate('comments.UserID ratings.UserID author')
-        .exec(function (err, doc) {
-            var retObj = {
-                songs: doc
-            };
-
-            return res.send(retObj);
-        })
-}*/
 
 
 // UPDATE
