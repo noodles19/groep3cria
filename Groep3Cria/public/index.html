@@ -7,23 +7,19 @@
 </head>
 
 <div id="alphaheader">
-    <img id="logo"/> Logo
+    <img id="logo" src=../images/Homepage-future-96-dpi_06.png>
+
+    <h1> Musync</h1>
 
     <div id="account" data-ng-controller="loginCtrl">
         <form id="loginForm" name="loginForm">
-            <div>
-                <label>Login Name</label>
-                <input type="text" name="userid" data-ng-model="loginModel.username" required/>
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="password" name="pswrd" data-ng-model="loginModel.password" required/>
-
-            </div>
+            <img class="icon" src=../images/Homepage-future-96-dpi_03.png>
+            <input type="text" name="userid" placeholder="username" data-ng-model="loginModel.username" required/>
+            <img class="icon" src=../images/Homepage-future-96-dpi_09.png>
+            <input type="password" name="pswrd" placeholder="password" data-ng-model="loginModel.password" required/>
             <input type="reset" value="Cancel"/>
             <input id="loginBtn" type="submit" value="Login"/>
             <button data-ng-click="loginUser()" data-ng-disabled="loginForm.$invalid">Save</button>
-
             <a href="#/Register">Register</a>
         </form>
     </div>
@@ -33,23 +29,37 @@
     <nav>
         <ul>
             <li><a href="#/Home">Home</a></li>
+            <li class="verticalLine"></li>
             <li><a href="#/Learn">Learn</a></li>
+            <li class="verticalLine"></li>
             <li><a href="#/MySongs">My Songs</a></li>
+<<<<<<< Updated upstream
             <li><a href="#/Friends">Friends</a></li>
             <li><a href="#/Sequencer">Sequencer</a></li>
 
+=======
+            <li class="verticalLine"></li>
+            <li><a href="#/Friends">friends</a></li>
+>>>>>>> Stashed changes
         </ul>
+        <div id="search">
+            <img class="icon" src=../images/Homepage-future-96-dpi_12.png>
+            <input type="text" name="search" placeholder="search"/>
+        </div>
     </nav>
-
 </header>
 
 <body>
-<div id="centerdiv" data-ng-view></div>
+    <div id="centerdiv" data-ng-view></div>
 </body>
 
 
 <footer>
-    Disclaimer/ Terms of use/ Contact
+    <li><a href="#/Contact">Contact</a></li>
+    <li class="verticalLine"></li>
+    <li><a href="#/termsOfUse">Terms of Use</a></li>
+    <li class="verticalLine"></li>
+    <li><a href="#/Disclaimer">disclaimer</a></li>
 </footer>
 
 <!-- Lib -->
@@ -59,13 +69,22 @@
 
 <!-- App -->
 <script src="./javascript/Login.js"></script>
-<script src="./javascript/songData.js"></script>
 <script src="./javascript/app.js"></script>
 <script src="./javascript/controllers.js" defer="defer"></script>
 <script src="./javascript/services.js"></script>
+<<<<<<< Updated upstream
 
 <script src="./javascript/sequencer/sequencer.js" ></script>
 <script src="./javascript/sequencer/kinetic-v4.5.2.min.js" ></script>
 <script src="./javascript/sequencer/sequencerRenderer.js" ></script>
 
+=======
+<script src="./javascript/Register.js"></script>
+
+<!----Controllers----->
+<script src="./javascript/controllers/songController.js"></script>
+<script src="./javascript/controllers/usersCtrl.js"></script>
+<script src="./javascript/controllers/registerCtrl.js"></script>
+<script src="./javascript/controllers/loginCtrl.js"></script>
+>>>>>>> Stashed changes
 </html>

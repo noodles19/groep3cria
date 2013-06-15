@@ -1,19 +1,24 @@
-<p>Friends</p>
+<div data-ng-init="searchUser()"></div>
 
-<form name="friendsTable">
-       <table >
-           <tr>
-               <td data-ng-model="friendsForm.displayName">
-                   {{displayName}}: "sadf"
-               </td>
-               <td data-ng-model="friendsForm.loginName">
-                   {{loginName}}: "sdfa"
-               </td>
-               <td data-ng-model="friendsForm.email">
-                   {{email}}: "asdf"
-               </td>
-           </tr>
-       </table>
-</form>
+<div id="friends">
 
+    <h2>friends</h2>
+
+    <input type="text" data-ng-model="searchText.$">
+    <button type="submit">Search</button>
+
+    <div data-ng-repeat="user in users.doc | filter: searchText">
+        <div data-ng-controller="usersCtrl">
+
+            <h4>Name:</h4>
+            <h5>{{ user.displayName }}</h5>
+            <h4>Username:</h4>
+            <a>{{ user.loginName }}</a>
+            <h4>Email:</h4>
+            <h5>{{user.email}}</h5>
+
+
+        </div>
+    </div>
+</div>
 

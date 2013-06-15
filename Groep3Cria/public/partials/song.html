@@ -1,0 +1,22 @@
+<div data-ng-init="getSong()"></div>
+
+<div id="songPage">
+    <h2> Song</h2>
+    <div>
+        <!-- <a href="#/songs/{{song._id}}"></a>-->
+        <div class="txt" data-ng-controller="songCtrl">
+
+            <h4>Author:</h4>
+            <h5>{{ song.author }}</h5>
+            <h4>Name:</h4>
+            <a>{{ song.name }}</a>
+            <h4>Speed:</h4>
+            <h5> {{song.speed}}</h5>
+            <h4>Volume:</h4>
+            <h5> {{song.volume}}</h5>
+            <h4>Rating:</h4>
+            <h5> {{song.rating}}</h5>
+
+        </div>
+    </div>
+</div>

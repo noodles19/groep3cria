@@ -1,23 +1,26 @@
-<form name="registerForm">
 
-    <p><label>displayName:</label> <input type="text" data-ng-model="userForm.displayName" required
-                                          placeholder="displayName"/></p>
 
-    <p><label>loginName:</label> <input type="text" data-ng-model="userForm.loginName" required
-                                        placeholder="loginName"/></p>
+<div id="register">
+    <h2> register </h2>
+    <form name="registerForm">
 
-    <p><label>email:</label> <input type="email"
-                                    data-ng-model="userForm.email" required
-                                    placeholder="email"/></p>
+        <p><label>Name:</label> <input  type="text" data-ng-model="userForm.displayName" required
+                                              placeholder="Name"/></p>
 
-    <p><label>password:</label> <input type="password"
-                                       data-ng-model="userForm.password" required
-                                       placeholder="password"/></p>
+        <p><label>Username:</label> <input type="text" data-ng-model="userForm.loginName" required
+                                            placeholder="Username"/></p>
 
-    <p>
-        <button data-ng-click="cancel()">Cancel</button>
-        <button data-ng-click="registerUser()" data-ng-disabled="registerForm.$invalid">Save</button>
-    </p>
-</form>
+        <p><label>E-mail:</label> <input type="email"
+                                        data-ng-model="userForm.email" required
+                                        placeholder="e-mail"/></p>
 
+        <p><label>Password:</label> <input type="password"
+                                           data-ng-model="userForm.password" required
+                                           placeholder="password"/></p>
+
+        <p>
+            <button data-ng-click="cancel()">Cancel</button>
+            <button data-ng-click="registerUser()" data-ng-disabled="registerForm.$invalid">Register</button>
+        </p>
+    </form>
 

@@ -73,6 +73,29 @@ exports.listSingleSong = function (req, res) {
             return res.send(retObj);
         })
 }
+/*
+exports.listSong = function (req, res) {
+    var conditions, fields, options;
+
+    console.log('list a single song by id');
+    console.log(req.params.id);
+    conditions = {
+        _id: req.params.id
+    };
+    fields = {};
+    options = {};
+
+    Song
+        .findOne(conditions, fields, options)
+        .populate('comments.UserID ratings.UserID author')
+        .exec(function (err, doc) {
+            var retObj = {
+                songs: doc
+            };
+
+            return res.send(retObj);
+        })
+}*/
 
 
 // UPDATE
