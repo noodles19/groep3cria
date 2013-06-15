@@ -1,29 +1,25 @@
 
 <div data-ng-init="searchSong()"></div>
 
-<div>
+<div id="mySong">
     <h2>My Songs</h2>
-    <form>
-        <input type="text">
+        <input type="text" data-ng-model="searchText.$">
         <button type="submit">Search</button>
-    </form>
-</div>
 
-<div>
-    <div data-ng-repeat="song in songs">
-       <!-- <a href="#/songs/{{song._id}}"></a>-->
-        <div class="txt" data-ng-controller="songCtrl">
+    <div data-ng-repeat="song in songs.songs | filter: searchText">
+        <div data-ng-controller="songCtrl">
+
             <h4>Author:</h4>
             <h5>{{ song.author }}</h5>
             <h4>Name:</h4>
-            <h5>{{ song.name }}</h5>
+            <a href="/song/{{song._id}}">{{ song.name }}</a>
             <h4>Speed:</h4>
             <h5> {{song.speed}}</h5>
             <h4>Volume:</h4>
             <h5> {{song.volume}}</h5>
-            <div class="rating"></div>
             <h4>Rating:</h4>
             <h5> {{song.rating}}</h5>
+
         </div>
     </div>
 </div>

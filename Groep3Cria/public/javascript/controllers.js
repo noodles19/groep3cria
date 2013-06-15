@@ -15,6 +15,7 @@ function testCtrl($scope) {
 
 }
 
+<<<<<<< Updated upstream
 /*function friendsCtrl($scope, $location, $routeParams, friendsModel) {
     $scope.err = ""; // Initialize err as empty string. We start with no errors.
     $scope.get = function () {
@@ -125,4 +126,6 @@ app.controller('newMsgCtrl', function ($scope, $location, $http, $resource) {
 })
 
 
+=======
+>>>>>>> Stashed changes
 Controller.start();

@@ -19,7 +19,7 @@ module.exports = function (app) {
     // CREATE
     app.post('/user', users.create);
     // RETRIEVE
-    app.get('/users', authenticated, users.list);
+    app.get('/users'/*, authenticated*/, users.list);
     app.get('/user/:email', users.detail);
     // UPDATE
     app.put('/user/update', users.update);
@@ -33,8 +33,14 @@ module.exports = function (app) {
     // CREATE
     app.post('/songs', songs.create);
     // RETRIEVE
+<<<<<<< Updated upstream
     app.get('/songs/', songs.list);
     app.get('/song/:id', songs.listSingleSong);
+=======
+    app.get('/songs', songs.list);
+    app.get('/song/:name', songs.listSingleSong);
+    /*app.get('/song/:id', songs.listSong);*/
+>>>>>>> Stashed changes
     // UPDATE
     app.put('/songs/', songs.update);
     // DELETE
