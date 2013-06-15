@@ -32,6 +32,10 @@ var app = angular.module('myApp', ['ngResource'])
             templateUrl: 'partials/sequencer.html',
             controller: 'newSongCtrl'
         });
+        $routeProvider.when('/NewMessage', {
+            templateUrl: 'partials/newMessage.html',
+            controller: 'newMsgCtrl'
+        })
         $routeProvider.otherwise({ redirectTo: '/Home' });
     }]
 );

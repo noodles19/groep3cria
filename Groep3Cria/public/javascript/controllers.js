@@ -112,10 +112,16 @@ app.controller('newSongCtrl', function ($scope, $location, $http, $resource) {
     }
 })
 
-app.controller('sequencerCtrl', function ($scope, $location, $http, $resource) {
-    console.log("this is not supposed to work");
-    alert(newsong);
-    init(newsong.doc._id);
+app.controller('newMsgCtrl', function ($scope, $location, $http, $resource) {
+    $scope.sendNewMessage =function(){
+        var Message = $resource('http://localhost\\:33001/privatemessages', {},
+            {charge: {method: 'POST', params: {charge: true}}}
+        );
+        var message = new Message($scope.messageForm);
+        message.$save(function (data) {
+            console.log(data);
+        });
+    }
 })
 
 

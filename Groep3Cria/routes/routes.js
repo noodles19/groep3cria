@@ -39,4 +39,15 @@ module.exports = function (app) {
     app.put('/songs/', songs.update);
     // DELETE
     app.delete('/songs/', songs.delete);
+
+    var privatemessages = require('../app/controllers/messages.js');
+    // CREATE
+    app.post('/privatemessages', privatemessages.create);
+    // RETRIEVE
+    app.get('/privatemessages/:receiverid', privatemessages.list);
+    app.get('/privatemessage/:id', privatemessages.listSingleMessage);
+    // UPDATE
+    app.put('/privatemessages/', privatemessages.update);
+    // DELETE
+    app.delete('/privatemessages/', privatemessages.delete);
 }

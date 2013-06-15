@@ -2,16 +2,6 @@ var mongoose;
 mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-///* Schema definitions */
-//var schemaName = Schema({
-//    comments: Array,
-//    instruments: Array,
-//    name:String,
-//    ratings: Array,
-//    speed:Number,
-//    volume:Number
-//});
-
 /* Schema definitions */
 var schemaName = Schema({
     comments:[
