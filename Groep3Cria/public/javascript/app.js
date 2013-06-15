@@ -16,7 +16,7 @@ var app = angular.module('myApp', ['ngResource'])
             templateUrl: 'partials/mySongs.html',
             controller: 'songCtrl'
         });
-        $routeProvider.when('/MySongs/:id', {
+        $routeProvider.when('/Listen', {
             templateUrl: 'partials/song.html',
             controller: 'songCtrl'
         })
@@ -40,7 +40,7 @@ var app = angular.module('myApp', ['ngResource'])
             templateUrl: 'partials/newMessage.html',
             controller: 'newMsgCtrl'
         })
-=======
+
         $routeProvider.when('/Contact', {
             templateUrl: 'partials/contact.html',
             controller: 'testCtrl'
@@ -53,8 +53,6 @@ var app = angular.module('myApp', ['ngResource'])
             templateUrl: 'partials/disclaimer.html',
             controller: 'testCtrl'
         });
-
->>>>>>> Stashed changes
         $routeProvider.otherwise({ redirectTo: '/Home' });
     }]
 );

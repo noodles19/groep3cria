@@ -6,15 +6,13 @@ app.controller('loginCtrl', function ($scope, $location, $http, $resource) {
         console.log($scope.loginModel);
         var user = new User($scope.loginModel);
         user.$save(function (data) {
-            alert("gewooon iets");
-            console.log("scope "+$scope.user);
-            console.log("data "+data.result.loginName)
-            /*if (data.result.loginName === $scope.user.username) {
+
+            if (data.error=null) {
              console.log("succesfull");
              } else {
-             $scope.err = res.err.err;
+
              console.log("error");
-             }*/
+             }
         })
     }
 

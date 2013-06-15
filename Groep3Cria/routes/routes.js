@@ -31,16 +31,11 @@ module.exports = function (app) {
 
     var songs = require('../app/controllers/songs.js');
     // CREATE
-    app.post('/songs', songs.create);
+    app.post('/songs/', songs.create);
     // RETRIEVE
-<<<<<<< Updated upstream
-    app.get('/songs/', songs.list);
-    app.get('/song/:id', songs.listSingleSong);
-=======
+
     app.get('/songs', songs.list);
-    app.get('/song/:name', songs.listSingleSong);
-    /*app.get('/song/:id', songs.listSong);*/
->>>>>>> Stashed changes
+    app.get('/song/:id', songs.listSingleSong);
     // UPDATE
     app.put('/songs/', songs.update);
     // DELETE
