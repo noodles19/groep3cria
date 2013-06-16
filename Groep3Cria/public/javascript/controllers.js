@@ -7,6 +7,8 @@ function testCtrl($scope) {
 
 }
 
+var newsong =null;
+
 app.controller('newSongCtrl', function ($scope, $location, $http, $resource) {
     if(newsong != null)
     {

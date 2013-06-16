@@ -6,11 +6,7 @@ var mongoose = require('mongoose')
 // CREATE
 // save @ http://mongoosejs.com/docs/api.html#model_Model-save
 exports.create = function (req, res) {
-
-    // Encrypt password
-    console.log('req.body.password ', req.body)
-    req.body.password = passwordHash.generate(req.body.password || "admin");
-    console.log('CREATE SONG');
+    console.log('and there was a new song');
     console.log(req.body);
 
     var doc = new Song(req.body);
@@ -53,9 +49,9 @@ exports.listSingleSong = function (req, res) {
     var conditions, fields, options;
 
     console.log('list a single song');
-    console.log(req.params.name);
+    console.log(req.params.id);
     conditions = {
-        name: req.params.name
+        _id: req.params.id
     };
     fields = {};
     options = {};
