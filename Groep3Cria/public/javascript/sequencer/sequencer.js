@@ -200,18 +200,24 @@ function nextNote() {
 
 function playNote( beatNumber, time ) {
 
-    for(var i=0;i<availableInstruments.length;i++)
+    for(var x=0;x<availableInstruments.length;x++)
     {
-        instrumenttypes.push(availableInstruments[i].instrumenttype);
+        instrumenttypes.push(availableInstruments[x].instrumenttype);
     }
 
 	for(var j=0;j<sequencerRenderer.instrumentLayers.length;j++)
 	{
+        console.log(sequencerRenderer.instrumentLayers);
+        console.log(j);
 		for(var i=0;i<sequencerRenderer.instrumentLayers[j].getAttr("notes").length;i++)
 		{
-			console.log(sequencerRenderer.instrumentLayers[0].attrs.notes);
+//			console.log(sequencerRenderer.instrumentLayers[j].getAttr("notes"));
+//            console.log(sequencerRenderer.instrumentLayers[j].getAttr("notes")[i].position);
 			if(sequencerRenderer.instrumentLayers[j].getAttr("notes")[i].position != beatNumber)
+            {
+                console.log("SKIP");
 				continue;
+            }
 			else
 			{
 				var sound = audioContext.createBufferSource();
@@ -241,6 +247,8 @@ function scheduler() {
 }
 
 function play() {
+    songLength = sequencerRenderer.songLength;
+
 	isPlaying = !isPlaying;
 
 	if (isPlaying) { // start playing
