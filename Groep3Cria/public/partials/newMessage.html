@@ -1,0 +1,7 @@
+<form name="createNewMessageForm">
+    <label for="sender">Sender:</label><input id="sender" type="text" data-ng-model="messageForm.sender" /><br />
+    <label for="receiver">Receiver:</label><input id="receiver" type="text" data-ng-model="messageForm.receiver" /><br />
+    <label for="title">Title:</label><input id="title" type="text" data-ng-model="messageForm.title" /><br />
+    <label for="text">Text:</label><textarea id="text" type="text" data-ng-model="messageForm.text"></textarea><br />
+    <button data-ng-click="sendNewMessage()">Send!</button>
+</form>

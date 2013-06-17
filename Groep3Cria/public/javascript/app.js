@@ -1,10 +1,12 @@
+var app = angular.module('myApp', ['ngResource'])
+
 // Declare app level module which depends on filters, and services
-angular.module('myApp', [ 'myApp.services']).
-    config(['$routeProvider', function ($routeProvider) {
+//angular.module('myApp', [ 'myApp.services']).
+    app.config(['$routeProvider', function ($routeProvider) {
         // Cars
         $routeProvider.when('/Home', {
-            templateUrl: './partials/home.html',
-            controller: testCtrl
+            templateUrl: 'partials/home.html',
+            controller: 'loginCtrl'
         });
         $routeProvider.when('/Learn', {
             templateUrl: 'partials/learn.html',
@@ -12,26 +14,45 @@ angular.module('myApp', [ 'myApp.services']).
         });
         $routeProvider.when('/MySongs', {
             templateUrl: 'partials/mySongs.html',
-            controller: testCtrl
+            controller: 'songCtrl'
         });
+        $routeProvider.when('/Listen/:id', {
+            templateUrl: 'partials/song.html',
+            controller: 'songCtrl'
+        })
         $routeProvider.when('/Friends', {
             templateUrl: 'partials/friends.html',
-            controller: testCtrl
+            controller: 'usersCtrl'
         });
         $routeProvider.when('/Register', {
             templateUrl: 'partials/registerForm.html',
-            controller: testCtrl
+            controller: 'registerCtrl'
         });
-        $routeProvider.when('/employees', {
-            templateUrl: 'partials/local-employees.html',
-            controller: localCtrl
+        $routeProvider.when('/New', {
+            templateUrl: 'partials/newsong.html',
+            controller: 'newSongCtrl'
         });
-        $routeProvider.when('/transactions/new/:carId/:price', {
-            templateUrl: 'partials/transaction-form.html',
-            controller: TransactionNewCtrl
+        $routeProvider.when('/Sequencer', {
+            templateUrl: 'partials/sequencer.html',
+            controller: 'newSongCtrl'
         });
+        $routeProvider.when('/NewMessage', {
+            templateUrl: 'partials/newMessage.html',
+            controller: 'newMsgCtrl'
+        })
 
+        $routeProvider.when('/Contact', {
+            templateUrl: 'partials/contact.html',
+            controller: 'testCtrl'
+        });
+        $routeProvider.when('/termsOfUse', {
+            templateUrl: 'partials/termsOfUse.html',
+            controller: 'testCtrl'
+        });
+        $routeProvider.when('/Disclaimer', {
+            templateUrl: 'partials/disclaimer.html',
+            controller: 'testCtrl'
+        });
         $routeProvider.otherwise({ redirectTo: '/Home' });
-
     }]
-    );
+);

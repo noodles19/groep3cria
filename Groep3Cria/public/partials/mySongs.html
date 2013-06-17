@@ -1,1 +1,14 @@
-<p>mySongs</p>
+
+<div data-ng-init="searchSong()"></div>
+
+<div id="mySong">
+    <h2>My Songs</h2>
+        <input type="text" data-ng-model="searchText.$">
+        <button type="submit">Search</button>
+
+    <br /><br />
+    <table data-ng-controller="songCtrl">
+        <tr><th>Author</th><th>Name</th></tr>
+        <tr data-ng-repeat="song in songs.songs | filter: searchText"><td>{{song.author.displayName}}</td><td><a href="#/Listen/{{song._id}}">{{song.name}}</a></td></tr>
+    </table>
+</div>

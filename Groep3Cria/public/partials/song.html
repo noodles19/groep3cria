@@ -1,0 +1,103 @@
+<div data-ng-init="getSong()"></div>
+
+<div id="songPage">
+    <h2> Song</h2>
+
+    <div>
+        <!-- <a href="#/songs/{{song._id}}"></a>-->
+        <div class="txt" data-ng-controller="songCtrl">
+            <table>
+                <tr>
+                    <td>
+                        <h4>Author: </h4>
+
+                    </td>
+                    <td>
+                        <h5>{{ song.author.displayName }}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>Name: </h4>
+
+                    </td>
+                    <td>
+                        <a>{{ song.name }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>Speed: </h4>
+                    </td>
+                    <td>
+                        <h5> {{song.speed}}</h5>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h4>Volume:</h4>
+                    </td>
+                    <td>
+                        <h5> {{song.volume}}</h5>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <h4> Comments: </h4>
+                    </td>
+                </tr>
+                <tr data-ng-repeat="comment in song.comments">
+                    <td>
+                        <h4> Name: </h4>
+                    </td>
+                    <td>
+                        <h5> {{comment.UserID.loginName}}</h5>
+                    </td>
+
+                    <td>
+                        <h4> Comment: </h4>
+
+                    </td>
+                    <td>
+                        <h5> {{comment.comment}}</h5>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <h4>Rating: </h4>
+                    </td>
+                </tr>
+                <tr data-ng-repeat="rating2 in song.ratings">
+                    <td>
+                        <h4>Name: </h4>
+                    </td>
+                    <td>
+                        <h5> {{rating2.UserID.displayName}}</h5>
+                    </td>
+                    <td>
+                        <h4>Rating: </h4>
+
+                    </td>
+                    <td>
+                        <h5> {{rating2.rating}}</h5>
+                    </td>
+
+                </tr>
+
+            </table>
+
+
+            <button id="like" data-ng-click="addRating('like')">Like</button>
+            <button id="dislike" data-ng-click="addRating('dislike')">Dislike</button>
+
+            <a href="javascript:void(0)" data-ng-click="inviteFriends()"> Invite your friends!</a>
+
+            <textarea placeholder="Comment">
+            </textarea>
+
+        </div>
+    </div>
+</div>

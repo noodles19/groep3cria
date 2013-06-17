@@ -1,12 +1,31 @@
-/*********** Header ******************************************************/
-header, body, footer {
-    min-width: 500px;
+/************ Font face **************/
+@font-face
+{
+    font-family: elementalEnd;
+    src: url(../fonts/Elemental%20End.ttf);
 
 }
+@font-face{
+    font-family: museoSans;
+    src: url(../fonts/exljbris%20-%20MuseoSans-500.otf);
+}
+
+/*********** Header ******************************************************/
+header, body, footer {
+
+
+}
+
+h1{
+    font-family: elementalEnd !important;
+    color: white;
+    font-size: 20pt !important;
+    margin: 45px 0 0 0 !important;
+    float:left;
+}
 #alphaheader{
-    background-color: #eeecee;
-    min-width: 500px;
-    max-width: 60%;
+
+    width: 60%;
     height: 100px;
     margin-left: 20%;
 }
@@ -14,23 +33,26 @@ header, body, footer {
 
 
 body{
-
+background-color: #0c0806;
 }
 /*********** Logo *****************/
 
-
-/*********** Account **************/
 #logo{
-
+    float:left;
+    margin: 20px 2px 0 20px;
+    width: 70px;
+    height: auto;
 }
+/*********** Account **************/
+
 #account{
     float: right;
 
 }
 #loginForm {
-    width: 250px;
+    width: 200px;
     float: right;
-    background-color: red;
+
 }
 
 #inbox {
@@ -41,66 +63,249 @@ body{
 #greeting{
     background-color: red;
 }
+
 #centerdiv{
-    min-height: 500px;
     max-width: 60%;
     margin-left: 20%;
-    background-color: #eeecee;
-    }
+    clear:both;
+}
+
+#centerdiv > div
+{
+    padding:5px;
+}
+
+input{
+    font-family: elementalEnd;
+    color: #2e2723;
+
+}
+
+.icon{
+    height: 20px;
+    width: 20px;
+    margin-bottom: -7px;
+}
+.icon, input, .verticalLine, .verticalLine2{
+    -moz-box-shadow: 0 0 8px 3px rgba(1,27,185,.75);
+    -webkit-box-shadow:0 0 8px 3px rgba(1,27,185,.75);
+    box-shadow: 0 0 8px 3px rgba(1,27,185,.75);
+}
+input[type="text"], input[type="password"], input[type="email"]{
+    -webkit-appearance: none;
+}
+
+#loginForm input{
+    margin: 10px 0 0 0;
+}
+
 /************ Nav **************/
-nav {
-    background-image:url('../images/header_balk.png');
+header {
+    background-color:#2e2723;;
     clear: both;
-    height: 100px;
+    height: 60px;
     text-align: center;
     color: white;
 
 }
+.verticalLine {
+    border: 1px solid white;
+    height: 20px;
+}
+
 
 a:link ,a:hover ,a:visited ,a:active{
     color: white;
+    text-decoration:none;
 
+}
+nav{
+    width: 60%;
+    margin: 0 0 0 20% !important;
+    min-width: 900px;
 }
 
 nav ul li{
     display: inline;
-    margin: 0 0 0 5%;
+    margin: 20px 10px 20px 10px;
+    margin: 20px 10px 20px 10px;
+    font-family: elementalEnd;
+    float:left;
+    font-size: 20px;
+}
+
+#search{
+    float:right;
+    margin: 20px 0 0 0;
 
 }
 
 
 /******** Body ***********************************************************/
-section {
-    background-color: purple;
+
+#centerdiv , footer, #alphaheader{
+    min-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
+/************************ Section html *******************************/
+#learn,#friends, #mySong, #contact, #disclaimer, #termsOfUse, #register, #songPage, #sequencerpage, #newsongpage {
+    background-color: #2e2723;
+    color: white;
+    margin: 10px 0 10px 0 !important;
+}
+#learn h2,#friends h2, #mySong h2, #contact h2, #disclaimer h2, #termsOfUse h2, #register h2{
+    text-align: center;
+    margin: 10px 0 0 0 !important;
+}
+
+
+h2{
+    font-family: elementalEnd !important;
+}
+
+
+/************************** Home html ***********************************/
 #news {
-    background-color: orange;
-    height: 150px;
-    width: 60%;
-    margin: 0 20% 0 20%;
+    background-image: url(../images/Homepage-future-96-dpi_15.png);
+    height: 225px;
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    margin: 10px 0 0 0;
 
 
 }
-
-#searchSong {
-    background-color: cornflowerblue;
-    height: 300px;
+#createSearch{
+    background-color: #2e2723;
+}
+#createSong, #searchSong, #newSongs, #popularSongs {
+    background-color: #2e2723;
+    height: 225px;
     float: right;
-    width: 50%;
+    width: 49.8%;
+    color:white;
+    margin: 10px 0 0 0;
+
 }
 
-tr{
-    padding: 30px !important;
+h3{
+    /* margin: 10px 50px 10px 50px !important;*/
+    margin: 20px 0 20px 0 !important;
+    text-align: center;
+    font-family: elementalEnd !important;
 }
+
+#createSong, #searchSong{
+    font-size: 50px;
+
+}
+
+#newSongs, #popularSongs{
+    font-size: 20px;
+    height: 320px;
+    margin: 10px 0 10px 0;
+
+}
+.verticalLine2{
+    margin: 50px 0 0 0;
+    background-color: white;
+    border: 1px solid white;
+    height: 150px;
+    float:right;
+}
+#createSearch h2{
+    text-align: center;
+    margin: 20% 0 20% 0 !important;
+    font-family: elementalEnd !important;
+}
+
+.newSong{
+    margin: 0 0 0 20px !important;
+    float:left;
+    width: 80%;
+}
+.playsurface{
+    background-image: url("../images/Homepage-future-96-dpi_22.png");
+    width:270px;
+    height:60px;
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    float:right;
+    font-family: museoSans !important;
+    font-size: 14px !important;
+    text-align: center;
+}
+
+
+/************************** Register html ***********************************/
+#register{
+    background-color: #2e2723;
+    margin: 10px 0 0 0;
+    color: white;
+    font-family: museoSans;
+
+
+}
+
+#register label{
+margin: 4px 0 0 10px;
+    width:150px;
+    float:left;
+}
+#register input {
+    margin: 5px 0 5px 0;
+    clear: both;
+}
+/************************** My Songs html ***********************************/
+
+#mySong td, #mySong th
+{
+    border: 2px solid white;
+    border-collapse:collapse;
+    padding:4px;
+}
+
+/************************** Friends html ***********************************/
+
+#friends td, #friends th
+{
+    border: 2px solid white;
+    border-collapse:collapse;
+    padding:4px;
+}
+
+/************************** Learn html ***********************************/
+
+
+/************************** Song html ***********************************/
+#songPage{
+height: 500px;
+}
+
+/************************** Contact html ***********************************/
+
+
+/************************** Terms of Use html ***********************************/
+
+
+/************************** Disclaimer html ***********************************/
+
 
 /********** Footer ********************************************************/
 footer {
-    background-color: green;
-    clear: both;
-    margin: 0 0 0 20%  !important;
+    margin: 0px 0 0 20%  !important;
+    min-width: 900px;
     width: 60%;
-    position: absolute;
-    bottom:0;
-    text-align: center;
+
+}
+
+footer li{
+    display: inline;
+    font-family: elementalEnd;
+    color: white;
+    font-size: 20px;
+    margin: 40px
+
 }

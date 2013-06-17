@@ -1,7 +1,6 @@
 function Login() {
 
 
-    var loggedIn = false;
 
     this.loginMain= function()
     {
@@ -11,30 +10,12 @@ function Login() {
     function loginForm() {
         var login = document.getElementById("loginForm");
         var loginBtn = document.getElementById("loginBtn");
-        loginBtn.addEventListener("click", function () {
-            checkCredentials();
-        });
         login.appendChild(loginBtn);
+        loginPage();
     }
 
-    function checkCredentials() {
-        var form = document.getElementById("loginForm");
-        if (true || (form.userid.value == "admin" && form.pswrd.value == "123")) {
-            loggedIn = true;
-            loginPage();
-        }
-        else {
-            alert("Error Password or Username")
-            clearInlog();
-        }
-    }
-
-    function clearInlog(){
-        //empty the passw en userid text
-    }
 
     function loginPage() {
-        if (loggedIn == true) {
             var account=document.getElementById("account");
             greeting(account);
             inbox(account);
@@ -44,7 +25,7 @@ function Login() {
                 logOut();
            // });
             createButtonsLoggedIn();
-        }
+
     }
 
     function greeting(parent) {
@@ -67,7 +48,7 @@ function Login() {
     }
 
     function logOut() {
-        loggedIn = false;
+
         var form = document.createElement("form");
         form.setAttribute("id", "logoutForm");
         //logoutbutton
@@ -75,18 +56,18 @@ function Login() {
     }
 
     function removeLogin() {
-        if (loggedIn == true) {
+
             var account = document.getElementById("account");
             var login = document.getElementById("loginForm");
             account.removeChild(login);
-        }
+
     }
 
     function createButtonsLoggedIn() {
-        if (loggedIn == true) {
+
            var inbox= document.getElementById("inbox");
 
-        }
+
     }
 
 

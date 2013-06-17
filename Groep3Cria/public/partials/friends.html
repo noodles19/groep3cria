@@ -1,1 +1,15 @@
-<p>friends</p>
+<div data-ng-init="searchUser()"></div>
+
+<div id="friends">
+
+    <h2>friends</h2>
+
+    <input type="text" data-ng-model="searchText.$">
+    <button type="submit">Search</button>
+    <br /><br />
+    <table data-ng-controller="usersCtrl">
+        <tr><th>Name</th><th>Email</th></tr>
+        <tr data-ng-repeat="user in users.doc | filter: searchText"><td>{{user.displayName}}</td><td>{{user.email}}</td></tr>
+    </table>
+</div>
+
