@@ -1,5 +1,6 @@
 <div data-ng-init="getSong()"></div>
-
+<div data-ng-init="addRating()"></div>
+        <div data-ng-init="modificationDate()"></div>
 <div id="songPage">
     <h2> Song</h2>
 
@@ -8,31 +9,37 @@
         <div class="txt" data-ng-controller="songCtrl">
             <table>
                 <tr>
-                    <td id="td1" colspan="3"><a > {{ song.name }}</a>
+                    <td id="td1" colspan="3"> {{ song.name }}
                     </td>
-                    <td colspan="2">Likes: 10</td>
+                    <td colspan="2" id="rating">
+                        <progress id="progress"></progress>
+
+                        <button id="like" data-ng-click="addRatingAlert('like')">Like</button>
+                        <button id="dislike" data-ng-click="addRatingAlert('dislike')">Dislike</button>
+                    </td>
+
                 </tr>
                 <tr>
                     <td>
                         <h4>Started by: </h4>
 
                     </td>
-                    <td class="td2" colspan="2">
+                    <td class="td2" colspan="3">
                         <h5>{{ song.author.displayName }}</h5>
 
                     </td>
-                    <td colspan="2">Dislikes: 10</td>
+
                 </tr>
                 <tr>
                     <td>
                         <h4>Started on: </h4>
 
                     </td>
-                    <td class="td2" colspan="2">
-                        <h5>{{ song.author.modificationDate }}</h5>
+                    <td  class="td2" colspan="3">
+                        <h5 id="modificationDate">{{ song.author.modificationDate }}</h5>
 
                     </td>
-                    <td colspan="2">6 itteraties</td>
+
                 </tr>
                 <tr>
                     <td colspan="4">
@@ -60,18 +67,24 @@
                 </tr>
             </table>
 
-            <button id="like" data-ng-click="addRating('like')">Like</button>
-            <button id="dislike" data-ng-click="addRating('dislike')">Dislike</button>
-
-  </br>
+            </br>
             <a href="javascript:void(0)" data-ng-click="inviteFriends()"> Invite your friends!</a>
             </br>
-<!--<label>
-    Leave a comment
-</label>
+            <label>
+                Leave a comment
+            </label>
             </br>
-            <textarea id="comment">
-            </textarea>-->
+
+            <button data-ng-click="sequencer()"> Work on this song!</button>
+
+            </br>
+
+            <textarea id="comment" placeholder="Your comment"></textarea>
+            <button id="textComment" data-ng-click="addComment()" > Post</button>
+
+
+
+            <button data-ng-click="modificationDate()">Try it</button>
 
         </div>
     </div>

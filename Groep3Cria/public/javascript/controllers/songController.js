@@ -1,7 +1,9 @@
 app.controller('songCtrl', function ($scope, $location, $http, $resource, $routeParams) {
+    var likes= 2;
+    var dislikes= 1;
 
     $scope.searchSong = function () {
-        var Song = $resource('http://localhost\\:33001/songs', {},
+        var Song = $resource('http://cria.tezzt.nl\\:43058/songs', {},
             {charge: {method: 'GET', params: {charge: true}}}
         );
         var songs = Song.get(function (data) {
@@ -10,44 +12,79 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
         });
     }
 
+    $scope.sequencer = function () {
+        /*var id = $routeParams.id;
+        var Sequencer = $resource('http://cria.tezzt.nl\\:43058/Sequencer/'+id, {},
+            {charge: {method: 'GET', params: {charge: true}}}
+        );*/
+       console.log("sequencer");
+    }
+
 
     $scope.getSong = function () {
-        console.log($routeParams.id);
         var id = $routeParams.id;
-
-        var Song = $resource('http://localhost\\:33001/song/' + id, {},
+        var Song = $resource('http://cria.tezzt.nl\\:43058/song/' + id, {},
             {charge: {method: 'GET', params: {charge: true}}}
         );
         var songs = Song.get(function (data) {
             $scope.song = data.songs;
-
         });
     };
 
-    $scope.addRating = function (rating) {
+    $scope.modificationDate=function(){
+        var str = document.getElementById("modificationDate").innerHTML;
+      console.log(str);
+        var n=str.substr(0,10);
+        document.getElementById("modificationDate").innerHTML=n;
+
+    }
+
+    $scope.addRating=function(){
         var songPage = document.getElementById("songPage");
+        var progress= document.getElementById("progress");
+        var p = document.createElement("p");
+        var rate = document.getElementById("rating");
+        var total= likes+dislikes
+        p.setAttribute("id","pElement");
+        progress.setAttribute("value", likes.toString());
+        progress.setAttribute("max", total.toString());
+        var pElement = document.getElementById("pElement");
+        if (pElement == null)
+        {
+            p.innerHTML=("Likes: "+likes+" Dislikes: "+dislikes);
+        }
+        else{
+            rate.removeChild(pElement);
+            p.innerHTML=("Likes: "+likes+" Dislikes: "+dislikes);
+        }
+        rate.appendChild(p);
+    }
+
+    $scope.addRatingAlert = function (rating) {
+        var songPage = document.getElementById("songPage");
+        var rate = document.getElementById("rating");
         var like = document.getElementById("like");
         var dislike = document.getElementById("dislike");
         var h2 = document.createElement("h2");
-        h2.setAttribute("id","alert1")
+        var p = document.createElement("p");
+        h2.setAttribute("id","alert1");
         if (rating == 'like') {
-            console.log('liked');
-
             like.disabled = true;
             dislike.disabled = true;
-            h2.innerHTML = "You liked";
+            h2.innerHTML = "You liked this song. Thank you for your feedback!";
             $("#alert1").fadeOut(5000);
-
-
+            likes=likes+1;
+            this.addRating();
         }
         else {
-            console.log('disliked');
-
             dislike.disabled = true;
             like.disabled = true;
-            h2.innerHTML = "You disliked";
+            h2.innerHTML = "You disliked this song. Thank you for your feedback!";
             $("#alert1").fadeOut(5000);
+            dislikes=dislikes+1;
+            this.addRating();
         }
+        rate.appendChild(p);
         songPage.appendChild(h2);
 
     };
@@ -69,12 +106,27 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
 
         }
         inviteUser.innerHTML = "invite";
-
         songPage.appendChild(text);
         songPage.appendChild(inviteUser);
         songPage.appendChild(h);
-
     }
+
+    $scope.addComment= function(){
+        var comment= document.getElementById("comment");
+        var songPage = document.getElementById("songPage");
+        var post = document.getElementById("textComment");
+        console.log(comment.innerHTML);
+        comment.innerHTML="";
+
+        var h= document.createElement("h2");
+        h.innerHTML="Thank you for your feedback";
+        post.disabled= true;
+        songPage.appendChild(h);
+    }
+
+
+
+
     /*
      $scope.addRating = function(value) {
      if(window.sessionStorage['loggedInUser'] !== undefined){
@@ -137,3 +189,4 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
      }
      };*/
 })
+
