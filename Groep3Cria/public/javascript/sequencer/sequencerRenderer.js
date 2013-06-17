@@ -1128,7 +1128,6 @@ var sequencerRenderer = {
         layer.clear();
         this.bankLayer.setY(this.bankLayer.getY() - 200);
         this.bankLayer.draw();
-        this.listenerBankEvents();
     },
 
     drawCP: function (layer) {
