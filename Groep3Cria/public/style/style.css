@@ -67,7 +67,7 @@ background-color: #0c0806;
 #centerdiv{
     max-width: 60%;
     margin-left: 20%;
-
+    clear:both;
     }
 
 input{
@@ -146,7 +146,7 @@ nav ul li{
 }
 
 /************************ Section html *******************************/
-#learn,#friends, #mySong, #contact, #disclaimer, #termsOfUse, #register, #songPage {
+#learn,#friends, #mySong, #contact, #disclaimer, #termsOfUse, #register, #songPage, #sequencerpage, #newsongpage {
     background-color: #2e2723;
     color: white;
     margin: 10px 0 10px 0 !important;
