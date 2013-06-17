@@ -623,7 +623,7 @@ var sequencerRenderer = {
                     ]
                 }
 
-                var layer = self.addInstrument(instrument);
+                var layer = self.addInstrument(instrument, true);
 
                 self.drawLastInstrument();
 
@@ -887,7 +887,7 @@ var sequencerRenderer = {
             for (var j = 0; j < songs[i].instruments.length; j++) {
                 var instrument = songs[i].instruments[j];
 
-                this.addInstrument(instrument);
+                this.addInstrument(instrument, false);
 
 
             }
@@ -1065,7 +1065,7 @@ var sequencerRenderer = {
 
     },
 
-    addInstrument: function (instrument) {
+    addInstrument: function (instrument, addClickEvents) {
 
         var visualNotes = [];
         var notes = instrument.notes;
@@ -1094,7 +1094,9 @@ var sequencerRenderer = {
             visualNotes: visualNotes
         });
 
-        this.addClickEventLastAddedInstrument(layer);
+        if(addClickEvents == true){
+            this.addClickEventLastAddedInstrument(layer);
+        }
 
         this.instrumentLayers.push(layer);
         this.stage.add(layer);
