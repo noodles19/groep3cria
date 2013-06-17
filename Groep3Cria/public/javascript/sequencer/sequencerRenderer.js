@@ -530,8 +530,10 @@ var sequencerRenderer = {
 //                        alert("pitch found");
                     var position = shape.getAttr('notePosition');
                     var pitch = shape.getAttr('pitchValue');
+
                     self._replaceNoteSamePitch(position, pitch, layer)
                     self._updateColumnSamePitch(layer, shape, group);
+                    console.log(layer);
 
 
                 } else {
@@ -541,6 +543,7 @@ var sequencerRenderer = {
                     var x = 5
                     self._replaceEmptyNote(position, pitch, layer);
                     self._updateColumn(layer, shape, group);
+                    console.log(layer);
                 }
             } else
             //u for undefined
@@ -549,6 +552,7 @@ var sequencerRenderer = {
                 var pitch = shape.getAttr('pitchValue');
                 self._replaceEmptyNote(position, pitch, layer);
                 self._updateEmptyColumn(layer, shape, group);
+                console.log(layer);
 
 
 //                    self._replaceEmptyNote(position, pitch, layer);
@@ -569,6 +573,7 @@ var sequencerRenderer = {
                 self.insertEmptyNote(length - 1, layer.getAttr('visualNotes'));
                 self.createEmptyColumn(layer, offset, layer.getY(), length, null); // no -1 because we just added a new note!
                 layer.draw();
+                console.log(layer);
 
 
             } else
