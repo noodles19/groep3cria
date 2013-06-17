@@ -16,7 +16,7 @@ var app = angular.module('myApp', ['ngResource'])
             templateUrl: 'partials/mySongs.html',
             controller: 'songCtrl'
         });
-        $routeProvider.when('/Listen', {
+        $routeProvider.when('/Listen/:id', {
             templateUrl: 'partials/song.html',
             controller: 'songCtrl'
         })

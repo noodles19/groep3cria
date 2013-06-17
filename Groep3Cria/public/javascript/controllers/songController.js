@@ -1,7 +1,7 @@
 app.controller('songCtrl', function ($scope, $location, $http, $resource, $routeParams) {
 
     $scope.searchSong = function () {
-        var Song = $resource('http://cria.tezzt.nl\\:43058/songs', {},
+        var Song = $resource('http://localhost\\:33001/songs', {},
             {charge: {method: 'GET', params: {charge: true}}}
         );
         var songs = Song.get(function (data) {
@@ -15,7 +15,7 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
         console.log($routeParams.id);
         var id = $routeParams.id;
 
-        var Song = $resource('http://cria.tezzt.nl\\:43058/song/51ac8357f61f963c13000000', {},
+        var Song = $resource('http://localhost\\:33001/song/' + id, {},
             {charge: {method: 'GET', params: {charge: true}}}
         );
         var songs = Song.get(function (data) {
