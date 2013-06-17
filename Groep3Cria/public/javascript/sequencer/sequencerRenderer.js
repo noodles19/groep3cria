@@ -26,72 +26,32 @@ var sequencerRenderer = {
     instruments:[ {
     "instrumenttype": "Bass",
     "notes": [
-        {
-            "pitch": null,
-            "position": null,
-            "duration": null,
-            "volume": null
-        }
+
     ]   }, { "instrumenttype": "Bongo",
     "notes": [
-        {
-            "pitch": null,
-            "position": null,
-            "duration": null,
-            "volume": null
-        }
+
     ] }, {  "instrumenttype": "Cannon",
     "notes": [
-        {
-            "pitch": null,
-            "position": null,
-            "duration": null,
-            "volume": null
-        }
+
     ]}, { "instrumenttype": "Hi-hat",
     "notes": [
-        {
-            "pitch": null,
-            "position": null,
-            "duration": null,
-            "volume": null
-        }
+
     ]}, { "instrumenttype": "Distortion Guitar",
     "notes": [
-        {
-            "pitch": null,
-            "position": null,
-            "duration": null,
-            "volume": null
-        }
+
     ]},{ "instrumenttype": "Guitar",
     "notes": [
-        {
-            "pitch": null,
-            "position": null,
-            "duration": null,
-            "volume": null
-        }
+
     ]},{ "instrumenttype": "Kick",
     "notes": [
-        {
-            "pitch": null,
-            "position": null,
-            "duration": null,
-            "volume": null
-        }
+
     ]
     }],
 
     instrumentnew: {
         "instrumenttype": "Orchestra Hit",
         "notes": [
-            {
-                "pitch": null,
-                "position": null,
-                "duration": null,
-                "volume": null
-            }
+
         ]
     },
 
@@ -861,7 +821,9 @@ var sequencerRenderer = {
                 enabled: true,
                 name: 'u' + position
             });
-            group.add(rect);
+            if(group != null) {
+                group.add(rect);
+            }
             origin += 40;
         }
         layer.add(group);
