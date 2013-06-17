@@ -19,6 +19,7 @@ var sequencerRenderer = {
     bankLayer: null,
     markerLayer: null, //TODO remove and make an array of markers
     songs:  [],
+    songLength: 0,
 
     pitchToRect: [2.0, 1.5, 1, 0.667, 0.5],
 
@@ -710,6 +711,10 @@ var sequencerRenderer = {
 
     createColumn: function (note, layer, x, y, group) {
         var origin = 0;
+
+        if(note.position > this.songLength) {
+            this.songLength = note.position;
+        }
         // detecting the note depending on pitch, rest of the rectangles do nothing for now
         if (group == null) {
             group = new Kinetic.Group({
@@ -824,6 +829,9 @@ var sequencerRenderer = {
 
     createEmptyColumn: function (layer, x, y, position, group) {
         var origin = 0;
+        if(position > this.songLength) {
+            this.songLength = position;
+        }
         if (group == null) {
             group = new Kinetic.Group({
                 y: layer.getY(),
