@@ -28,15 +28,15 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
         var songPage = document.getElementById("songPage");
         var like = document.getElementById("like");
         var dislike = document.getElementById("dislike");
-        var h = document.createElement("h2");
-        h.setAttribute("class","alert")
+        var h2 = document.createElement("h2");
+        h2.setAttribute("id","alert1")
         if (rating == 'like') {
             console.log('liked');
-            h.innerHTML = "You liked";
-            $(".alert").fadeOut(3000);
+
             like.disabled = true;
             dislike.disabled = true;
-
+            h2.innerHTML = "You liked";
+            $("#alert1").fadeOut(5000);
 
 
         }
@@ -45,9 +45,10 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
 
             dislike.disabled = true;
             like.disabled = true;
-            h.innerHTML = "You disliked";
+            h2.innerHTML = "You disliked";
+            $("#alert1").fadeOut(5000);
         }
-        songPage.appendChild(h);
+        songPage.appendChild(h2);
 
     };
 
@@ -56,7 +57,7 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
         var inviteUser = document.createElement("button");
         var text = document.createElement("input");
         var h = document.createElement("h2");
-        h.setAttribute("class","alert");
+        h.setAttribute("id","alert2");
         text.setAttribute("type", "text");
         text.setAttribute("placeholder", "Username");
 
@@ -64,7 +65,7 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
             inviteUser.disabled = true;
             console.log("you invited a user");
             h.innerHTML = "You invited a user";
-            $(".alert").fadeOut(5000);
+            $("#alert2").fadeOut(5000);
 
         }
         inviteUser.innerHTML = "invite";
