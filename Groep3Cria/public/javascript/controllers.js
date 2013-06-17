@@ -1,7 +1,3 @@
-var Controller = {
-
-}
-
 
 function testCtrl($scope) {
 

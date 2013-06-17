@@ -14,12 +14,8 @@ function Login() {
         loginPage();
     }
 
-    function clearInlog(){
-        //empty the passw en userid text
-    }
 
     function loginPage() {
-
             var account=document.getElementById("account");
             greeting(account);
             inbox(account);

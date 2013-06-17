@@ -25,22 +25,55 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
     };
 
     $scope.addRating = function (rating) {
+        var songPage = document.getElementById("songPage");
         var like = document.getElementById("like");
-        var dislike=document.getElementById("dislike");
+        var dislike = document.getElementById("dislike");
+        var h = document.createElement("h2");
+        h.setAttribute("class","alert")
         if (rating == 'like') {
             console.log('liked');
-
+            h.innerHTML = "You liked";
+            $(".alert").fadeOut(3000);
             like.disabled = true;
-            dislike.disabled=true;
+            dislike.disabled = true;
+
+
+
         }
         else {
             console.log('disliked');
 
-            dislike.disabled=true;
+            dislike.disabled = true;
             like.disabled = true;
+            h.innerHTML = "You disliked";
         }
+        songPage.appendChild(h);
 
     };
+
+    $scope.inviteFriends = function () {
+        var songPage = document.getElementById("songPage");
+        var inviteUser = document.createElement("button");
+        var text = document.createElement("input");
+        var h = document.createElement("h2");
+        h.setAttribute("class","alert");
+        text.setAttribute("type", "text");
+        text.setAttribute("placeholder", "Username");
+
+        inviteUser.onclick = function () {
+            inviteUser.disabled = true;
+            console.log("you invited a user");
+            h.innerHTML = "You invited a user";
+            $(".alert").fadeOut(5000);
+
+        }
+        inviteUser.innerHTML = "invite";
+
+        songPage.appendChild(text);
+        songPage.appendChild(inviteUser);
+        songPage.appendChild(h);
+
+    }
     /*
      $scope.addRating = function(value) {
      if(window.sessionStorage['loggedInUser'] !== undefined){
