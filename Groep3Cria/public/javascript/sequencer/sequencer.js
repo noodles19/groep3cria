@@ -66,7 +66,6 @@ function init(id) {
 		getMaxSongLength();
 		
 		//drawGUI();
-		
 		sequencerRenderer.init(0,0, songs);
 		
 		console.log("[LOG] Done!");
