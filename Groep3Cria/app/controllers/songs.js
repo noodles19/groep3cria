@@ -36,6 +36,7 @@ exports.list = function (req, res) {
 
     Song
         .find(conditions, fields, options)
+        .populate('comments.UserID ratings.UserID author')
         .exec(function (err, doc) {
             var retObj = {
                 songs: doc

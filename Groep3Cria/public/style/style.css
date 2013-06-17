@@ -68,7 +68,12 @@ background-color: #0c0806;
     max-width: 60%;
     margin-left: 20%;
     clear:both;
-    }
+}
+
+#centerdiv > div
+{
+    padding:5px;
+}
 
 input{
     font-family: elementalEnd;
@@ -255,12 +260,21 @@ margin: 4px 0 0 10px;
 }
 /************************** My Songs html ***********************************/
 
-h4{
-    float: left;
+#mySong td, #mySong th
+{
+    border: 2px solid white;
+    border-collapse:collapse;
+    padding:4px;
 }
 
 /************************** Friends html ***********************************/
 
+#friends td, #friends th
+{
+    border: 2px solid white;
+    border-collapse:collapse;
+    padding:4px;
+}
 
 /************************** Learn html ***********************************/
 

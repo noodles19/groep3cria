@@ -6,18 +6,9 @@
         <input type="text" data-ng-model="searchText.$">
         <button type="submit">Search</button>
 
-    <div data-ng-repeat="song in songs.songs | filter: searchText">
-        <div data-ng-controller="songCtrl">
-
-            <h4>Author:</h4>
-            <h5>{{ song.author }}</h5>
-            <h4>Name:</h4>
-            <a href="#/Listen/{{song.id}}">{{ song.name }}</a>
-            <h4>Speed:</h4>
-            <h5> {{song.speed}}</h5>
-            <h4>Volume:</h4>
-            <h5> {{song.volume}}</h5>
-
-        </div>
-    </div>
+    <br /><br />
+    <table data-ng-controller="songCtrl">
+        <tr><th>Author</th><th>Name</th></tr>
+        <tr data-ng-repeat="song in songs.songs | filter: searchText"><td>{{song.author.displayName}}</td><td><a href="#/Listen/{{song._id}}">{{song.name}}</a></td></tr>
+    </table>
 </div>

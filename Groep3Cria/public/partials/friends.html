@@ -6,19 +6,10 @@
 
     <input type="text" data-ng-model="searchText.$">
     <button type="submit">Search</button>
-
-    <div data-ng-repeat="user in users.doc | filter: searchText">
-        <div data-ng-controller="usersCtrl">
-
-            <h4>Name:</h4>
-            <h5>{{ user.displayName }}</h5>
-            <h4>Username:</h4>
-            <a>{{ user.loginName }}</a>
-            <h4>Email:</h4>
-            <h5>{{user.email}}</h5>
-
-
-        </div>
-    </div>
+    <br /><br />
+    <table data-ng-controller="usersCtrl">
+        <tr><th>Name</th><th>Email</th></tr>
+        <tr data-ng-repeat="user in users.doc | filter: searchText"><td>{{user.displayName}}</td><td>{{user.email}}</td></tr>
+    </table>
 </div>
 
