@@ -22,4 +22,18 @@ app.controller('usersCtrl', function ($scope, $location, $http, $resource, $rout
         });
     };
 
-})
+        $scope.sendNewMessage =function(){
+            var Message = $resource('http://cria.tezzt.nl\\:43058/privatemessages', {},
+                {charge: {method: 'POST', params: {charge: true}}}
+            );
+            var message = new Message($scope.messageForm);
+            message.$save(function (data) {
+                console.log(data);
+            });
+        }
+
+    $scope.userProfile=function(){
+        console.log("userprofile");
+    }
+    })
+

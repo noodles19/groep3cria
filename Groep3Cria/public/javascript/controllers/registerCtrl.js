@@ -1,7 +1,5 @@
 app.controller('registerCtrl', function ($scope, $location, $http, $resource) {
-    console.log("test")
-    $scope.registerUser =function(){
-        console.log("test1")
+    $scope.registerUser = function () {
         var User = $resource('http://cria.tezzt.nl\\:43058/user', {},
             {charge: {method: 'POST', params: {charge: true}}}
         );
@@ -10,5 +8,11 @@ app.controller('registerCtrl', function ($scope, $location, $http, $resource) {
         user.$save(function (data) {
             console.log(data);
         })
+
+        var register = document.getElementById("register");
+        var p = document.createElement("p");
+        p.innerHTML = "Bedankt voor het registreren!";
+        register.appendChild(p);
+        document.getElementById("registerForm").reset();
     }
 })

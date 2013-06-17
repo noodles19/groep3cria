@@ -12,13 +12,17 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
         });
     }
 
-    $scope.sequencer = function () {
-        /*var id = $routeParams.id;
-        var Sequencer = $resource('http://cria.tezzt.nl\\:43058/Sequencer/'+id, {},
-            {charge: {method: 'GET', params: {charge: true}}}
-        );*/
-       console.log("sequencer");
-    }
+    /*$scope.startNewSong =function(){
+        var Song = $resource('http://cria.tezzt.nl\\:43058/songs', {},
+            {charge: {method: 'POST', params: {charge: true}}}
+        );
+        var song = new Song($scope.songForm);
+        song.$save(function (data) {
+            alert("Sequencer/" + data.doc._id);
+            $location.path("Sequencer/" + data.doc._id);
+        });
+    }*/
+
 
 
     $scope.getSong = function () {
@@ -74,6 +78,7 @@ app.controller('songCtrl', function ($scope, $location, $http, $resource, $route
             h2.innerHTML = "You liked this song. Thank you for your feedback!";
             $("#alert1").fadeOut(5000);
             likes=likes+1;
+
             this.addRating();
         }
         else {

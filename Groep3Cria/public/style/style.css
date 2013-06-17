@@ -56,14 +56,12 @@ background-color: #0c0806;
 
 }
 
-#inbox {
-    background-color: hotpink;
+#inbox, #greeting {
+    background-color: #292726;
+    color:white;
 
 }
 
-#greeting{
-    background-color: red;
-}
 
 #centerdiv{
     max-width: 60%;
@@ -152,19 +150,21 @@ nav ul li{
 }
 
 /************************ Section html *******************************/
-#learn,#friends, #mySong, #contact, #disclaimer, #termsOfUse, #register, #songPage, #sequencerpage, #newsongpage {
+#learn,#friends, #mySong, #contact, #disclaimer, #termsOfUse, #register, #songPage, #sequencerpage, #newsongpage , #profilePage{
     background-color: #292726;
     color: white;
     margin: 10px 0 10px 0 !important;
 }
-#learn h2,#friends h2, #mySong h2, #contact h2, #disclaimer h2, #termsOfUse h2, #register h2{
+#learn h2,#friends h2, #mySong h2, #contact h2, #disclaimer h2, #termsOfUse h2, #register h2, #profilePage h2{
     text-align: center;
     margin: 10px 0 0 0 !important;
+
 }
 
 
 h2{
     font-family: elementalEnd !important;
+    color:white;
 }
 
 
@@ -277,7 +277,19 @@ margin: 4px 0 0 10px;
     padding:4px;
 }
 
+#createNewMessageForm{
+    color: white;
+}
+#createNewMessageForm label{
+    width:150px;
+    float:left;
+}
+
 /************************** Learn html ***********************************/
+
+
+/************************** Profile html ***********************************/
+
 
 
 /************************** Song html ***********************************/
