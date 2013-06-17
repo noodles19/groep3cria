@@ -1053,6 +1053,7 @@ var sequencerRenderer = {
             rectHeight +=22;
         }
 
+        this.listenerBankEvents();
         rect.setHeight(rectHeight);
 
 //        group.add(rect);
