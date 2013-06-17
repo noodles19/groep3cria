@@ -1076,13 +1076,13 @@ var sequencerRenderer = {
             y += 67
         }
         //last element of the visualnotes array
-        if (visualNotes[visualNotes.length - 1].position != null) {
-            for (var j = 0; j < 4; j++) {
-                var emptyNote = {position: null, pitch: null, volume: null, duration: null};
-                visualNotes.push(emptyNote);
-            }
-
-        }
+//        if (visualNotes[visualNotes.length - 1].position != null) {
+//            for (var j = 0; j < 4; j++) {
+//                var emptyNote = {position: null, pitch: null, volume: null, duration: null};
+//                visualNotes.push(emptyNote);
+//            }
+//
+//        }
 
 
         var layer = new Kinetic.Layer({
