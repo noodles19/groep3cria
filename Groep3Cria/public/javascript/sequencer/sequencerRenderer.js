@@ -887,7 +887,7 @@ var sequencerRenderer = {
             for (var j = 0; j < songs[i].instruments.length; j++) {
                 var instrument = songs[i].instruments[j];
 
-                this.addInstrument(instrument, false);
+                this.addInstrument(instrument, true);
 
 
             }
@@ -1299,7 +1299,7 @@ var sequencerRenderer = {
 
         this.addInstrumentBank(this.instruments);
 
-        this.clickEvents();
+//        this.clickEvents();
     }
 }
 
