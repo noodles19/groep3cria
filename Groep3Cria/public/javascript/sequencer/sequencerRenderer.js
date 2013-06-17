@@ -18,35 +18,43 @@ var sequencerRenderer = {
     lastUpdate: null,
     bankLayer: null,
     markerLayer: null, //TODO remove and make an array of markers
-    songs:  [],
+    songs: [],
     songLength: 0,
 
     pitchToRect: [2.0, 1.5, 1, 0.667, 0.5],
 
-    instruments:[ {
-    "instrumenttype": "Bass",
-    "notes": [
+    instruments: [
+        {
+            "instrumenttype": "Bass",
+            "notes": [
 
-    ]   }, { "instrumenttype": "Bongo",
-    "notes": [
+            ]   },
+        { "instrumenttype": "Bongo",
+            "notes": [
 
-    ] }, {  "instrumenttype": "Cannon",
-    "notes": [
+            ] },
+        {  "instrumenttype": "Cannon",
+            "notes": [
 
-    ]}, { "instrumenttype": "Hi-hat",
-    "notes": [
+            ]},
+        { "instrumenttype": "Hi-hat",
+            "notes": [
 
-    ]}, { "instrumenttype": "Distortion Guitar",
-    "notes": [
+            ]},
+        { "instrumenttype": "Distortion Guitar",
+            "notes": [
 
-    ]},{ "instrumenttype": "Guitar",
-    "notes": [
+            ]},
+        { "instrumenttype": "Guitar",
+            "notes": [
 
-    ]},{ "instrumenttype": "Kick",
-    "notes": [
+            ]},
+        { "instrumenttype": "Kick",
+            "notes": [
 
-    ]
-    }],
+            ]
+        }
+    ],
 
     instrumentnew: {
         "instrumenttype": "Orchestra Hit",
@@ -258,7 +266,7 @@ var sequencerRenderer = {
 
     },
 
-    _collapseUi: function(layer) {
+    _collapseUi: function (layer) {
         var otherLayers = [];
         var afterInstrumentTrigger = false;
 
@@ -267,24 +275,24 @@ var sequencerRenderer = {
 
         // We're going to get all the layers after the instrument we want to minimize because we only need to
         // readjust the Y coordinate of the layers under the instrument we minimize
-        for(var k=0; k < this.instrumentLayers.length; k++) {
-            if(this.instrumentLayers[k] == layer) {
+        for (var k = 0; k < this.instrumentLayers.length; k++) {
+            if (this.instrumentLayers[k] == layer) {
                 afterInstrumentTrigger = true;
             }
-            if(this.instrumentLayers[k] != layer && afterInstrumentTrigger == true) {
+            if (this.instrumentLayers[k] != layer && afterInstrumentTrigger == true) {
                 otherLayers.push(this.instrumentLayers[k]);
             }
         }
 
-        for(var j = 0; j < otherLayers.length; j++) {
+        for (var j = 0; j < otherLayers.length; j++) {
             var tempLayer = otherLayers[j];
-            otherLayers[j].setY(otherLayers[j].getY() -160);
+            otherLayers[j].setY(otherLayers[j].getY() - 160);
             otherLayers[j].draw();
         }
 
     },
 
-    _expandUi: function(layer) {
+    _expandUi: function (layer) {
         var otherLayers = [];
         var afterInstrumentTrigger = false;
 
@@ -293,16 +301,16 @@ var sequencerRenderer = {
 
         // We're going to get all the layers after the instrument we want to minimize because we only need to
         // readjust the Y coordinate of the layers under the instrument we minimize
-        for(var k=0; k < this.instrumentLayers.length; k++) {
-            if(this.instrumentLayers[k] == layer) {
+        for (var k = 0; k < this.instrumentLayers.length; k++) {
+            if (this.instrumentLayers[k] == layer) {
                 afterInstrumentTrigger = true;
             }
-            if(this.instrumentLayers[k] != layer && afterInstrumentTrigger == true) {
+            if (this.instrumentLayers[k] != layer && afterInstrumentTrigger == true) {
                 otherLayers.push(this.instrumentLayers[k]);
             }
         }
 
-        for(var j = 0; j < otherLayers.length; j++) {
+        for (var j = 0; j < otherLayers.length; j++) {
             var tempLayer = otherLayers[j];
             otherLayers[j].setY(otherLayers[j].getY() + 160);
             otherLayers[j].draw();
@@ -311,8 +319,6 @@ var sequencerRenderer = {
     },
 
     _minimizeInstrument: function (layer) {
-
-
 
 
         var groups = layer.get('.notes');
@@ -332,14 +338,14 @@ var sequencerRenderer = {
         // Not efficient but oh well
 
         var rectEnabled;
-        if(layer.get('.u0')[0] != undefined) {
+        if (layer.get('.u0')[0] != undefined) {
             rectEnabled = layer.get('.u0')[0].getAttr('enabled');
         } else {
             rectEnabled = layer.get('.n0')[0].getAttr('enabled');
         }
 
 
-        if(rectEnabled == true) {
+        if (rectEnabled == true) {
             this._collapseUi(layer);
         } else {
             this._expandUi(layer);
@@ -474,7 +480,7 @@ var sequencerRenderer = {
 
     },
     /** should add a new click event to our layer so we can edit it like any other layer **/
-    addClickEventLastAddedInstrument: function(layer) {
+    addClickEventLastAddedInstrument: function (layer) {
         var self = this;
         var length = this.instrumentLayers.length;
 
@@ -518,14 +524,10 @@ var sequencerRenderer = {
 //                    self._replaceEmptyNote(position, pitch, layer);
 //                    self._updateLayer(layer);
 
-            } else
-
-            if (name == 'minimize') {
+            } else if (name == 'minimize') {
                 self._minimizeInstrument(layer);
                 layer.draw();
-            } else
-
-            if (name == 'addcolumns') {
+            } else if (name == 'addcolumns') {
 //                    var furthestX = layer.getAttr('
                 var length = layer.getAttr('visualNotes').length;
                 var spacing = 0;
@@ -536,9 +538,7 @@ var sequencerRenderer = {
                 console.log(layer);
 
 
-            } else
-
-            if(name == 'killinstr') {
+            } else if (name == 'killinstr') {
                 self.removeInstrument(layer);
             }
         });
@@ -566,14 +566,14 @@ var sequencerRenderer = {
 
     listenerBankEvents: function () {
         var self = this;
-        this.bankLayer.on('click', function(event) {
+        this.bankLayer.on('click', function (event) {
             var shape = event.targetNode;
             var group = shape.getParent();
 //            var layer = group.getParent();
             var name = shape.getName();
-            var x =5;
+            var x = 5;
 
-            if(name == 'addnewinstrument') {
+            if (name == 'addnewinstrument') {
 
                 var type = shape.getAttr('instrumenttype');
                 var instrument = {
@@ -602,9 +602,6 @@ var sequencerRenderer = {
         var lengthglobal = this.instrumentLayers.length;
 
         self.listenerBankEvents();
-
-
-
 
 
         for (var i = 0; i < lengthglobal; i++) {
@@ -650,9 +647,7 @@ var sequencerRenderer = {
                 if (name == 'minimize') {
                     self._minimizeInstrument(layer);
                     layer.draw();
-                } else
-
-                if (name == 'addcolumns') {
+                } else if (name == 'addcolumns') {
 //                    var furthestX = layer.getAttr('
                     var length = layer.getAttr('visualNotes').length;
                     var spacing = 0;
@@ -662,9 +657,7 @@ var sequencerRenderer = {
                     layer.draw();
 
 
-                } else
-
-                if(name == 'killinstr') {
+                } else if (name == 'killinstr') {
                     self.removeInstrument(layer);
 
                 }
@@ -677,7 +670,7 @@ var sequencerRenderer = {
     createColumn: function (note, layer, x, y, group) {
         var origin = 0;
 
-        if(note.position > this.songLength) {
+        if (note.position > this.songLength) {
             this.songLength = note.position;
         }
         // detecting the note depending on pitch, rest of the rectangles do nothing for now
@@ -781,9 +774,20 @@ var sequencerRenderer = {
         }
         this.sortNotes(layer.getAttr('notes'));
     },
+    findWithAttr: function (array, attr, value) {
+        for (var i = 0; i < array.length; i += 1) {
+            if (array[i][attr] === value) {
+                return i;
+            }
+        }
+    },
 
     _replaceNoteSamePitch: function (position, pitch, layer) {
-        layer.getAttr('notes').splice(position, 1);
+
+        var notes = layer.getAttr('notes');
+
+        var index = this.findWithAttr(notes, 'position', position);
+        layer.getAttr('notes').splice(index, 1);
         for (var i = 0; i < layer.getAttr('visualNotes').length; i++) {
             if (i == position) {
                 layer.getAttr('visualNotes').splice(i, 1, {position: null, pitch: null, volume: null, duration: null});
@@ -794,7 +798,7 @@ var sequencerRenderer = {
 
     createEmptyColumn: function (layer, x, y, position, group) {
         var origin = 0;
-        if(position > this.songLength) {
+        if (position > this.songLength) {
             this.songLength = position;
         }
         if (group == null) {
@@ -821,7 +825,7 @@ var sequencerRenderer = {
                 enabled: true,
                 name: 'u' + position
             });
-            if(group != null) {
+            if (group != null) {
                 group.add(rect);
             }
             origin += 40;
@@ -922,8 +926,8 @@ var sequencerRenderer = {
         group.draw();
     },
 
-    addInstrumentBank: function(instruments) {
-        var y = this.instrumentLayers.length * 200 +4; // get the last instrumentLayer
+    addInstrumentBank: function (instruments) {
+        var y = this.instrumentLayers.length * 200 + 4; // get the last instrumentLayer
         var x = 20;
 
         this.bankLayer = new Kinetic.Layer({
@@ -935,11 +939,10 @@ var sequencerRenderer = {
         });
 
 
-
         var rect = new Kinetic.Rect({
 //            x: this.bankLayer.getX(),
 //            y: this.bankLayer.getY(),
-            x:0,
+            x: 0,
             y: 0,
             width: 185,
             height: 0,
@@ -953,8 +956,8 @@ var sequencerRenderer = {
         var group = new Kinetic.Group({
 //           x: this.bankLayer.getX(),
 //            y: this.bankLayer.getY(),
-            x:0,
-            y:0,
+            x: 0,
+            y: 0,
             name: 'bankgroup'
         });
 
@@ -964,10 +967,10 @@ var sequencerRenderer = {
         var rectHeight = 0;
         var length = instruments.length;
 
-        for(var i = 0; i < instruments.length; i++) {
+        for (var i = 0; i < instruments.length; i++) {
             var instrumentText = new Kinetic.Text({
                 x: 2,
-                y: 0+offset,
+                y: 0 + offset,
                 text: instruments[i].instrumenttype,
                 fontSize: 15,
                 fill: 'black',
@@ -975,7 +978,7 @@ var sequencerRenderer = {
             });
 
             var previewButton = new Kinetic.Shape({
-                drawFunc: function(canvas) {
+                drawFunc: function (canvas) {
                     var context = canvas.getContext();
                     context.beginPath();
                     context.moveTo(0, 0);
@@ -985,16 +988,16 @@ var sequencerRenderer = {
                     context.closePath();
                     canvas.fillStroke(this);
                 },
-                fill:'black',
+                fill: 'black',
                 x: 145,
-                y: 0 +offset,
+                y: 0 + offset,
                 name: 'playsample',
                 instrumenttype: instruments[i].instrumenttype
 
             });
 
             var addInstrumentButton = new Kinetic.Shape({
-                drawFunc: function(canvas) {
+                drawFunc: function (canvas) {
                     var context = canvas.getContext();
                     context.beginPath();
                     context.moveTo(8, 0);
@@ -1004,9 +1007,9 @@ var sequencerRenderer = {
                     context.closePath();
                     canvas.fillStroke(this);
                 },
-                fill:'black',
+                fill: 'black',
                 x: 165,
-                y: 0 +offset,
+                y: 0 + offset,
                 stroke: 'black',
                 strokeWidth: 4,
                 name: 'addnewinstrument',
@@ -1016,8 +1019,8 @@ var sequencerRenderer = {
             group.add(addInstrumentButton)
             group.add(previewButton);
             group.add(instrumentText);
-            offset+=21;
-            rectHeight +=22;
+            offset += 21;
+            rectHeight += 22;
         }
 
         this.listenerBankEvents();
@@ -1027,8 +1030,6 @@ var sequencerRenderer = {
         this.bankLayer.add(group);
         this.stage.add(this.bankLayer);
         this.bankLayer.draw();
-
-
 
 
     },
@@ -1062,7 +1063,7 @@ var sequencerRenderer = {
             visualNotes: visualNotes
         });
 
-        if(addClickEvents == true){
+        if (addClickEvents == true) {
             this.addClickEventLastAddedInstrument(layer);
         }
 
@@ -1076,23 +1077,23 @@ var sequencerRenderer = {
     removeInstrument: function (layer) { // Removes the instrument by type
 
 
-        for(var index = this.instrumentLayers.indexOf(layer)+1; index < this.instrumentLayers.length; index++) {
-            this.instrumentLayers[index].setY(this.instrumentLayers[index].getY()-200);
+        for (var index = this.instrumentLayers.indexOf(layer) + 1; index < this.instrumentLayers.length; index++) {
+            this.instrumentLayers[index].setY(this.instrumentLayers[index].getY() - 200);
             this.instrumentLayers[index].draw();
 
         }
         var index = this.instrumentLayers.indexOf(layer);
         this.instrumentLayers.splice(index, 1);
-        layer.get('.notes').each(function(node, n) {
-           node.destroy();
+        layer.get('.notes').each(function (node, n) {
+            node.destroy();
         });
-        layer.get('.visualNotes').each(function(node, n) {
-           node.destroy();
+        layer.get('.visualNotes').each(function (node, n) {
+            node.destroy();
         });
-        layer.get('.Group').each(function(node, n) {
-           node.destroy();
+        layer.get('.Group').each(function (node, n) {
+            node.destroy();
         });
-        layer.get('.uigroup').each(function(node, n) {
+        layer.get('.uigroup').each(function (node, n) {
             node.destroy();
         });
         layer.clear();
@@ -1173,16 +1174,16 @@ var sequencerRenderer = {
     //draws a new instrument
     drawLastInstrument: function () {
         var length = this.instrumentLayers.length;
-        if(this.instrumentLayers.length == 1 ) {
-        var y = 0
-        var layer = this.instrumentLayers[this.instrumentLayers.length - 1];
-        this.createRaster(layer, layer.getX() + 40, layer.getY());
-        this.drawCP(layer);
-        layer.draw();
+        if (this.instrumentLayers.length == 1) {
+            var y = 0
+            var layer = this.instrumentLayers[this.instrumentLayers.length - 1];
+            this.createRaster(layer, layer.getX() + 40, layer.getY());
+            this.drawCP(layer);
+            layer.draw();
 
-        // update our instrumentbank aswell to expand
-        this.bankLayer.setY(this.bankLayer.getY() + 200);
-        this.bankLayer.draw();
+            // update our instrumentbank aswell to expand
+            this.bankLayer.setY(this.bankLayer.getY() + 200);
+            this.bankLayer.draw();
 //        this.createRaster(instrumentLayer, 10, this.)
         } else {
             var y = this.instrumentLayers[this.instrumentLayers.length - 2].getY() + 200;
@@ -1220,14 +1221,14 @@ var sequencerRenderer = {
         });
     },
 
-    saveSong: function() {
-        var lastSong = this.songs.length-1;
+    saveSong: function () {
+        var lastSong = this.songs.length - 1;
 
         /*
-        Let's first search for some new instruments if any and add them to the song array
+         Let's first search for some new instruments if any and add them to the song array
          */
 
-        for(var i = 0; i < this.instrumentLayers.length(); i++) {
+        for (var i = 0; i < this.instrumentLayers.length(); i++) {
 
 //            if(this.instrumentLayers[i].getAttr('instrumenttype') != this.songs[i].instruments.instrumenttype)
         }
@@ -1260,9 +1261,6 @@ var sequencerRenderer = {
             y += 201;
         }
 //        this.stage.add(this.markerLayer);
-
-
-
 
 
         this.addInstrumentBank(this.instruments);
