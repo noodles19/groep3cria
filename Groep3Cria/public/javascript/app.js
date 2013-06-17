@@ -32,9 +32,9 @@ var app = angular.module('myApp', ['ngResource'])
             templateUrl: 'partials/newsong.html',
             controller: 'newSongCtrl'
         });
-        $routeProvider.when('/Sequencer', {
+        $routeProvider.when('/Sequencer/:id', {
             templateUrl: 'partials/sequencer.html',
-            controller: 'newSongCtrl'
+            controller: 'sequencerCtrl'
         });
         $routeProvider.when('/NewMessage', {
             templateUrl: 'partials/newMessage.html',

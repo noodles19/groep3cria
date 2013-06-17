@@ -247,7 +247,7 @@ function scheduler() {
 }
 
 function play() {
-    songLength = sequencerRenderer.songLength;
+    songLength = sequencerRenderer.songLength + 1;
 
 	isPlaying = !isPlaying;
 
