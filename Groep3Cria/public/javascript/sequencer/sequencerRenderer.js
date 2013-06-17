@@ -666,6 +666,13 @@ var sequencerRenderer = {
 
                 } else if (name == 'killinstr') {
                     self.removeInstrument(layer);
+                    self.songLength = 0;
+                    for (var x = 0; x < self.instrumentLayers.length(); x++) {
+                        if (self.instrumentLayers[x].getAttr('visualNotes').length > self.songLength) {
+                            self.songLength = self.instrumentLayers[x].getAttr('visualNotes').length
+                        }
+
+                    }
 
                 }
             });
