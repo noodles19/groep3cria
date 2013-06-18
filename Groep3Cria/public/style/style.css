@@ -16,6 +16,12 @@ header, body, footer {
 
 }
 
+header
+{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 h1{
     font-family: elementalEnd !important;
     color: white;
@@ -103,7 +109,6 @@ input[type="text"], input[type="password"], input[type="email"]{
 header {
     background-color:#2e2723;;
     clear: both;
-    height: 60px;
     text-align: center;
     color: white;
 
@@ -120,9 +125,7 @@ a:link ,a:hover ,a:visited ,a:active{
 
 }
 nav{
-    width: 60%;
-    margin: 0 0 0 20% !important;
-    min-width: 900px;
+    margin: 0 auto 0 auto !important;
 }
 
 nav ul li{
@@ -130,7 +133,6 @@ nav ul li{
     margin: 20px 10px 20px 10px;
     margin: 20px 10px 20px 10px;
     font-family: elementalEnd;
-    float:left;
     font-size: 20px;
 }
 
