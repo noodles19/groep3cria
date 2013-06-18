@@ -2,7 +2,7 @@
 
 <div id="register">
     <h2> register </h2>
-    <form name="registerForm">
+    <form id="registerForm" name="registerForm">
 
         <p><label>Name:</label> <input  type="text" data-ng-model="userForm.displayName" required
                                               placeholder="Name"/></p>
@@ -23,4 +23,4 @@
             <button data-ng-click="registerUser()" data-ng-disabled="registerForm.$invalid">Register</button>
         </p>
     </form>
-
+</div>

@@ -4,7 +4,7 @@ function testCtrl($scope) {
 }
 
 app.controller('sequencerCtrl', function ($scope, $location, $http, $resource, $routeParams) {
-    var Song = $resource('http://localhost\\:33001/song/' + $routeParams.id, {},
+    var Song = $resource('http://cria.tezzt.nl\\:43058/song/' + $routeParams.id, {},
         {charge: {method: 'GET', params: {charge: true}}}
     );
     init($routeParams.id);
@@ -12,12 +12,12 @@ app.controller('sequencerCtrl', function ($scope, $location, $http, $resource, $
 
 app.controller('newSongCtrl', function ($scope, $location, $http, $resource) {
     $scope.startNewSong =function(){
-        var Song = $resource('http://localhost\\:33001/songs', {},
+        var Song = $resource('http://cria.tezzt.nl\\:43058/songs', {},
             {charge: {method: 'POST', params: {charge: true}}}
         );
         var song = new Song($scope.songForm);
         song.$save(function (data) {
-            alert("Sequencer/" + data.doc._id);
+
             $location.path("Sequencer/" + data.doc._id);
         });
     }
@@ -25,7 +25,7 @@ app.controller('newSongCtrl', function ($scope, $location, $http, $resource) {
 
 app.controller('newMsgCtrl', function ($scope, $location, $http, $resource) {
     $scope.sendNewMessage =function(){
-        var Message = $resource('http://localhost\\:33001/privatemessages', {},
+        var Message = $resource('http://cria.tezzt.nl\\:43058/privatemessages', {},
             {charge: {method: 'POST', params: {charge: true}}}
         );
         var message = new Message($scope.messageForm);
@@ -37,4 +37,4 @@ app.controller('newMsgCtrl', function ($scope, $location, $http, $resource) {
 
 
 /*
-Controller.start();*/
+ Controller.start();*/

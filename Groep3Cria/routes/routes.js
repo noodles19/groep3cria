@@ -19,7 +19,7 @@ module.exports = function (app) {
     // CREATE
     app.post('/user', users.create);
     // RETRIEVE
-    app.get('/users'/*, authenticated*/, users.list);
+    app.get('/users', authenticated, users.list);
     app.get('/user/:email', users.detail);
     // UPDATE
     app.put('/user/update', users.update);
@@ -31,10 +31,10 @@ module.exports = function (app) {
 
     var songs = require('../app/controllers/songs.js');
     // CREATE
-    app.post('/songs', songs.create);
+    app.post('/songs', authenticated, songs.create);
     // RETRIEVE
-    app.get('/songs', songs.list);
-    app.get('/song/:id', songs.listSingleSong);
+    app.get('/songs', authenticated, songs.list);
+    app.get('/song/:id', authenticated, songs.listSingleSong);
     // UPDATE
     app.put('/songs/', songs.update);
     // DELETE
@@ -43,12 +43,12 @@ module.exports = function (app) {
 
     var privatemessages = require('../app/controllers/messages.js');
     // CREATE
-    app.post('/privatemessages', privatemessages.create);
+    app.post('/privatemessages', authenticated, privatemessages.create);
     // RETRIEVE
-    app.get('/privatemessages/:receiverid', privatemessages.list);
-    app.get('/privatemessage/:id', privatemessages.listSingleMessage);
+    app.get('/privatemessages/:receiverid', authenticated, privatemessages.list);
+    app.get('/privatemessage/:id', authenticated, privatemessages.listSingleMessage);
     // UPDATE
-    app.put('/privatemessages/', privatemessages.update);
+    app.put('/privatemessages/', authenticated, privatemessages.update);
     // DELETE
-    app.delete('/privatemessages/', privatemessages.delete);
+    app.delete('/privatemessages/', authenticated, privatemessages.delete);
 }

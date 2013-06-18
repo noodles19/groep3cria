@@ -9,6 +9,7 @@
     <br /><br />
     <table data-ng-controller="songCtrl">
         <tr><th>Author</th><th>Name</th></tr>
-        <tr data-ng-repeat="song in songs.songs | filter: searchText"><td>{{song.author.displayName}}</td><td><a href="#/Listen/{{song._id}}">{{song.name}}</a></td></tr>
+        <tr data-ng-repeat="song in songs.songs | filter: searchText"><td>{{song.author.displayName}}
+        </td><td><a href="#/Listen/{{song._id}}">{{song.name}}</a></td></tr>
     </table>
 </div>

@@ -7,12 +7,10 @@
 </head>
 
 <div id="alphaheader">
-    <img id="logo" src=../images/Homepage-future-96-dpi_06.png>
-
-    <h1> Musync</h1>
+    <img id="logo" src=../images/logo_musync_5.png>
 
     <div id="account" data-ng-controller="loginCtrl">
-        <form id="loginForm" name="loginForm">
+        <form data-ng-hide="loggedIn" id="loginForm" name="loginForm">
             <img class="icon" src=../images/Homepage-future-96-dpi_03.png>
             <input type="text" name="userid" placeholder="username" data-ng-model="loginModel.username" required/>
             <img class="icon" src=../images/Homepage-future-96-dpi_09.png>
@@ -20,6 +18,12 @@
             <input type="reset" value="Cancel"/>
             <button data-ng-click="loginUser()" data-ng-disabled="loginForm.$invalid">Login</button>
             <a href="#/Register">Register</a>
+        </form>
+
+        <form data-ng-show="profile">
+            <h2> testing</h2>
+            <h2><a href="#/Profile"> profile</a></h2>
+            <button data-ng-click="logoutUser()"> Logout</button>
         </form>
     </div>
 </div>
@@ -63,18 +67,13 @@
 <script src="./javascript/lib/bootstrap.min.js"></script>
 
 <!-- App -->
-<script src="./javascript/Login.js"></script>
-<script src="./javascript/app.js"></script>
-<script src="./javascript/controllers.js" defer="defer"></script>
-<script src="./javascript/services.js"></script>
 
+<script src="./javascript/app.js"></script>
+<script src="./javascript/controllers.js"></script>
 
 <script src="./javascript/sequencer/sequencer.js"></script>
 <script src="./javascript/sequencer/kinetic-v4.5.2.min.js"></script>
 <script src="./javascript/sequencer/sequencerRenderer.js"></script>
-
-
-
 
 
 <!----Controllers----->
@@ -82,5 +81,6 @@
 <script src="./javascript/controllers/usersCtrl.js"></script>
 <script src="./javascript/controllers/registerCtrl.js"></script>
 <script src="./javascript/controllers/loginCtrl.js"></script>
+<!--<script src="./javascript/controllers/sequencerCtrl.js"></script>-->
 
 </html>

@@ -45,8 +45,8 @@ background-color: #0c0806;
 
 #logo{
     float:left;
-    margin: 20px 2px 0 20px;
-    width: 70px;
+    margin: 0 0 0 7px;
+    width: 300px;
     height: auto;
 }
 /*********** Account **************/
@@ -56,19 +56,18 @@ background-color: #0c0806;
 
 }
 #loginForm {
+    margin:20px 0 0 0;
     width: 200px;
     float: right;
 
 }
 
-#inbox {
-    background-color: hotpink;
+#inbox, #greeting {
+    background-color: #292726;
+    color:white;
 
 }
 
-#greeting{
-    background-color: red;
-}
 
 #centerdiv{
     max-width: 60%;
@@ -83,7 +82,7 @@ background-color: #0c0806;
 
 input{
     font-family: elementalEnd;
-    color: #2e2723;
+    color: #292726;
 
 }
 
@@ -107,7 +106,7 @@ input[type="text"], input[type="password"], input[type="email"]{
 
 /************ Nav **************/
 header {
-    background-color:#2e2723;;
+    background-color:#292726;;
     clear: both;
     text-align: center;
     color: white;
@@ -119,11 +118,11 @@ header {
 }
 
 
-a:link ,a:hover ,a:visited ,a:active{
-    color: white;
+a:link,a:hover ,a:visited ,a:active{
+    color: lightblue;
     text-decoration:none;
-
 }
+
 nav{
     margin: 0 auto 0 auto !important;
 }
@@ -153,19 +152,21 @@ nav ul li{
 }
 
 /************************ Section html *******************************/
-#learn,#friends, #mySong, #contact, #disclaimer, #termsOfUse, #register, #songPage, #sequencerpage, #newsongpage {
-    background-color: #2e2723;
+#learn,#friends, #mySong, #contact, #disclaimer, #termsOfUse, #register, #songPage, #sequencerpage, #newsongpage , #profilePage{
+    background-color: #292726;
     color: white;
     margin: 10px 0 10px 0 !important;
 }
-#learn h2,#friends h2, #mySong h2, #contact h2, #disclaimer h2, #termsOfUse h2, #register h2{
+#learn h2,#friends h2, #mySong h2, #contact h2, #disclaimer h2, #termsOfUse h2, #register h2, #profilePage h2{
     text-align: center;
     margin: 10px 0 0 0 !important;
+
 }
 
 
 h2{
     font-family: elementalEnd !important;
+    color:white;
 }
 
 
@@ -180,10 +181,10 @@ h2{
 
 }
 #createSearch{
-    background-color: #2e2723;
+    background-color: #292726;
 }
 #createSong, #searchSong, #newSongs, #popularSongs {
-    background-color: #2e2723;
+    background-color: #292726;
     height: 225px;
     float: right;
     width: 49.8%;
@@ -243,7 +244,7 @@ h3{
 
 /************************** Register html ***********************************/
 #register{
-    background-color: #2e2723;
+    background-color: #292726;
     margin: 10px 0 0 0;
     color: white;
     font-family: museoSans;
@@ -278,13 +279,94 @@ margin: 4px 0 0 10px;
     padding:4px;
 }
 
+#createNewMessageForm{
+    color: white;
+}
+#createNewMessageForm label{
+    width:150px;
+    float:left;
+}
+
 /************************** Learn html ***********************************/
+
+
+/************************** Profile html ***********************************/
+
 
 
 /************************** Song html ***********************************/
 #songPage{
 height: 500px;
 }
+
+#songPage td , #songPage th {
+    border: 2px solid white;
+    border-collapse:collapse;
+    padding:4px;
+}
+td {
+    width: 100px;
+}
+
+
+#comment{
+    color:#292726;
+}
+td:nth-child(4){
+    width: 250px;
+}
+
+
+
+
+
+progress {
+    width: 200px;
+    height: 14px;
+    display: block;
+    /* Important Thing */
+    -webkit-appearance: none;
+    border: none;
+}
+
+/* All good till now. Now we'll style the background */
+progress::-webkit-progress-bar {
+    background: red;
+    border-radius: 50px;
+    padding: 0px;
+    box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.2);
+
+    background-color: pink;
+    background-image: -moz-linear-gradient(top, pink, red);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, pink),color-stop(1, red));
+    background-image: -webkit-linear-gradient(pink, red);
+
+}
+progress::-webkit-progress-bar,progress::-webkit-progress-value {
+
+    padding: 0px;
+    -webkit-box-shadow:
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+    -moz-box-shadow:
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+    box-shadow:
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+
+}
+progress::-webkit-progress-value {
+    background-color: lightgreen;
+    background-image: -moz-linear-gradient(top, lightgreen, green);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, lightgreen),color-stop(0, green));
+    background-image: -webkit-linear-gradient(lightgreen, green);
+
+}
+
+
 
 /************************** Contact html ***********************************/
 
