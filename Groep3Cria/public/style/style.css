@@ -16,12 +16,6 @@ header, body, footer {
 
 }
 
-header
-{
-    padding-top: 15px;
-    padding-bottom: 15px;
-}
-
 h1{
     font-family: elementalEnd !important;
     color: white;
@@ -91,7 +85,7 @@ input{
     width: 20px;
     margin-bottom: -7px;
 }
-.icon, input, .verticalLine, .verticalLine2{
+.icon, input, .verticalLine, .verticalLine2, .verticalLine3{
     -moz-box-shadow: 0 0 8px 3px rgba(1,27,185,.75);
     -webkit-box-shadow:0 0 8px 3px rgba(1,27,185,.75);
     box-shadow: 0 0 8px 3px rgba(1,27,185,.75);
@@ -110,7 +104,8 @@ header {
     clear: both;
     text-align: center;
     color: white;
-
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
 }
 .verticalLine {
     border: 1px solid white;
@@ -177,20 +172,32 @@ h2{
     background-size:100% 100%;
     background-repeat:no-repeat;
     margin: 10px 0 0 0;
-
+    margin-bottom:10px;
 
 }
-#createSearch{
+#createSearch
+{
     background-color: #292726;
+    text-align:center;
+    margin-bottom:10px;
 }
+
+#featuredsongs
+{
+    background-color: red;
+    text-align:center;
+    margin-bottom:10px;
+}
+
 #createSong, #searchSong, #newSongs, #popularSongs {
     background-color: #292726;
-    height: 225px;
-    float: right;
+    /*height: 225px;*/
+    /*float: right;*/
+    min-width:424px;
     width: 49.8%;
     color:white;
-    margin: 10px 0 0 0;
-
+    display:inline-block;
+    margin:0;
 }
 
 h3{
@@ -208,16 +215,26 @@ h3{
 #newSongs, #popularSongs{
     font-size: 20px;
     height: 320px;
-    margin: 10px 0 10px 0;
-
 }
+
 .verticalLine2{
-    margin: 50px 0 0 0;
     background-color: white;
     border: 1px solid white;
     height: 150px;
-    float:right;
+    display: inline-block;
+    position: relative;
+    top: 50px;
 }
+
+.verticalLine3{
+    background-color: white;
+    border: 1px solid white;
+    height: 150px;
+    display: inline-block;
+    position: relative;
+    top: 200px;
+}
+
 #createSearch h2{
     text-align: center;
     margin: 20% 0 20% 0 !important;
