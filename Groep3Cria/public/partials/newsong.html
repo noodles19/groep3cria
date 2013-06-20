@@ -1,5 +1,11 @@
-<div id="newsongpage"><form name="createNewSongForm">
-<label for="songname" style="display: inline-block; width: 100px;">Song name:</label><input id="songname" type="text" placeholder="Song name" data-ng-model="songForm.name" /><br />
-<label for="bpm" style="display: inline-block; width: 100px;">BPM:</label><input id="bpm" type="number" min="0" data-ng-model="songForm.speed" /><br />
-<button data-ng-click="startNewSong()">Create!</button>
-</form></div>
+<div id="newsongpage">
+    <form name="createNewSongForm">
+        <label for="songname" style="display: inline-block; width: 100px;">Song name:</label><input id="songname"
+                                                                                                    type="text"
+                                                                                                    placeholder="Song name"
+                                                                                                    data-ng-model="songForm.name"/><br/>
+        <label for="bpm" style="display: inline-block; width: 100px;">BPM:</label><input id="bpm" type="number" min="0"
+                                                                                         data-ng-model="songForm.speed"/><br/>
+        <button data-ng-click="startNewSong()">Create!</button>
+    </form>
+</div>

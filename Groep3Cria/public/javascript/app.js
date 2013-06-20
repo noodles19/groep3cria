@@ -10,7 +10,7 @@ var app = angular.module('myApp', ['ngResource'])
         });
         $routeProvider.when('/Learn', {
             templateUrl: 'partials/learn.html',
-            controller: testCtrl
+            controller: ''
         });
         $routeProvider.when('/MySongs', {
             templateUrl: 'partials/mySongs.html',
@@ -28,30 +28,34 @@ var app = angular.module('myApp', ['ngResource'])
             templateUrl: 'partials/registerForm.html',
             controller: 'registerCtrl'
         });
+        $routeProvider.when('/Profile', {
+            templateUrl: 'partials/profile.html',
+            controller: 'usersCtrl'
+        });
         $routeProvider.when('/New', {
             templateUrl: 'partials/newsong.html',
             controller: 'newSongCtrl'
         });
-        $routeProvider.when('/Sequencer', {
+        $routeProvider.when('/Sequencer/:id', {
             templateUrl: 'partials/sequencer.html',
-            controller: 'newSongCtrl'
+            controller: 'sequencerCtrl'
         });
         $routeProvider.when('/NewMessage', {
             templateUrl: 'partials/newMessage.html',
-            controller: 'newMsgCtrl'
+            controller: 'usersCtrl'
         })
 
         $routeProvider.when('/Contact', {
             templateUrl: 'partials/contact.html',
-            controller: 'testCtrl'
+            controller: ''
         });
         $routeProvider.when('/termsOfUse', {
             templateUrl: 'partials/termsOfUse.html',
-            controller: 'testCtrl'
+            controller: ''
         });
         $routeProvider.when('/Disclaimer', {
             templateUrl: 'partials/disclaimer.html',
-            controller: 'testCtrl'
+            controller: ''
         });
         $routeProvider.otherwise({ redirectTo: '/Home' });
     }]

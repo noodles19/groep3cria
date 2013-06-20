@@ -1,5 +1,6 @@
 <div data-ng-init="getSong()"></div>
-
+<div data-ng-init="addRating()"></div>
+        <div data-ng-init="modificationDate()"></div>
 <div id="songPage">
     <h2> Song</h2>
 
@@ -8,95 +9,82 @@
         <div class="txt" data-ng-controller="songCtrl">
             <table>
                 <tr>
+                    <td id="td1" colspan="3"> {{ song.name }}
+                    </td>
+                    <td colspan="2" id="rating">
+                        <progress id="progress"></progress>
+
+                        <button id="like" data-ng-click="addRatingAlert('like')">Like</button>
+                        <button id="dislike" data-ng-click="addRatingAlert('dislike')">Dislike</button>
+                    </td>
+
+                </tr>
+                <tr>
                     <td>
-                        <h4>Author: </h4>
+                        <h4>Started by: </h4>
 
                     </td>
-                    <td>
+                    <td class="td2" colspan="3">
                         <h5>{{ song.author.displayName }}</h5>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4>Name: </h4>
 
-                    </td>
-                    <td>
-                        <a>{{ song.name }}</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4>Speed: </h4>
-                    </td>
-                    <td>
-                        <h5> {{song.speed}}</h5>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <h4>Volume:</h4>
-                    </td>
-                    <td>
-                        <h5> {{song.volume}}</h5>
                     </td>
 
                 </tr>
                 <tr>
                     <td>
+                        <h4>Started on: </h4>
+
+                    </td>
+                    <td  class="td2" colspan="3">
+                        <h5 id="modificationDate">{{ song.author.modificationDate }}</h5>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="4">
                         <h4> Comments: </h4>
+
                     </td>
                 </tr>
                 <tr data-ng-repeat="comment in song.comments">
                     <td>
                         <h4> Name: </h4>
+
                     </td>
                     <td>
                         <h5> {{comment.UserID.loginName}}</h5>
-                    </td>
 
+                    </td>
                     <td>
                         <h4> Comment: </h4>
 
                     </td>
-                    <td>
+                    <td colspan="2">
                         <h5> {{comment.comment}}</h5>
+
                     </td>
                 </tr>
-
-
-                <tr>
-                    <td>
-                        <h4>Rating: </h4>
-                    </td>
-                </tr>
-                <tr data-ng-repeat="rating2 in song.ratings">
-                    <td>
-                        <h4>Name: </h4>
-                    </td>
-                    <td>
-                        <h5> {{rating2.UserID.displayName}}</h5>
-                    </td>
-                    <td>
-                        <h4>Rating: </h4>
-
-                    </td>
-                    <td>
-                        <h5> {{rating2.rating}}</h5>
-                    </td>
-
-                </tr>
-
             </table>
 
-
-            <button id="like" data-ng-click="addRating('like')">Like</button>
-            <button id="dislike" data-ng-click="addRating('dislike')">Dislike</button>
-
+            </br>
             <a href="javascript:void(0)" data-ng-click="inviteFriends()"> Invite your friends!</a>
+            </br>
+            <label>
+                Leave a comment
+            </label>
+            </br>
 
-            <textarea placeholder="Comment">
-            </textarea>
+            <a data-ng-click="sequencerCtrl()" href="#/Sequencer/{{song._id}}"> Work on this song!</a>
+
+            </br>
+
+            <textarea id="comment" placeholder="Your comment"></textarea>
+            <button id="textComment" data-ng-click="addComment()" > Post</button>
+
+
+
+            <button data-ng-click="modificationDate()">Try it</button>
 
         </div>
     </div>
