@@ -8,7 +8,7 @@
 var sequencerRenderer = {
     stage: null,
     width: 2000,
-    height: 1200,
+    height: 2000,
     maxPosition: 0,
     instrumentLayers: [],
     isPlaying: false,
@@ -28,31 +28,45 @@ var sequencerRenderer = {
             "instrumenttype": "Bass",
             "notes": [
 
-            ]   },
-        { "instrumenttype": "Bongo",
+            ],
+            color: '#e60099'
+        },
+        { "instrumenttype": "Cymbal",
             "notes": [
 
-            ] },
-        {  "instrumenttype": "Cannon",
+            ],
+            color: '#6633cc' },
+        {  "instrumenttype": "Hi-hat",
             "notes": [
 
-            ]},
-        { "instrumenttype": "Hi-hat",
+            ],
+            color: '#00d0fa'},
+        { "instrumenttype": "Snare",
             "notes": [
 
-            ]},
-        { "instrumenttype": "Distortion Guitar",
-            "notes": [
-
-            ]},
-        { "instrumenttype": "Guitar",
-            "notes": [
-
-            ]},
+            ],
+            color: '#0ba80b'},
         { "instrumenttype": "Kick",
             "notes": [
 
-            ]
+            ],
+            color: '#80ff00'},
+        { "instrumenttype": "Piano",
+            "notes": [
+
+            ],
+            color: '#ffff00'},
+        { "instrumenttype": "Clap",
+            "notes": [
+
+            ],
+            color: '#e67a0f'
+        },
+        { "instrumenttype": "Pad",
+            "notes": [
+
+            ],
+            color: '#ff0000'
         }
     ],
 
@@ -289,6 +303,9 @@ var sequencerRenderer = {
             otherLayers[j].setY(otherLayers[j].getY() - 160);
             otherLayers[j].draw();
         }
+        // Finally we set the banklayer 200px up to make sure it follows suit
+        this.bankLayer.setY(this.bankLayer.getY() - 160);
+        this.bankLayer.draw();
 
     },
 
@@ -316,10 +333,13 @@ var sequencerRenderer = {
             otherLayers[j].draw();
         }
 
+        // Finally we set the banklayer 200px down to make sure it follows suit
+        this.bankLayer.setY(this.bankLayer.getY() + 160);
+        this.bankLayer.draw();
+
     },
 
     _minimizeInstrument: function (layer) {
-
 
         var groups = layer.get('.notes');
 
@@ -535,7 +555,6 @@ var sequencerRenderer = {
                 self.insertEmptyNote(length - 1, layer.getAttr('visualNotes'));
                 self.createEmptyColumn(layer, offset, layer.getY(), length, null); // no -1 because we just added a new note!
                 layer.draw();
-                console.log(layer);
 
 
             } else if (name == 'killinstr') {
@@ -697,6 +716,7 @@ var sequencerRenderer = {
 
             });
         }
+        var color = layer.getAttr('color');
         for (var i = 0; i < 5; i++) {
             if (note.pitch == this.pitchToRect[i]) {
                 var rect = new Kinetic.Rect({
@@ -705,7 +725,7 @@ var sequencerRenderer = {
                     lastY: y + origin,
                     width: 35,
                     height: 35,
-                    fill: "red",
+                    fill: layer.getAttr('color'),
 //                    stroke: "black",
 //                    strokeWidth: 2,
                     pitchValue: note.pitch,
@@ -722,7 +742,7 @@ var sequencerRenderer = {
                     lastY: y + origin,
                     width: 35,
                     height: 35,
-                    fill: "#343434",
+                    fill: "#3d3a39",
 //                    stroke: "black",
 //                    strokeWidth: 0,
                     pitchValue: this.pitchToRect[i],
@@ -830,7 +850,7 @@ var sequencerRenderer = {
                 lastY: y + origin,
                 width: 35,
                 height: 35,
-                fill: "#343434",
+                fill: "#3d3a39",
 //                stroke: "black",
 //                strokeWidth: 2,
                 pitchValue: this.pitchToRect[i],
@@ -953,17 +973,35 @@ var sequencerRenderer = {
         });
 
 
-        var rect = new Kinetic.Rect({
+        var bankbg = new Kinetic.Rect({
 //            x: this.bankLayer.getX(),
 //            y: this.bankLayer.getY(),
             x: 0,
             y: 0,
             width: 185,
             height: 0,
-            fill: 'red',
+            fill: '#736d6b',
             strokeWidth: 0,
             name: 'instrbankbg',
             opacity: 1
+        });
+
+        var titlebg = new Kinetic.Rect({
+            x: 0,
+            y: 0,
+            width: 185,
+            height: 25,
+            fill: 'black',
+            name: 'titleBG',
+            opacity: 1
+        });
+
+        var titleText = new Kinetic.Text({
+            x:5,
+            y: 2,
+            text: 'Instrument Library',
+            fontSize: 20,
+            fill: 'gray'
         });
 
 
@@ -975,16 +1013,20 @@ var sequencerRenderer = {
             name: 'bankgroup'
         });
 
-        group.add(rect);
+        group.add(bankbg);
+        group.add(titlebg);
+        group.add(titleText);
 
-        var offset = 5;
-        var rectHeight = 0;
+
+        var offset = 30;
+        var rectHeight = 26;
         var length = instruments.length;
 
         for (var i = 0; i < instruments.length; i++) {
             var instrumentText = new Kinetic.Text({
                 x: 2,
                 y: 0 + offset,
+//                fontFamily: elementalEnd, // doesnt work for now
                 text: instruments[i].instrumenttype,
                 fontSize: 15,
                 fill: 'black',
@@ -1038,7 +1080,7 @@ var sequencerRenderer = {
         }
 
         this.listenerBankEvents();
-        rect.setHeight(rectHeight);
+        bankbg.setHeight(rectHeight);
 
 //        group.add(rect);
         this.bankLayer.add(group);
@@ -1067,6 +1109,10 @@ var sequencerRenderer = {
 //
 //        }
 
+        var index = this.findWithAttr(this.instruments, 'instrumenttype', instrument.instrumenttype);
+
+        var color = this.instruments[index].color;
+
 
         var layer = new Kinetic.Layer({
             x: 10,
@@ -1074,7 +1120,8 @@ var sequencerRenderer = {
             height: 200,
             instrumenttype: instrument.instrumenttype,
             notes: instrument.notes,
-            visualNotes: visualNotes
+            visualNotes: visualNotes,
+            color: color
         });
 
         if (addClickEvents == true) {
@@ -1098,6 +1145,7 @@ var sequencerRenderer = {
         }
         var index = this.instrumentLayers.indexOf(layer);
         this.instrumentLayers.splice(index, 1);
+        // Attempting to completely destroy the layer, still bugs out
         layer.get('.notes').each(function (node, n) {
             node.destroy();
         });
@@ -1130,7 +1178,7 @@ var sequencerRenderer = {
             y: layer.getY() + correction,
             width: 185,
             height: 196,
-            fill: '#343434',
+            fill: '#3d3a39',
             strokeWidth: 0,
             name: 'cpbg',
             opacity: 1
@@ -1251,31 +1299,31 @@ var sequencerRenderer = {
 
     },
 
-    init: function (x, y, songs) {
+    init: function (x, y/*, songs*/) {
 
         this.setUpCanvas(x, y);
 
-        this.songs = songs
+//        this.songs = songs
 
 //        songs.push(this.song1);
 //        songs.push(this.song2);
-//        this.songs.push(this.song3);
+        this.songs.push(this.song3);
 
         this.setupInstruments(this.songs);
         this.drawInstruments();
 
-        this.markerLayer = new Kinetic.Layer({
-            name: 'marker'
-        });
-//        this.createMarker(this.markerLayer);
-        var y = 0;
-        for (var i = 0; i < this.instrumentLayers.length; i++) {
-            this.createMarker(this.markerLayer, y);
-            this.stage.add(this.markerLayer);
-            y += 201;
-        }
-//        this.stage.add(this.markerLayer);
-
+        /* this.markerLayer = new Kinetic.Layer({
+         name: 'marker'
+         });
+         //        this.createMarker(this.markerLayer);
+         var y = 0;
+         for (var i = 0; i < this.instrumentLayers.length; i++) {
+         this.createMarker(this.markerLayer, y);
+         this.stage.add(this.markerLayer);
+         y += 201;
+         }
+         //        this.stage.add(this.markerLayer);
+         */
 
         this.addInstrumentBank(this.instruments);
 
