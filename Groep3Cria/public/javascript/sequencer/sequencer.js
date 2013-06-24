@@ -1,271 +1,382 @@
+/**
+ * The type of notes available in the sequencer
+ */
 var notes = Object.freeze({
-	HalfNote: 120,
-	QuarterNote: 60,
-	EighthNote: 30,
-	SixtheenthNote: 15,
-	DottedQuarterNote: 90,
-	DottedEightNote: 45,
-	DottedSixteenthNote: 22.5,
-	TripletQuarterNote: 40,
-	TripletEightNote: 20,
-	TripletSixteenthNote: 10
-}); 
+    HalfNote: 120,
+    QuarterNote: 60,
+    EighthNote: 30,
+    SixtheenthNote: 15,
+    DottedQuarterNote: 90,
+    DottedEightNote: 45,
+    DottedSixteenthNote: 22.5,
+    TripletQuarterNote: 40,
+    TripletEightNote: 20,
+    TripletSixteenthNote: 10
+});
 
+/**
+ * What type of note to use throughout the sequencer.
+ * @type {Number}
+ */
 var globalNoteSpeed = notes.EighthNote;
 
+/**
+ * The audiocontext of the sequencer, needed for playing sounds
+ * @type {null}
+ */
 var audioContext = null;
-var isPlaying = false;		// Are we currently playing?
-var startTime;				// The start time of the entire sequence.
-var currentNote;		// What note is currently last scheduled?
-var lookahead = 75.0;		// How frequently to call scheduling function 
-							//(in milliseconds)
-var scheduleAheadTime = 0.1;	// How far ahead to schedule audio (sec)
-							// This is calculated from lookahead, and overlaps 
-							// with next interval (in case the timer is late)
-var nextNoteTime = 0.0;		// when the next note is due.
-var timerID = 0;			// setInterval identifier.
 
-var songLength = 0;		//in beats
+/**
+ * A flag which indicates if the sequencer is playing music or not.
+ * @type {Boolean}
+ */
+var isPlaying = false;
 
-var source = [];		//The instruments
+/**
+ * Keeps track of the current note being scheduled
+ */
+var currentNote;
 
- var availableInstruments = [
- {instrumenttype: "Bass", instrumenturl: "audio/bass.wav"},
- {instrumenttype: "Bongo", instrumenturl: "audio/bongo.wav"},
- {instrumenttype: "Cannon", instrumenturl: "audio/cannon.wav"},
- {instrumenttype: "Hi-hat", instrumenturl: "audio/hihat.wav"},
- {instrumenttype: "Distortion Guitar", instrumenturl: "audio/distortionguitar.wav"},
- {instrumenttype: "Guitar", instrumenturl: "audio/guitar.wav"},
- {instrumenttype: "Kick", instrumenturl: "audio/kick.wav"},
- {instrumenttype: "Orchestra Hit", instrumenturl: "audio/orchestra hit.wav"},
- {instrumenttype: "Piano", instrumenturl: "audio/piano.wav"},
- {instrumenttype: "Snare Drum", instrumenturl: "audio/snare.wav"},
- {instrumenttype: "Trap", instrumenturl: "audio/trap.wav"},
- {instrumenttype: "Xylophone 2", instrumenturl: "audio/xylophone (2).wav"},
- {instrumenttype: "Xylophone 3", instrumenturl: "audio/xylophone.wav"},
- {instrumenttype: "Xylophone", instrumenturl: "audio/xylophone (3).wav"}
- ];
+/**
+ * How frequently to call the scheduling function in milliseconds
+ * @type {Number}
+ */
+var lookahead = 75.0;
 
+/**
+ * How far ahead to schedule the audio in seconds
+ * This is calculated from lookahead, and overlaps
+ * with next interval (in case the timer is late)
+ * @type {Number}
+ */
+var scheduleAheadTime = 0.1;
+
+/**
+ * This keeps track of when the next note is due
+ * @type {Number}
+ */
+var nextNoteTime = 0.0;
+
+/**
+ * setInterval identifier
+ * @type {Number}
+ */
+var timerID = 0;
+
+/**
+ * The song length in beats
+ * @type {Number}
+ */
+var songLength = 0;
+
+/**
+ * All the instrument audio in an array
+ * @type {Array}
+ */
+var source = [];
+
+/**
+ * All the available instruments in the sequencer.
+ * Contains instrument name and path to the instrument audio file.
+ * @type {Array}
+ */
+var availableInstruments = [
+    {instrumenttype: "Bass", instrumenturl: "audio/bass.wav"},
+    {instrumenttype: "Bongo", instrumenturl: "audio/bongo.wav"},
+    {instrumenttype: "Cannon", instrumenturl: "audio/cannon.wav"},
+    {instrumenttype: "Hi-hat", instrumenturl: "audio/hihat.wav"},
+    {instrumenttype: "Distortion Guitar", instrumenturl: "audio/distortionguitar.wav"},
+    {instrumenttype: "Guitar", instrumenturl: "audio/guitar.wav"},
+    {instrumenttype: "Kick", instrumenturl: "audio/kick.wav"},
+    {instrumenttype: "Orchestra Hit", instrumenturl: "audio/orchestra hit.wav"},
+    {instrumenttype: "Piano", instrumenturl: "audio/piano.wav"},
+    {instrumenttype: "Snare Drum", instrumenturl: "audio/snare.wav"},
+    {instrumenttype: "Trap", instrumenturl: "audio/trap.wav"},
+    {instrumenttype: "Xylophone 2", instrumenturl: "audio/xylophone (2).wav"},
+    {instrumenttype: "Xylophone 3", instrumenturl: "audio/xylophone.wav"},
+    {instrumenttype: "Xylophone", instrumenturl: "audio/xylophone (3).wav"}
+];
+
+/**
+ * This is the array of the available instrument names, which will be filled during initialization
+ * @type {Array}
+ */
 var instrumenttypes = []; //The array of instrument names
 
+/**
+ * An array which will contain individual songs, split from the recursive song structure.
+ * @type {Array}
+ */
 var songs = []; //The array of related songs
 
+/**
+ * The seed song
+ */
 var seed; //The seed song to extract the basic song info from.
 
-//window.addEventListener("load", init );
-
-function init(id) {
-//	try {
-		console.log("[LOG] Initializing resources...");
-		loadAudioSources();
-		
-		var http = new XMLHttpRequest();
-
-        loadSongsIntoArray(id);
-
-		getMaxSongLength();
-		
-		//drawGUI();
-		sequencerRenderer.init(0,0, songs);
-		
-		console.log("[LOG] Done!");
-//    }
-//	catch(e) {
-//		alert(e);
-//		alert('Web Audio API is not supported in this browser');
-//	}
-}
-
-function loadSongsIntoArray(id)
-{	
-	console.log("[LOG] Begin fetching songs...");
-	var base;
-
-	var http = new XMLHttpRequest();
-
-	var url = "/song/" + id;
-	http.open("GET", url, false);
-	http.onreadystatechange = function() {//Call a function when the state changes.
-		if(http.readyState == 4 && http.status == 200) {
-			base = JSON.parse(http.responseText);
-			base = base.songs;
-		}
-	}
-	http.send(null);
-	
-	console.log("[LOG] Songs fetched! Processing into song arrays...");
-	//Now we got the songs.
-
-	if(base.based_on == null)
-	{
-		console.log("[LOG] Loading notes of song \"" + base.name + "\"");
-		songs.push(base);
-	}
-	else
-	{
-		while(base.based_on != null)
-		{
-			console.log("[LOG] Loading notes of song \"" + base.name + "\"");
-			songs.push(base);
-			base = base.based_on;
-			if(base.based_on == null) //If the song is seed, just push this one as well and finish the loop.
-			{
-				console.log("[LOG] Loading notes of song \"" + base.name + "\"");
-				songs.push(base);
-				break;
-			}
-		}
-	}
-	seed = base;
-	
-	for(var i=0;i<songs.length;i++)
-	{
-		songs[i].based_on = null;
-	}
-		console.log(songs);	
-	console.log("[LOG] Processing songs done!");
-}
-
-function loadAudioSources()
-{
-	audioContext = new webkitAudioContext();
-	bufferLoader = new BufferLoader(
-		audioContext,
-        availableInstruments,
-		finishedLoading
-	);
-	bufferLoader.load();
-}
-
-function drawGUI()
-{
-	playbutton = document.createElement("span");
-	playbutton.appendChild(document.createTextNode("Play"));
-	playbutton.addEventListener("click", play );
-	document.body.appendChild(playbutton);
-	document.body.appendChild(document.createElement("br"));
-	document.body.appendChild(document.createElement("br"));
-	document.body.appendChild(document.createTextNode("Song: "));
-	document.body.appendChild(document.createTextNode(songs[0].name));
-	document.body.appendChild(document.createElement("br"));
-	document.body.appendChild(document.createTextNode("Tree depth: "));
-	document.body.appendChild(document.createTextNode(songs.length));
-	document.body.appendChild(document.createElement("br"));
-	document.body.appendChild(document.createTextNode("BPM: "));
-	document.body.appendChild(document.createTextNode(seed.speed));
-	document.body.appendChild(document.createElement("br"));
-	document.body.appendChild(document.createTextNode("Branch structure: "));
-	document.body.appendChild(document.createElement("br"));
-	for(var i=songs.length-1;i>=0;i--)
-	{
-		document.body.appendChild(document.createTextNode(songs[i].name));
-		document.body.appendChild(document.createTextNode(" + (" + i + ") -> "));
-	}
-}
-
-function getMaxSongLength()
-{
-	for(var h=0;h<songs.length;h++)
-	{
-		for(var i=0;i<songs[h].instruments.length;i++)
-		{
-			for (var j = 0; j < songs[h].instruments[i].notes.length; j++) {
-			    if (songs[h].instruments[i].notes[j].position > songLength) {
-				songLength = songs[h].instruments[i].notes[j].position;
-			    }
-			}
-		}
-	}
-	songLength++;		//To include the final note
-	console.log("[LOG] Song length in beats: " + songLength);
-}
-
-function finishedLoading(bufferList)
-{
-	for(var i=0;i<bufferLoader.urlList.length;i++)
-	{
-		source[i] = audioContext.createBufferSource(); // creates a sound source
-		source[i].buffer = bufferList[i];		
-	}
-}
-
-function nextNote() {
-    nextNoteTime += (globalNoteSpeed / seed.speed) / 2;	//Basically determines how long the notes last.
-    if (++currentNote == songLength) {
-        currentNote = 0;
-
-    }
-}
-
-function playNote( beatNumber, time ) {
-
-    for(var x=0;x<availableInstruments.length;x++)
-    {
+/**
+ * Loads the instrument names into the instrumenttypes array
+ */
+function loadInstrumentTypesIntoArray() {
+    for (var x = 0; x < availableInstruments.length; x++) {
         instrumenttypes.push(availableInstruments[x].instrumenttype);
     }
+}
 
-	for(var j=0;j<sequencerRenderer.instrumentLayers.length;j++)
-	{
-        console.log(sequencerRenderer.instrumentLayers);
-        console.log(j);
-		for(var i=0;i<sequencerRenderer.instrumentLayers[j].getAttr("notes").length;i++)
-		{
-//			console.log(sequencerRenderer.instrumentLayers[j].getAttr("notes"));
-//            console.log(sequencerRenderer.instrumentLayers[j].getAttr("notes")[i].position);
-			if(sequencerRenderer.instrumentLayers[j].getAttr("notes")[i].position != beatNumber)
-            {
-                console.log("SKIP");
-				continue;
+/**
+ * An initialization function
+ * @param id The ID of the song to load. It can either be an empty song, or an existing one.
+ */
+function init(id) {
+
+    console.log("[LOG] Initializing resources...");
+    loadAudioSources();
+
+    var http = new XMLHttpRequest();
+
+    loadSongsIntoArray(id);
+
+    getMaxSongLength();
+
+    sequencerRenderer.init(0,0, songs);
+
+    loadInstrumentTypesIntoArray();
+
+    console.log("[LOG] Done!");
+}
+
+/**
+ * Grabs a song from the database based on the song ID
+ * @param id The song ID to load
+ * @param base The variable to hold the loaded song
+ * @return {*} The loaded song as an object
+ */
+function fetchSongWithXMLHttpRequest(id, base) {
+    var http = new XMLHttpRequest();
+
+    var url = "/song/" + id;
+    http.open("GET", url, false);
+    http.onreadystatechange = function () {//Call a function when the state changes.
+        if (http.readyState == 4 && http.status == 200) {
+            base = JSON.parse(http.responseText);
+            base = base.songs;
+        }
+    }
+    http.send(null);
+    return base;
+}
+
+/**
+ * Splits a song into individual songs and loads them into a songs array
+ * The base song automatically updates in this process until hit hits the seed.
+ * @param base The base song
+ * @return {*} The base song as a seed
+ */
+function loadSongsIntoSongArray(base) {
+    while (base.based_on != null) {
+        console.log("[LOG] Loading notes of song \"" + base.name + "\"");
+        songs.push(base);
+        base = base.based_on;
+        if (base.based_on == null) //If the song is seed, just push this one as well and finish the loop.
+        {
+            console.log("[LOG] Loading notes of song \"" + base.name + "\"");
+            songs.push(base);
+            break;
+        }
+    }
+    return base;
+}
+
+/**
+ * Clears the "based_on" attribute of the individual song pieces.
+ */
+function clearSongsBasedOn() {
+    for (var i = 0; i < songs.length; i++) {
+        songs[i].based_on = null;
+    }
+}
+
+/**
+ * Determines the base song and loads all the song pieces into the songs array
+ * @param base The loaded song
+ */
+function determineBaseSongAndLoadSongsIntoSongsArray(base) {
+    if (base.based_on == null) {
+        console.log("[LOG] Loading notes of song \"" + base.name + "\"");
+        songs.push(base);
+    }
+    else {
+        base = loadSongsIntoSongArray(base);
+    }
+}
+
+/**
+ * Grabs the song from the database, then loads it into the songs array as well as determining the seed.
+ * @param id
+ */
+function loadSongsIntoArray(id)
+{
+    console.log("[LOG] Begin fetching songs...");
+    var base;
+    base = fetchSongWithXMLHttpRequest(id, base);
+
+    console.log("[LOG] Songs fetched! Processing into song arrays...");
+
+    determineBaseSongAndLoadSongsIntoSongsArray(base);
+
+    seed = base;
+
+    clearSongsBasedOn();
+
+    console.log("[LOG] Processing songs done!");
+}
+
+/**
+ * Loads the audio resources.
+ */
+function loadAudioSources()
+{
+    audioContext = new webkitAudioContext();
+    bufferLoader = new BufferLoader(
+        audioContext,
+        availableInstruments,
+        finishedLoading
+    );
+    bufferLoader.load();
+}
+
+/**
+ * Gets the max song length in beats.
+ * To determine this, it loops through all available instruments of all song pieces
+ * and compares the max length with each other.
+ */
+function getMaxSongLength()
+{
+    for(var h=0;h<songs.length;h++)
+    {
+        for(var i=0;i<songs[h].instruments.length;i++)
+        {
+            for (var j = 0; j < songs[h].instruments[i].notes.length; j++) {
+                if (songs[h].instruments[i].notes[j].position > songLength) {
+                    songLength = songs[h].instruments[i].notes[j].position;
+                }
             }
-			else
-			{
-				var sound = audioContext.createBufferSource();
-				sound.buffer = source[instrumenttypes.indexOf(sequencerRenderer.instrumentLayers[j].getAttr("instrumenttype"))].buffer;
-				sound.connect(audioContext.destination);
-				sound.playbackRate.value = sequencerRenderer.instrumentLayers[j].getAttr("notes")[i].pitch;
-				sound.start( time );
-				sound.stop( time + sequencerRenderer.instrumentLayers[j].getAttr("notes")[i].duration );
-				break;
-			}
-		}
-	}
+        }
+    }
+    songLength++;        //To include the final note
+    console.log("[LOG] Song length in beats: " + songLength);
 }
 
+/**
+ * This function executes once the songs have been loaded.
+ * The audio then becomes a sound source and gets put into an array.
+ * @param bufferList
+ */
+function finishedLoading(bufferList)
+{
+    for(var i=0;i<bufferLoader.urlList.length;i++)
+    {
+        source[i] = audioContext.createBufferSource(); // creates a sound source
+        source[i].buffer = bufferList[i];
+    }
+}
+
+/**
+ * Makes the song advance into the next note.
+ * The song resets once we reach the end of the song.
+ */
+function nextNote() {
+    nextNoteTime += (globalNoteSpeed / seed.speed) / 2;    //Basically determines how long the notes last.
+    if (++currentNote == songLength) {
+        currentNote = 0;
+    }
+}
+
+/**
+ * Plays sound based on the instrument and note index.
+ * @param instrumentIndex The index of the instrument layer
+ * @param noteIndex The index of the note to play inside above instrument player
+ * @param time At what time to play the note.
+ * @return {*} The sound to play
+ */
+function playSound(instrumentIndex, noteIndex, time) {
+    var sound = audioContext.createBufferSource();
+    sound.buffer = source[instrumenttypes.indexOf(sequencerRenderer.instrumentLayers[instrumentIndex].getAttr("instrumenttype"))].buffer;
+    sound.connect(audioContext.destination);
+    sound.playbackRate.value = sequencerRenderer.instrumentLayers[instrumentIndex].getAttr("notes")[noteIndex].pitch;
+    sound.start(time);
+    sound.stop(time + sequencerRenderer.instrumentLayers[instrumentIndex].getAttr("notes")[noteIndex].duration);
+    return sound;
+}
+
+/**
+ * Loops through instruments and notes to determine which note to play,
+ * depending on the beat number
+ * @param beatNumber The current beat number to play of the song.
+ * @param time At what time to play the note.
+ */
+function playNote( beatNumber, time ) {
+    for(var j=0;j<sequencerRenderer.instrumentLayers.length;j++)
+    {
+        for(var i=0;i<sequencerRenderer.instrumentLayers[j].getAttr("notes").length;i++)
+        {
+            if(sequencerRenderer.instrumentLayers[j].getAttr("notes")[i].position != beatNumber)
+            {
+                continue;
+            }
+            else
+            {
+                playSound(j, i, time);
+                break;
+            }
+        }
+    }
+}
+
+/**
+ * Schedules notes and plays them, and updates the marker accordingly.
+ */
 function scheduler() {
-	// while there are notes that will need to play before the next interval, 
-	// schedule them and advance the pointer.
-	while (nextNoteTime < audioContext.currentTime + scheduleAheadTime ) {
-		playNote( currentNote, nextNoteTime );
-		if(currentNote != 0)
-			sequencerRenderer.moveMarkers(sequencerRenderer.markerLayer);
-		else
-			sequencerRenderer.resetMarker(sequencerRenderer.markerLayer);
-		nextNote();
-	}
-	timerID = window.setTimeout( scheduler, lookahead );
+    while (nextNoteTime < audioContext.currentTime + scheduleAheadTime ) {
+        playNote( currentNote, nextNoteTime );
+        if(currentNote != 0)
+            sequencerRenderer.moveMarkers(sequencerRenderer.markerLayer);
+        else
+            sequencerRenderer.resetMarker(sequencerRenderer.markerLayer);
+        nextNote();
+    }
+    timerID = window.setTimeout( scheduler, lookahead );
 }
 
+/**
+ * Toggles the playing state of the sequencer.
+ */
 function play() {
     songLength = sequencerRenderer.songLength + 1;
 
-	isPlaying = !isPlaying;
+    isPlaying = !isPlaying;
 
-	if (isPlaying) { // start playing
-		currentNote = 0;
-		nextNoteTime = audioContext.currentTime;
-		scheduler();	// kick off scheduling
-		return "stop";
-	} else {
-		window.clearTimeout( timerID );
-		return "play";
-	}
+    if (isPlaying) { // start playing
+        currentNote = 0;
+        nextNoteTime = audioContext.currentTime;
+        scheduler();    // kick off scheduling
+    } else {
+        window.clearTimeout( timerID );
+    }
 }
 
 
 /* ************************************************
-     Bufferloader class for loading samples
+ Bufferloader class for loading samples
  * ************************************************/
 
+/**
+ * The bufferloader class which handles loading instruments into buffers
+ * @param context The audiocontext
+ * @param urlList The list of URLs for instruments
+ * @param callback The callback function to call once loading is done.
+ * @constructor
+ */
 function BufferLoader(context, urlList, callback) {
     this.context = context;
     this.urlList = urlList;
@@ -273,6 +384,12 @@ function BufferLoader(context, urlList, callback) {
     this.bufferList = new Array();
     this.loadCount = 0;
 }
+
+/**
+ * Loads an individual instrument into the buffer
+ * @param url The URL of the instrument
+ * @param index The index of the instrument
+ */
 BufferLoader.prototype.loadBuffer = function (url, index) {
     var request = new XMLHttpRequest();
     request.open("GET", url, true);
@@ -286,7 +403,7 @@ BufferLoader.prototype.loadBuffer = function (url, index) {
             }
             loader.bufferList[index] = buffer;
             if (++loader.loadCount == loader.urlList.length)
-            loader.onload(loader.bufferList);
+                loader.onload(loader.bufferList);
         }, function (error) {
             console.error('decodeAudioData error', error);
         });
@@ -296,10 +413,14 @@ BufferLoader.prototype.loadBuffer = function (url, index) {
     }
     request.send();
 }
+
+/**
+ * Loads all the instruments into buffer.
+ */
 BufferLoader.prototype.load = function () {
     for (var i = 0; i < this.urlList.length; ++i)
     {
-	console.log("[LOG] Loading instrument \"" + availableInstruments[i].instrumenttype + "\"");
+        console.log("[LOG] Loading instrument \"" + availableInstruments[i].instrumenttype + "\"");
         this.loadBuffer("javascript/sequencer/" +this.urlList[i].instrumenturl, i);
     }
 }
