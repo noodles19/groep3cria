@@ -267,6 +267,11 @@ var sequencerRenderer = {
         ]
     },
 
+    /**
+     * Sets up our canvas and stage
+     * @param x The x position of the canvas/stage
+     * @param y The y position of the canvas/stage
+     */
     setUpCanvas: function (x, y) {
 
         this.stage = new Kinetic.Stage({
@@ -280,6 +285,11 @@ var sequencerRenderer = {
 
     },
 
+    /**
+     * Collapses the UI for the layers after the minimized layer
+     * @param layer The layer being minimized
+     * @private
+     */
     _collapseUi: function (layer) {
         var otherLayers = [];
         var afterInstrumentTrigger = false;
@@ -299,7 +309,6 @@ var sequencerRenderer = {
         }
 
         for (var j = 0; j < otherLayers.length; j++) {
-            var tempLayer = otherLayers[j];
             otherLayers[j].setY(otherLayers[j].getY() - 160);
             otherLayers[j].draw();
         }
@@ -309,6 +318,11 @@ var sequencerRenderer = {
 
     },
 
+    /**
+     * Expands the UI for the layers after the minimized layer
+     * @param layer The layer being minimized
+     * @private
+     */
     _expandUi: function (layer) {
         var otherLayers = [];
         var afterInstrumentTrigger = false;
@@ -328,7 +342,6 @@ var sequencerRenderer = {
         }
 
         for (var j = 0; j < otherLayers.length; j++) {
-            var tempLayer = otherLayers[j];
             otherLayers[j].setY(otherLayers[j].getY() + 160);
             otherLayers[j].draw();
         }
@@ -339,6 +352,11 @@ var sequencerRenderer = {
 
     },
 
+    /**
+     * Minimized the instrument to a single column row
+     * @param layer The layer to be minimized
+     * @private
+     */
     _minimizeInstrument: function (layer) {
 
         var groups = layer.get('.notes');
@@ -418,63 +436,12 @@ var sequencerRenderer = {
 
     },
 
-    update: function (dt) {
-        //TODO add audio scheduling and stuff
-        //TODO do something with dt
-        this.numFrames++ * dt;
-
-
-    },
-
-    draw: function () {
-        alert("hi");
-
-        this.requestAnimFrame(this.draw);
-    },
-
-    //TODO fetch the notes from database
-    fetchNotes: function (notes) {
-        var note1 = new Note(0, 0.667, -0.5, 1);
-        var note2 = new Note(3, 0.5, -0.5, 1);
-        var note3 = new Note(5, 0.5, -0.5, 1);
-        var note4 = new Note(6, 1, -0.5, 1);
-        var note5 = new Note(10, 1, -0.5, 1);
-        var note6 = new Note(20, 1, -0.5, 1);
-        var note7 = new Note(22, 1, -0.5, 1);
-        var note8 = new Note(23, 1, -0.5, 1);
-        notes.push(note1);
-        notes.push(note2);
-        notes.push(note3);
-        notes.push(note4);
-        notes.push(note5);
-        notes.push(note6);
-        notes.push(note7);
-        notes.push(note8);
-        return notes;
-
-    },
-
-    render: function () {
-        var now = new Date().getTime();
-        var delta = now - this.lastUpdate;
-        this.lastUpdate = now;
-
-        for (var t = 0; t < delta; t += this.time_step) {
-            this.update(this.time_step);
-        }
-        delta = (new Date().getTime() - now);
-        setTimeout(this.render - delta, this.frame_scale);
-    },
-
-    togglePlay: function () {
-        this.isPlaying = !this.isPlaying;
-    },
-    insertEmptyNote: function (index, notesVisual) {
-
-        var emptyNote = {position: null, pitch: null, volume: null, duration: null};
-        notesVisual.splice(index, 0, emptyNote);
-    },
-
+    /**
+     * Creates a visual array which contains empty notes inbetween the position of notes
+     * @param notesVisual The empty visualnotes array to be given
+     * @param notes The notes from which the visualnotes array has to be created
+     * @returns {*|Array|string|Blob} A newly created visualnotes array
+     */
     createVisualArray: function (notesVisual, notes) {
         notesVisual = notes.slice(0);
         this.maxPosition = 0;
@@ -499,10 +466,12 @@ var sequencerRenderer = {
         return notesVisual;
 
     },
-    /** should add a new click event to our layer so we can edit it like any other layer **/
+    /**
+     * Adds a click event to the designated layer
+     * @param layer The layer to which the click events should be added
+     */
     addClickEventLastAddedInstrument: function (layer) {
         var self = this;
-        var length = this.instrumentLayers.length;
 
         layer.on('click', function (event) {
             //get the shape that was clicked on
@@ -538,12 +507,6 @@ var sequencerRenderer = {
                 var pitch = shape.getAttr('pitchValue');
                 self._replaceEmptyNote(position, pitch, layer);
                 self._updateEmptyColumn(layer, shape, group);
-                console.log(layer);
-
-
-//                    self._replaceEmptyNote(position, pitch, layer);
-//                    self._updateLayer(layer);
-
             } else if (name == 'minimize') {
                 self._minimizeInstrument(layer);
                 layer.draw();
@@ -572,7 +535,22 @@ var sequencerRenderer = {
 
     },
 
+    /**
+     * Insert an empty note in the visual notes array
+     * @param index The index on which to insert something
+     * @param notesVisual The array into which you are inserting
+     */
+    insertEmptyNote: function (index, notesVisual) {
 
+        var emptyNote = {position: null, pitch: null, volume: null, duration: null};
+        notesVisual.splice(index, 0, emptyNote);
+    },
+
+    /**
+     * For now not used
+     * @param markerLayer
+     * @param y
+     */
     createMarker: function (markerLayer, y) {
         var rect = new Kinetic.Rect({
             x: 209,
@@ -590,14 +568,14 @@ var sequencerRenderer = {
 
     },
 
+    /**
+     * Adds the click events for the music library
+     */
     listenerBankEvents: function () {
         var self = this;
         this.bankLayer.on('click', function (event) {
             var shape = event.targetNode;
-            var group = shape.getParent();
-//            var layer = group.getParent();
             var name = shape.getName();
-            var x = 5;
 
             if (name == 'addnewinstrument') {
 
@@ -613,16 +591,16 @@ var sequencerRenderer = {
                         }
                     ]
                 }
-
-                var layer = self.addInstrument(instrument, true);
-
+                self.addInstrument(instrument, true);
                 self.drawLastInstrument();
-
             }
         });
 
     },
 
+    /**
+     * @deprecated we're using individual click event assigning on startup/addition  of an instrument now. Use addClickEvent()
+     */
     clickEvents: function () {
         var self = this;
         var lengthglobal = this.instrumentLayers.length;
@@ -696,10 +674,17 @@ var sequencerRenderer = {
                 }
             });
         }
-        i = 0; // needed?
 
     },
 
+    /**
+     * Create a column out of a filled note (not null)
+     * @param note The note to be passed for position pitch etc
+     * @param layer The layer to which the column needs to be added
+     * @param x The x coordinate of the column(left)
+     * @param y The y coordinate of teh column(top)
+     * @param group The group it needs to be added to, null for making a new group
+     */
     createColumn: function (note, layer, x, y, group) {
         var origin = 0;
 
@@ -761,6 +746,10 @@ var sequencerRenderer = {
         layer.add(group);
     },
 
+    /**
+     * Moves the markers up for an x component to simulate playing
+     * @param markerLayer the layer on which the markers reside
+     */
     moveMarkers: function (markerLayer) {
 
         var children = markerLayer.getChildren();
@@ -773,6 +762,10 @@ var sequencerRenderer = {
 
     },
 
+    /**
+     * Reset the markers back to their original position
+     * @param markerLayer The
+     */
     resetMarker: function (markerLayer) {
         var children = markerLayer.getChildren();
 
@@ -784,6 +777,10 @@ var sequencerRenderer = {
     },
 
 
+    /**
+     * Animate function to simulate playing, currently unused due to technical limitations
+     * @param layer The layer on which the marker resides(?)
+     */
     animate: function (layer) {
         var shapes = this.stage.get('.marker');
 
@@ -799,6 +796,13 @@ var sequencerRenderer = {
 
     },
 
+    /**
+     * Replaces an note(null) with one with position and pitch
+     * @param position The position of the note
+     * @param pitch The pitch of the note
+     * @param layer The layer on which the note resides
+     * @private
+     */
     _replaceEmptyNote: function (position, pitch, layer) {
         layer.getAttr('notes').splice(position, 1, {position: position, pitch: pitch, volume: 1, duration: 1});
         for (var i = 0; i < layer.getAttr('visualNotes').length; i++) {
@@ -816,6 +820,13 @@ var sequencerRenderer = {
         }
     },
 
+    /**
+     * Inserts a null note upon clicking the correct pitch
+     * @param position The position on which you are clicking
+     * @param pitch The pitch on which you are clicking
+     * @param layer The layer on which you are clicking
+     * @private
+     */
     _replaceNoteSamePitch: function (position, pitch, layer) {
 
         var notes = layer.getAttr('notes');
@@ -830,6 +841,14 @@ var sequencerRenderer = {
         this.sortNotes(layer.getAttr('notes'));
     },
 
+    /**
+     * Creates an empty column, only needs the position as the pitch is irrelevant(it's empty)
+     * @param layer The layer on which to add the column
+     * @param x The x coordinate of the column(left)
+     * @param y The y coordinate of the column(top)
+     * @param position The position of the note
+     * @param group The group to which to add the column, null if a new group should be created
+     */
     createEmptyColumn: function (layer, x, y, position, group) {
         var origin = 0;
         if (position > this.songLength) {
@@ -867,6 +886,13 @@ var sequencerRenderer = {
         layer.add(group);
     },
 
+
+    /**
+     * Creates a raster of empty and normal columns
+     * @param layer The layer to which to add the columns
+     * @param x The x coordinate of the layer
+     * @param y The y coordinate of the layer
+     */
     createRaster: function (layer, x, y) {
 
         var xOrigin = x;
@@ -886,6 +912,10 @@ var sequencerRenderer = {
         }
     },
 
+    /**
+     * Initial setup of the instruments when the sequencer first loads
+     * @param songs The songs from which to create the instruments
+     */
     setupInstruments: function (songs) {
 
         for (var i = 0; i < songs.length; i++) {
@@ -900,6 +930,12 @@ var sequencerRenderer = {
 
     },
 
+
+    /**
+     * update the layer, unused
+     * @param layer the layer to be updated
+     * @private
+     */
     _updateLayer: function (layer) {
         var x = layer.getX();
         var y = layer.getY();
@@ -911,6 +947,14 @@ var sequencerRenderer = {
         layer.draw();
 
     },
+
+    /**
+     * Updates an empty column and redraws it
+     * @param layer the layer on which the column resides
+     * @param shape To get the x and y coordinates
+     * @param group The group in which the column resides
+     * @private
+     */
     _updateEmptyColumn: function (layer, shape, group) {
 
         var position = shape.getAttr('notePosition');
@@ -923,10 +967,17 @@ var sequencerRenderer = {
         this.createColumn({position: position, pitch: pitch, volume: 1, duration: 1}, layer, x, y, group);
         group.draw();
     },
+
+    /**
+     * Updates the column of the same pitch, removes children and redraws a new empty column
+     * @param layer The layer on which to update the column
+     * @param shape To get our position
+     * @param group Group in which the shape resides for convenience
+     * @private
+     */
     _updateColumnSamePitch: function (layer, shape, group) {
 
         var position = shape.getAttr('notePosition');
-        var pitch = shape.getAttr('pitchValue');
         var x = group.getX();
         var y = group.getY();
 
@@ -952,14 +1003,13 @@ var sequencerRenderer = {
                 this.createColumn(layer.getAttr('notes')[i], layer, x, y, group);
             }
         }
-//        if(i == length) {
-//            this.createColumn(layer.getAttr('notes')[position], layer, x, y, group);
-//        }
-
-//        this.createColumn(layer.notes[position], layer, x, y, group);
         group.draw();
     },
 
+    /**
+     * Adds the instrument library from a statically defined list of instruments
+     * @param instruments The instruments from which to create our library
+     */
     addInstrumentBank: function (instruments) {
         var y = this.instrumentLayers.length * 200 + 4; // get the last instrumentLayer
         var x = 20;
@@ -974,13 +1024,11 @@ var sequencerRenderer = {
 
 
         var bankbg = new Kinetic.Rect({
-//            x: this.bankLayer.getX(),
-//            y: this.bankLayer.getY(),
             x: 0,
             y: 0,
             width: 185,
             height: 0,
-            fill: '#736d6b',
+            fill: '#3d3a39',
             strokeWidth: 0,
             name: 'instrbankbg',
             opacity: 1
@@ -997,11 +1045,11 @@ var sequencerRenderer = {
         });
 
         var titleText = new Kinetic.Text({
-            x:5,
+            x: 5,
             y: 2,
             text: 'Instrument Library',
             fontSize: 20,
-            fill: 'gray'
+            fill: 'white'
         });
 
 
@@ -1020,7 +1068,6 @@ var sequencerRenderer = {
 
         var offset = 30;
         var rectHeight = 26;
-        var length = instruments.length;
 
         for (var i = 0; i < instruments.length; i++) {
             var instrumentText = new Kinetic.Text({
@@ -1082,14 +1129,18 @@ var sequencerRenderer = {
         this.listenerBankEvents();
         bankbg.setHeight(rectHeight);
 
-//        group.add(rect);
         this.bankLayer.add(group);
         this.stage.add(this.bankLayer);
         this.bankLayer.draw();
-
-
     },
 
+    /**
+     * Adds a new instrument to our instrumentLayers, called when setting up and when a user clicks the add button
+     * on the library element
+     * @param instrument The Instrument to be added
+     * @param addClickEvents true if we need to add clicEvents(after setup) false if not(on setup)
+     * @returns {Kinetic.Layer} The layer with the added Instrument.
+     */
     addInstrument: function (instrument, addClickEvents) {
 
         var visualNotes = [];
@@ -1100,19 +1151,10 @@ var sequencerRenderer = {
         for (var i = 0; i < this.instrumentLayers.length; i++) {
             y += 67
         }
-        //last element of the visualnotes array
-//        if (visualNotes[visualNotes.length - 1].position != null) {
-//            for (var j = 0; j < 4; j++) {
-//                var emptyNote = {position: null, pitch: null, volume: null, duration: null};
-//                visualNotes.push(emptyNote);
-//            }
-//
-//        }
 
         var index = this.findWithAttr(this.instruments, 'instrumenttype', instrument.instrumenttype);
 
         var color = this.instruments[index].color;
-
 
         var layer = new Kinetic.Layer({
             x: 10,
@@ -1135,6 +1177,10 @@ var sequencerRenderer = {
 
     },
 
+    /**
+     * Removes an instrument and destroys the layer
+     * @param layer Layer to be destroyed
+     */
     removeInstrument: function (layer) { // Removes the instrument by type
 
 
@@ -1146,6 +1192,7 @@ var sequencerRenderer = {
         var index = this.instrumentLayers.indexOf(layer);
         this.instrumentLayers.splice(index, 1);
         // Attempting to completely destroy the layer, still bugs out
+        // At this point i don't know if this actually does anything, it does get rid of all the layers individual elemnents.
         layer.get('.notes').each(function (node, n) {
             node.destroy();
         });
@@ -1163,6 +1210,10 @@ var sequencerRenderer = {
         this.bankLayer.draw();
     },
 
+    /**
+     * Draws the user control panel on a new layer(usually the instrument layer)
+     * @param layer The layer to which the CP needs to be added
+     */
     drawCP: function (layer) {
         var correction = 0;
         if (layer.getY() != 0) {
@@ -1185,6 +1236,16 @@ var sequencerRenderer = {
 
         });
 
+        var titleBarBG = new Kinetic.Rect({
+            x:layer.getX(),
+            y: layer.getY() + correction,
+            width: 185,
+            height: 20,
+            fill: layer.getAttr('color'),
+            name: 'cptitlebar',
+            opacity: 1
+        });
+
 
         var instrumentText = new Kinetic.Text({
             x: layer.getX() + 2,
@@ -1197,7 +1258,7 @@ var sequencerRenderer = {
 
         var minButton = new Kinetic.Circle({
             x: layer.getX() + 155,
-            y: layer.getY() + correction + 15,
+            y: layer.getY() + correction + 10,
             radius: 5,
             fill: 'white',
             sroke: 'black',
@@ -1207,7 +1268,7 @@ var sequencerRenderer = {
 
         var killButton = new Kinetic.Circle({
             x: layer.getX() + 170,
-            y: layer.getY() + correction + 15,
+            y: layer.getY() + correction + 10,
             radius: 5,
             fill: 'white',
             sroke: 'black',
@@ -1217,7 +1278,7 @@ var sequencerRenderer = {
 
         var addColumnsButton = new Kinetic.Circle({
             x: layer.getX() + 140,
-            y: layer.getY() + correction + 15,
+            y: layer.getY() + correction + 10,
             radius: 5,
             fill: 'red',
             sroke: 'black',
@@ -1226,6 +1287,7 @@ var sequencerRenderer = {
         });
 
         group.add(bg);
+        group.add(titleBarBG);
         group.add(instrumentText);
         group.add(minButton);
         group.add(killButton);
@@ -1233,9 +1295,10 @@ var sequencerRenderer = {
         layer.add(group);
     },
 
-    //draws a new instrument
+    /**
+     * Draws the last instrument in our instrumentLayers array
+     */
     drawLastInstrument: function () {
-        var length = this.instrumentLayers.length;
         if (this.instrumentLayers.length == 1) {
             var y = 0
             var layer = this.instrumentLayers[this.instrumentLayers.length - 1];
@@ -1261,10 +1324,12 @@ var sequencerRenderer = {
         }
     },
 
+    /**
+     * Redraws all the instruments, also draws the control panel to the instruments
+     * Used on setup
+     */
     drawInstruments: function () {
         for (var i = 0; i < this.instrumentLayers.length; i++) {
-            var layer = this.instrumentLayers[i];
-            var y = this.instrumentLayers[i].getY();
             this.createRaster(this.instrumentLayers[i], this.instrumentLayers[i].getX() + 40, this.instrumentLayers[i].getY());
             this.drawCP(this.instrumentLayers[i]);
             this.instrumentLayers[i].draw();
@@ -1273,6 +1338,10 @@ var sequencerRenderer = {
 
     },
 
+    /**
+     * Sorts the notes in an array by their position property
+     * @param notes The Note array to be sorted
+     */
     sortNotes: function (notes) {
         notes.sort(function (a, b) {
             if (a.position < b.position)
@@ -1283,6 +1352,10 @@ var sequencerRenderer = {
         });
     },
 
+    /**
+     * Doesn't work yet
+     * @returns {*}
+     */
     saveSong: function () {
         var lastSong = this.songs.length - 1;
 
@@ -1299,6 +1372,12 @@ var sequencerRenderer = {
 
     },
 
+    /**
+     * initialize our stage/canvas
+     * @param x The x position of the sequencer
+     * @param y The y position of the sequencer
+     * @param songs The songs to be loaded into the sequencer, leave empty if no previous song is selected
+     */
     init: function (x, y/*, songs*/) {
 
         this.setUpCanvas(x, y);
