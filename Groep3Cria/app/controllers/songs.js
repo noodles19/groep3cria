@@ -17,6 +17,7 @@ exports.create = function (req, res) {
             doc: doc,
             err: err
         };
+        console.log(retObj.err);
         return res.send(retObj);
     });
 
