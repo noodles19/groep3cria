@@ -81,38 +81,43 @@ var source = [];
  * @type {Array}
  */
 var availableInstruments = [
-    {instrumenttype: "Bass", instrumenturl: "audio/bass.wav"},
-    {instrumenttype: "Bongo", instrumenturl: "audio/bongo.wav"},
-    {instrumenttype: "Cannon", instrumenturl: "audio/cannon.wav"},
-    {instrumenttype: "Hi-hat", instrumenturl: "audio/hihat.wav"},
-    {instrumenttype: "Distortion Guitar", instrumenturl: "audio/distortionguitar.wav"},
-    {instrumenttype: "Guitar", instrumenturl: "audio/guitar.wav"},
+    {instrumenttype: "Bass", instrumenturl: "audio/Bass_guitar_2.wav"},
+    {instrumenttype: "Cymbal", instrumenturl: "audio/Cymbal_2.wav"},
+    {instrumenttype: "Hi-hat", instrumenturl: "audio/Hi-hat_2.wav"},
+    {instrumenttype: "Snare", instrumenturl: "audio/Snare_1.wav"},
     {instrumenttype: "Kick", instrumenturl: "audio/kick.wav"},
-    {instrumenttype: "Orchestra Hit", instrumenturl: "audio/orchestra hit.wav"},
-    {instrumenttype: "Piano", instrumenturl: "audio/piano.wav"},
-    {instrumenttype: "Snare Drum", instrumenturl: "audio/snare.wav"},
-    {instrumenttype: "Trap", instrumenturl: "audio/trap.wav"},
-    {instrumenttype: "Xylophone 2", instrumenturl: "audio/xylophone (2).wav"},
-    {instrumenttype: "Xylophone 3", instrumenturl: "audio/xylophone.wav"},
-    {instrumenttype: "Xylophone", instrumenturl: "audio/xylophone (3).wav"}
+    {instrumenttype: "Piano", instrumenturl: "audio/Piano_3.wav"},
+    {instrumenttype: "Clap", instrumenturl: "audio/clap.wav"},
+    {instrumenttype: "Pad", instrumenturl: "audio/Bass_guitar_2.wav"}
 ];
 
 /**
  * This is the array of the available instrument names, which will be filled during initialization
  * @type {Array}
  */
-var instrumenttypes = []; //The array of instrument names
+var instrumenttypes = [];
 
 /**
  * An array which will contain individual songs, split from the recursive song structure.
  * @type {Array}
  */
-var songs = []; //The array of related songs
+var songs = [];
 
 /**
  * The seed song
  */
-var seed; //The seed song to extract the basic song info from.
+var seed;
+
+/**
+ * The original song directly fetched from the database, without any modifications.
+ */
+var original;
+
+/**
+ * The current saved progress of the song
+ */
+
+var saved;
 
 /**
  * Loads the instrument names into the instrumenttypes array
@@ -160,10 +165,43 @@ function fetchSongWithXMLHttpRequest(id, base) {
         if (http.readyState == 4 && http.status == 200) {
             base = JSON.parse(http.responseText);
             base = base.songs;
+            original = base;
         }
     }
     http.send(null);
     return base;
+}
+
+function saveSong()
+{
+    saved = original;
+    for(var i=0;i<sequencerRenderer.instrumentLayers.length;i++)
+    {
+        var instrument = {instrumenttype: null, notes: []};
+        instrument.instrumenttype = sequencerRenderer.instrumentLayers[i].attrs.instrumenttype;
+        instrument.notes = sequencerRenderer.instrumentLayers[i].attrs.notes;
+
+        saved.instruments[i] = instrument;
+    }
+
+    console.log(saved);
+    alert('now sending a request');
+    var url = "songs";
+    var params = JSON.stringify(saved);
+    http.open("POST", url, true);
+
+    alert(params);
+    //Send the proper header information along with the request
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    http.setRequestHeader("Content-length", params.length);
+    http.setRequestHeader("Connection", "close");
+
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            alert(http.responseText);
+        }
+    }
+    http.send(params);
 }
 
 /**
@@ -339,10 +377,10 @@ function playNote( beatNumber, time ) {
 function scheduler() {
     while (nextNoteTime < audioContext.currentTime + scheduleAheadTime ) {
         playNote( currentNote, nextNoteTime );
-        if(currentNote != 0)
-            sequencerRenderer.moveMarkers(sequencerRenderer.markerLayer);
-        else
-            sequencerRenderer.resetMarker(sequencerRenderer.markerLayer);
+//        if(currentNote != 0)
+//            sequencerRenderer.moveMarkers(sequencerRenderer.markerLayer);
+//        else
+//            sequencerRenderer.resetMarker(sequencerRenderer.markerLayer);
         nextNote();
     }
     timerID = window.setTimeout( scheduler, lookahead );

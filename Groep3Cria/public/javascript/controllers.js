@@ -17,7 +17,7 @@ app.controller('newSongCtrl', function ($scope, $location, $http, $resource) {
         );
         var song = new Song($scope.songForm);
         song.$save(function (data) {
-
+            console.log(data);
             $location.path("Sequencer/" + data.doc._id);
         });
     }
