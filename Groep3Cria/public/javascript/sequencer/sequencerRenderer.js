@@ -13,6 +13,7 @@ var sequencerRenderer = {
     instrumentLayers: [],
     isPlaying: false,
     numFrames: 0,
+    beatCounter: 0,
     time_step: 1,
     frame_scale: 1000 / 60,
     lastUpdate: null,
@@ -473,12 +474,31 @@ var sequencerRenderer = {
     addClickEventLastAddedInstrument: function (layer) {
         var self = this;
 
+        layer.on('mouseover', function (event) {
+            //get the shape that was clicked on
+            var shape = event.targetNode;
+            var group = shape.getParent();
+            var layer = group.getParent();
+            var name = shape.getName();
+//            var stage = layer.getParent();
+//            var groupCollection = stage.get('.notes');
+//            group.getChildren().each(function (shape, n) {
+//                if (shape.tween != null) {
+//                    shape.tween.play();
+//                }
+//
+//            });
+
+
+        });
+
         layer.on('click', function (event) {
             //get the shape that was clicked on
             var shape = event.targetNode;
             var group = shape.getParent();
             var layer = group.getParent();
             var name = shape.getName();
+            var stage = layer.getParent();
 
             if (name.substring(0, 1) == 'n') {
                 if (shape.getAttr('hasNote') == true) {
@@ -727,7 +747,7 @@ var sequencerRenderer = {
                     lastY: y + origin,
                     width: 35,
                     height: 35,
-                    fill: "#3d3a39",
+                    fill: "#282725",
 //                    stroke: "black",
 //                    strokeWidth: 0,
                     pitchValue: this.pitchToRect[i],
@@ -744,21 +764,24 @@ var sequencerRenderer = {
             origin += 40;
         }
         layer.add(group);
+        this.addTween(group);
     },
 
     /**
      * Moves the markers up for an x component to simulate playing
      * @param markerLayer the layer on which the markers reside
      */
-    moveMarkers: function (markerLayer) {
+    moveMarkers: function () {
+        var self = this;
 
-        var children = markerLayer.getChildren();
-
-        for (var i = 0; i < children.length; i++) {
-            var x = children[i].getX();
-            children[i].setX(x + 40);
-            markerLayer.draw();
-        }
+        var stage = self.stage;//thislayer.getParent();
+        var notegroups = stage.get('.notes');
+        notegroups.each(function (group, n) {
+            if(group.getAttr('id') == self.beatCounter) {
+                self.playAndMoveTween(group);
+            }
+        });
+        this.beatCounter++;
 
     },
 
@@ -766,14 +789,8 @@ var sequencerRenderer = {
      * Reset the markers back to their original position
      * @param markerLayer The
      */
-    resetMarker: function (markerLayer) {
-        var children = markerLayer.getChildren();
-
-        for (var i = 0; i < children.length; i++) {
-            var x = 49;
-            children[i].setX(x);
-            markerLayer.draw();
-        }
+    resetMarker: function () {
+        this.beatCounter = 0;
     },
 
 
@@ -869,7 +886,7 @@ var sequencerRenderer = {
                 lastY: y + origin,
                 width: 35,
                 height: 35,
-                fill: "#3d3a39",
+                fill: "#282725",
 //                stroke: "black",
 //                strokeWidth: 2,
                 pitchValue: this.pitchToRect[i],
@@ -878,12 +895,34 @@ var sequencerRenderer = {
                 enabled: true,
                 name: 'u' + position
             });
+
             if (group != null) {
                 group.add(rect);
             }
             origin += 40;
         }
         layer.add(group);
+        // add the tweens
+        this.addTween(group);
+    },
+
+    addTween: function (group) {
+        group.getChildren().each(function (shape, n) {
+            /** TEST
+             *
+             * @type {Kinetic.Tween}
+             */
+            shape.tween = new Kinetic.Tween({
+                node: shape,
+                duration: 0.2,
+                scaleX: 1.1,
+                scaleY: 1.1,
+                easing: Kinetic.Easings.BounceEaseInOut,
+                onFinish: function () {
+                    shape.tween.reset();
+                }
+            });
+        });
     },
 
 
@@ -1028,7 +1067,7 @@ var sequencerRenderer = {
             y: 0,
             width: 185,
             height: 0,
-            fill: '#3d3a39',
+            fill: '#3e3a39',
             strokeWidth: 0,
             name: 'instrbankbg',
             opacity: 1
@@ -1041,7 +1080,7 @@ var sequencerRenderer = {
             height: 25,
             fill: 'black',
             name: 'titleBG',
-            opacity: 1
+            opacity: 0
         });
 
         var titleText = new Kinetic.Text({
@@ -1076,7 +1115,7 @@ var sequencerRenderer = {
 //                fontFamily: elementalEnd, // doesnt work for now
                 text: instruments[i].instrumenttype,
                 fontSize: 15,
-                fill: 'black',
+                fill: 'white',
                 fontFamily: 'Calibri'
             });
 
@@ -1091,7 +1130,7 @@ var sequencerRenderer = {
                     context.closePath();
                     canvas.fillStroke(this);
                 },
-                fill: 'black',
+                fill: '#726e6d',
                 x: 145,
                 y: 0 + offset,
                 name: 'playsample',
@@ -1110,10 +1149,10 @@ var sequencerRenderer = {
                     context.closePath();
                     canvas.fillStroke(this);
                 },
-                fill: 'black',
+                fill: '#726e6d',
                 x: 165,
                 y: 0 + offset,
-                stroke: 'black',
+                stroke: '#726e6d',
                 strokeWidth: 4,
                 name: 'addnewinstrument',
                 instrumenttype: instruments[i].instrumenttype
@@ -1229,7 +1268,7 @@ var sequencerRenderer = {
             y: layer.getY() + correction,
             width: 185,
             height: 196,
-            fill: '#3d3a39',
+            fill: '#282725',
             strokeWidth: 0,
             name: 'cpbg',
             opacity: 1
@@ -1237,7 +1276,7 @@ var sequencerRenderer = {
         });
 
         var titleBarBG = new Kinetic.Rect({
-            x:layer.getX(),
+            x: layer.getX(),
             y: layer.getY() + correction,
             width: 185,
             height: 20,
@@ -1251,9 +1290,9 @@ var sequencerRenderer = {
             x: layer.getX() + 2,
             y: layer.getY() + correction + 2,
             text: layer.getAttr('instrumenttype'),
-            fontSize: 15,
+            fontSize: 18,
             fontFamily: 'Calibri',
-            fill: 'black'
+            fill: 'white'
         });
 
 //        var minButton = new Kinetic.Circle({
@@ -1297,7 +1336,7 @@ var sequencerRenderer = {
         group.add(titleBarBG);
         group.add(instrumentText);
         var minButtonImage = new Image();
-        minButtonImage.onload = function() {
+        minButtonImage.onload = function () {
             var minButton = new Kinetic.Image({
                 x: layer.getX() + 142,
                 y: layer.getY() + correction,
@@ -1312,7 +1351,7 @@ var sequencerRenderer = {
             layer.draw();
         };
         var killButtonImage = new Image();
-        killButtonImage.onload = function() {
+        killButtonImage.onload = function () {
             var killButton = new Kinetic.Image({
                 x: layer.getX() + 164,
                 y: layer.getY() + correction,
@@ -1327,7 +1366,7 @@ var sequencerRenderer = {
             layer.draw();
         };
         var addColumnsButton = new Image();
-        addColumnsButton.onload = function() {
+        addColumnsButton.onload = function () {
             var addimage = new Kinetic.Image({
                 x: layer.getX() + 120,
                 y: layer.getY() + correction + 0,
@@ -1428,6 +1467,16 @@ var sequencerRenderer = {
 
     },
 
+    playAndMoveTween: function (group) {
+        group.getChildren().each(function (shape, n) {
+            if (shape.tween != null) {
+                shape.tween.play();
+            }
+
+        });
+//        this.beatCounter++;
+    },
+
     /**
      * initialize our stage/canvas
      * @param x The x position of the sequencer
@@ -1435,7 +1484,7 @@ var sequencerRenderer = {
      * @param songs The songs to be loaded into the sequencer, leave empty if no previous song is selected
      */
     init: function (x, y, songs) {
-
+        this.setupFakeStage();
         this.setUpCanvas(x, y);
         this.songs.length = 0;
 
@@ -1463,6 +1512,162 @@ var sequencerRenderer = {
 
         this.addInstrumentBank(this.instruments);
 
+//        this.clickEvents();
+    },
+
+    setupFakeStage: function  () {
+        var stage2 = new Kinetic.Stage({
+            x: 0,
+            y: 0,
+            container: 'container2',
+            width: this.width,
+            height: 70
+        });
+
+        var fakeLayer = new Kinetic.Layer();
+
+        var controlBG = new Kinetic.Rect({
+           x: 20,
+            y: 0,
+            width: 187,
+            height: 70,
+            fill: '#282725'
+        });
+
+        fakeLayer.add(controlBG);
+
+        var playArrow = new Kinetic.Shape({
+            drawFunc: function(canvas) {
+                var context = canvas.getContext();
+                context.beginPath();
+                context.moveTo(0,0);
+                context.lineTo(30, 20);
+                context.lineTo(0, 40);
+                context.closePath();
+                canvas.fillStroke(this);
+
+            },
+            fill:'#726e6d',
+            x:70,
+            y: 15
+
+        });
+        fakeLayer.add(playArrow);
+        var stopButton = new Kinetic.Shape({
+            drawFunc: function(canvas) {
+                var context = canvas.getContext();
+                context.beginPath();
+                context.moveTo(0,0);
+                context.lineTo(40, 0);
+                context.lineTo(40, 40);
+                context.lineTo(0, 40);
+                context.closePath();
+                canvas.fillStroke(this);
+
+            },
+            fill:'#726e6d',
+            x:110,
+            y: 15
+
+        });
+        fakeLayer.add(stopButton);
+        var fakeHeader = new Image();
+        fakeHeader.onload = function () {
+            var headerimage = new Kinetic.Image({
+                x: 210,
+                y: 0,
+                name: 'fakeheader',
+                width: 975,
+                height: 70,
+                image: fakeHeader
+
+            });
+
+            fakeLayer.add(headerimage);
+            fakeLayer.draw();
+
+        };
+
+        fakeHeader.src='images/fakeheader.png';
+        stage2.add(fakeLayer);
+        stage2.draw();
+
+    },
+
+    /**
+     * local
+     * @param x
+     * @param y
+     * @param songs
+     */
+    init2: function (x, y/*, songs*/) {
+
+        this.setupFakeStage();
+
+
+
+        this.setUpCanvas(x, y);
+        this.songs.length = 0;
+
+//        this.songs = songs;
+
+//        songs.push(this.song1);
+//        songs.push(this.song2);
+        this.songs.push(this.song3);
+
+        this.setupInstruments(this.songs);
+        this.drawInstruments();
+
+        /* this.markerLayer = new Kinetic.Layer({
+         name: 'marker'
+         });
+         //        this.createMarker(this.markerLayer);
+         var y = 0;
+         for (var i = 0; i < this.instrumentLayers.length; i++) {
+         this.createMarker(this.markerLayer, y);
+         this.stage.add(this.markerLayer);
+         y += 201;
+         }
+         //        this.stage.add(this.markerLayer);
+         */
+
+        this.addInstrumentBank(this.instruments);
+
+        var play = new Kinetic.Rect({
+            x: 10,
+            y: 700,
+            width: 50,
+            height: 50,
+            fill: 'red'
+        });
+        var reset = new Kinetic.Rect({
+            x: 70,
+            y: 700,
+            width: 50,
+            height: 50,
+            fill: 'black'
+        });
+
+        var layer = new Kinetic.Layer();
+
+        var layer2 = new Kinetic.Layer();
+
+        layer.add(play);
+        layer2.add(reset);
+
+        this.stage.add(layer);
+        this.stage.add(layer2);
+
+        var self = this;
+
+        layer.on('click', function (event) {
+           self.moveMarkers();
+
+        });
+
+        layer2.on('click', function(event) {
+           self.resetMarker();
+        });
 //        this.clickEvents();
     }
 }
