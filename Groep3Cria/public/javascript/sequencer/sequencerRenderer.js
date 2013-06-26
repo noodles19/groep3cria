@@ -1256,25 +1256,31 @@ var sequencerRenderer = {
             fill: 'black'
         });
 
-        var minButton = new Kinetic.Circle({
-            x: layer.getX() + 155,
-            y: layer.getY() + correction + 10,
-            radius: 5,
-            fill: 'white',
-            sroke: 'black',
-            strokeWidth: 1,
-            name: 'minimize'
-        });
+//        var minButton = new Kinetic.Circle({
+//            x: layer.getX() + 155,
+//            y: layer.getY() + correction + 10,
+//            radius: 5,
+//            fill: 'white',
+//            sroke: 'black',
+//            strokeWidth: 1,
+//            name: 'minimize'
+//        });
 
-        var killButton = new Kinetic.Circle({
-            x: layer.getX() + 170,
-            y: layer.getY() + correction + 10,
-            radius: 5,
-            fill: 'white',
-            sroke: 'black',
-            strokeWidth: 1,
-            name: 'killinstr'
-        });
+//        var killButtonImage = new Image();
+//        killButtonImage.onload = function() {
+//            var killButton = new Kinetic.Image({
+//                x: layer.getX() + 170,
+//                y: layer.getY() + correction + 10,
+//                name: 'killinstr',
+//                image: killButtonImage,
+//                width: 20,
+//                height: 20
+//            });
+
+
+//            group.add(addimage);
+//            layer.draw();
+//        };
 
 //        var addColumnsButton = new Kinetic.Circle({
 //            x: layer.getX() + 140,
@@ -1290,13 +1296,41 @@ var sequencerRenderer = {
         group.add(bg);
         group.add(titleBarBG);
         group.add(instrumentText);
-        group.add(minButton);
-        group.add(killButton);
+        var minButtonImage = new Image();
+        minButtonImage.onload = function() {
+            var minButton = new Kinetic.Image({
+                x: layer.getX() + 142,
+                y: layer.getY() + correction,
+                name: 'minimize',
+                image: minButtonImage,
+                width: 20,
+                height: 20
+            });
+
+
+            group.add(minButton);
+            layer.draw();
+        };
+        var killButtonImage = new Image();
+        killButtonImage.onload = function() {
+            var killButton = new Kinetic.Image({
+                x: layer.getX() + 164,
+                y: layer.getY() + correction,
+                name: 'killinstr',
+                image: killButtonImage,
+                width: 20,
+                height: 20
+            });
+
+
+            group.add(killButton);
+            layer.draw();
+        };
         var addColumnsButton = new Image();
         addColumnsButton.onload = function() {
             var addimage = new Kinetic.Image({
-                x: layer.getX() + 140,
-                y: layer.getY() + correction + 10,
+                x: layer.getX() + 120,
+                y: layer.getY() + correction + 0,
                 name: 'addcolumns',
                 width: 20,
                 height: 20,
@@ -1308,7 +1342,9 @@ var sequencerRenderer = {
             group.add(addimage);
             layer.draw();
         };
-        addColumnsButton.src = 'http://i.imgur.com/uVAKa2g.png';
+        addColumnsButton.src = 'images/adcollumbutton20x20px.png';
+        killButtonImage.src = 'images/deleteinstrumentbutton20x20px.png';
+        minButtonImage.src = 'images/Minimizebutton20x20px.png';
 //        addColumnsButton.src = 'http://i.imgur.com/uVAKa2g.png';
 
 
