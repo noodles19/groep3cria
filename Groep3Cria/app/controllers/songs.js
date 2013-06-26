@@ -74,22 +74,31 @@ exports.listSingleSong = function (req, res) {
 // UPDATE
 // findOneAndUpdate @ http://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate
 exports.update = function (req, res) {
+    var ObjectId = require('mongoose').Types.ObjectId;
+    console.log("Saving song");
 
-    var conditions =
-        {email: req.params.email}
-        , update = {
-            loginName: req.body.loginName}
-        , options = { multi: true }
-        , callback = function (err, doc) {
+    console.log("Object");
+
+    console.log(req.body.song._id);
+    console.log(JSON.parse(req.body.song)._id);
+    var condition = {_id: new ObjectId(JSON.parse(req.body.song)._id)};
+    var replace = {
+        instruments: JSON.parse(req.body.song).instruments,
+        name: JSON.parse(req.body.song).name,
+        author: JSON.parse(req.body.song).author,
+        speed: JSON.parse(req.body.song).volume,
+        volume: JSON.parse(req.body.song).speed,
+        based_on: JSON.parse(req.body.song).based_on
+    };
+
+    var callback = function (err, doc) {
             var retObj = {
-                meta: {"action": "update", 'timestamp': new Date()},
-                doc: doc,
-                err: err
+                err: err,
+                doc: doc
             };
             return res.send(retObj);
         }
-
-    Song.findOneAndUpdate(conditions, update, options, callback);
+    Song.findOneAndUpdate(condition, replace, callback);
 }
 
 // DELETE

@@ -36,7 +36,7 @@ module.exports = function (app) {
     app.get('/songs', authenticated, songs.list);
     app.get('/song/:id', authenticated, songs.listSingleSong);
     // UPDATE
-    app.put('/songs/', songs.update);
+    app.post('/updatesong', songs.update);
     // DELETE
     app.delete('/songs/', songs.delete);
 
