@@ -1439,7 +1439,7 @@ var sequencerRenderer = {
         this.setUpCanvas(x, y);
         this.songs.length = 0;
 
-        this.songs = songs
+        this.songs = songs;
 
 //        songs.push(this.song1);
 //        songs.push(this.song2);
