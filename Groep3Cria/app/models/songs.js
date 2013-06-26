@@ -2,22 +2,14 @@ var mongoose;
 mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-///* Schema definitions */
-//var schemaName = Schema({
-//    comments: Array,
-//    instruments: Array,
-//    name:String,
-//    ratings: Array,
-//    speed:Number,
-//    volume:Number
-//});
-
 /* Schema definitions */
 var schemaName = Schema({
-    comments:[
+    name:String,
+    speed:Number,
+    ratings:[
         {
             UserID: {type: Schema.Types.ObjectId, ref: 'User'},
-            comment:String
+            rating:String
         }
     ],
     instruments:
@@ -29,17 +21,16 @@ var schemaName = Schema({
                 ]
             }
         ],
-    name:String,
-    ratings:[
+
+    comments:[
         {
             UserID: {type: Schema.Types.ObjectId, ref: 'User'},
-            rating:String
+            comment:String
         }
     ],
-    speed:Number,
-    volume:Number,
+    based_on:{type:Schema.Types.ObjectId, ref:'Song'},
     author:{type:Schema.Types.ObjectId, ref:'User'},
-    based_on:{type:Schema.Types.ObjectId, ref:'Song'}
+    volume:Number
 });
 
 var modelName = "Song";

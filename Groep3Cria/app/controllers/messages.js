@@ -1,15 +1,19 @@
 var mongoose = require('mongoose')
-    , Song = mongoose.model('Song')
+    , PrivateMessage = mongoose.model('PrivateMessage')
     , passwordHash = require('password-hash');
 
 
-// CREATE
+// CREATE MESSAGE
 // save @ http://mongoosejs.com/docs/api.html#model_Model-save
 exports.create = function (req, res) {
-    console.log('and there was a new song');
-    console.log(req.body);
 
-    var doc = new Song(req.body);
+    console.log("and there was a new message");
+    console.log(req.body.sender);
+    console.log(req.body.receiver);
+    console.log(req.body.title);
+    console.log(req.body.text);
+
+    var doc = new PrivateMessage(req.body);
 
     doc.save(function (err) {
         var retObj = {
@@ -17,88 +21,74 @@ exports.create = function (req, res) {
             doc: doc,
             err: err
         };
-        console.log(retObj.err);
         return res.send(retObj);
     });
-
 }
 
-// RETRIEVE
+// RETRIEVE MESSAGES BASED ON RECEIVER ID
 // find @ http://mongoosejs.com/docs/api.html#model_Model.find
 exports.list = function (req, res) {
     var conditions, fields, options;
 
-    console.log('list songs');
+    console.log('list message');
 
     conditions = {
+        receiver: req.params.receiverid
     };
     fields = {};
     options = {};
 
-    Song
+    PrivateMessage
         .find(conditions, fields, options)
-        .populate('comments.UserID ratings.UserID author')
         .exec(function (err, doc) {
             var retObj = {
-                songs: doc
+                privatemessages: doc
             };
 
             return res.send(retObj);
         })
 }
 
-exports.listSingleSong = function (req, res) {
+//RETRIEVE A SINGLE MESSAGE
+exports.listSingleMessage = function (req, res) {
     var conditions, fields, options;
 
-    console.log('list a single song');
-    console.log(req.params.id);
+    console.log('list a single message');
     conditions = {
         _id: req.params.id
     };
     fields = {};
     options = {};
 
-    Song
+    PrivateMessage
         .findOne(conditions, fields, options)
-        .populate('based_on comments.UserID ratings.UserID author')
+        .populate('sender receiver')
         .exec(function (err, doc) {
             var retObj = {
-                songs: doc
+                privatemessages: doc
             };
-
             return res.send(retObj);
         })
 }
 
-
 // UPDATE
 // findOneAndUpdate @ http://mongoosejs.com/docs/api.html#model_Model.findOneAndUpdate
 exports.update = function (req, res) {
-    var ObjectId = require('mongoose').Types.ObjectId;
-    console.log("Saving song");
 
-    console.log("Object");
-
-    console.log(req.body.song._id);
-    console.log(JSON.parse(req.body.song)._id);
-    var condition = {_id: new ObjectId(JSON.parse(req.body.song)._id)};
-    var replace = {
-        instruments: JSON.parse(req.body.song).instruments,
-        name: JSON.parse(req.body.song).name,
-        author: JSON.parse(req.body.song).author,
-        speed: JSON.parse(req.body.song).volume,
-        volume: JSON.parse(req.body.song).speed,
-        based_on: JSON.parse(req.body.song).based_on
-    };
-
-    var callback = function (err, doc) {
+    var conditions =
+        {email: req.params.email}
+        , update = {
+            loginName: req.body.loginName}
+        , options = { multi: true }
+        , callback = function (err, doc) {
             var retObj = {
-                err: err,
-                doc: doc
+                meta: {"action": "update", 'timestamp': new Date()},
+                doc: doc,
+                err: err
             };
             return res.send(retObj);
         }
-    Song.findOneAndUpdate(condition, replace, callback);
+    PrivateMessage.findOneAndUpdate(conditions, update, options, callback);
 }
 
 // DELETE
@@ -115,6 +105,5 @@ exports.delete = function (req, res) {
         };
         return res.send(retObj);
     }
-
-    Song.remove(conditions, callback);
+    PrivateMessage.remove(conditions, callback);
 }

@@ -1,26 +1,42 @@
 <section>
-    <div id="news">
-        Introductie/ Hot news
+    <div id="news"></div>
 
+    <div id="createSearch">
+        <div id="searchSong">
+            <h2>Search</h2>
+        </div><div class="verticalLine2"></div><div id="createSong" data-ng-app="myApp">
+            <h2><a href="#/New">Create</a></h2>
+        </div>
     </div>
-    <div id="createSong">
-        Create Song
-    </div>
-    <div id="searchSong" data-ng-app="myApp">
-        Search Song
-        <input type="text" data-ng-model="searchText.$">
 
-        <table data-ng-controller="songsCtrl">
-            <tr data-ng-repeat="song in songs.testarray | filter: searchText">
-                <td> {{song.name}}</td>
-                <td> {{song.author}}</td>
-                <td> {{song.speed}}</td>
-                <td> {{song.volume}}</td>
-                <td> {{song.instrument[0].type}}</td>
-            </tr>
-        </table>
-    </div>
+
+    <div id="featuredsongs"><div id="popularSongs">
+            <h3>popular Songs</h3>
+            <div class="newSong">
+                <img src="../images/Homepage-future-96-dpi_19.png" alt=" Will Smith" width="60px" height="60px">
+                <p class="playsurface"> Bad Boys - Mike Lowrey </p>
+            </div>
+            <div class="newSong">
+                <img src="../images/Homepage-future-96-dpi_30.png" alt=" Superman" width="60px" height="60px">
+                <p class="playsurface"> Superman - Clark Kent </p>
+            </div>
+            <div class="newSong">
+                <img src="../images/Homepage-future-96-dpi_36.png" alt=" Duck" width="60px" height="60px">
+                <p class="playsurface"> Ducktown - Donald Duck </p>
+            </div>
+        </div><div class="verticalLine3"></div><div id="newSongs">
+            <h3>New Songs</h3>
+                <div class="newSong">
+                <img src="../images/Homepage-future-96-dpi_19.png" alt=" Will Smith" width="60px" height="60px">
+                <p class="playsurface"> Bad Boys - Mike Lowrey </p>
+                </div>
+                <div class="newSong">
+                <img src="../images/Homepage-future-96-dpi_30.png" alt=" Superman" width="60px" height="60px">
+                <p class="playsurface"> Superman - Clark Kent </p>
+                </div>
+                <div class="newSong">
+                <img src="../images/Homepage-future-96-dpi_36.png" alt=" Duck" width="60px" height="60px">
+                <p class="playsurface"> Ducktown - Donald Duck </p>
+                </div></div></div>
 
 </section>
-
-<script src="../javascript/songData.js"></script>

@@ -1,53 +1,40 @@
-var Controller = {
-    register: new Register(),
-    login: new Login(),
 
-    start: function () {
-        this.register.registerForm();
-        this.login.loginMain();
-    },
-
-    checkCredentials: function () {
-        return this.view.checkCredentials();
-
-
-    }
-}
-
-
-function songsCtrl($scope, Songs) {
-    $scope.songs = Songs;
+function testCtrl($scope) {
 
 }
 
-function testCtrl($scope, local) {
+app.controller('sequencerCtrl', function ($scope, $location, $http, $resource, $routeParams) {
+    var Song = $resource('http://cria.tezzt.nl\\:43058/song/' + $routeParams.id, {},
+        {charge: {method: 'GET', params: {charge: true}}}
+    );
+    init($routeParams.id);
+})
 
-}
-function localCtrl($scope, local) {
-    $scope.employees = local.get();
-}
-
-
-function TransactionNewCtrl($scope, $routeParams, $location, Transaction) {
-    $scope.carId = $routeParams.carId;
-    $scope.price = $routeParams.price;
-    $scope.minPrice = parseFloat($routeParams.price, 10) * 0.8;
-    $scope.err = ""; // Initialize err as empty string. We start with no errors.
-
-    $scope.save = function () {
-        Transaction.save({}, $scope.transaction, function (res) {
-            if (res.err === null) {
-                $location.path("/cars");
-            } else {
-                $scope.err = res.err.err;
-            }
+app.controller('newSongCtrl', function ($scope, $location, $http, $resource) {
+    $scope.startNewSong =function(){
+        var Song = $resource('http://cria.tezzt.nl\\:43058/songs', {},
+            {charge: {method: 'POST', params: {charge: true}}}
+        );
+        var song = new Song($scope.songForm);
+        song.$save(function (data) {
+            console.log(data);
+            $location.path("Sequencer/" + data.doc._id);
         });
-    };
+    }
+})
 
-    $scope.getInitialValueForCarId = function () {
-        return $routeParams.carId;
-    };
-}
+app.controller('newMsgCtrl', function ($scope, $location, $http, $resource) {
+    $scope.sendNewMessage =function(){
+        var Message = $resource('http://cria.tezzt.nl\\:43058/privatemessages', {},
+            {charge: {method: 'POST', params: {charge: true}}}
+        );
+        var message = new Message($scope.messageForm);
+        message.$save(function (data) {
+            console.log(data);
+        });
+    }
+})
 
 
-Controller.start();
+/*
+ Controller.start();*/

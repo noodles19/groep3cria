@@ -1,77 +1,412 @@
+/************ Font face **************/
+@font-face
+{
+    font-family: elementalEnd;
+    src: url(../fonts/Elemental%20End.ttf);
+
+}
+@font-face{
+    font-family: museoSans;
+    src: url(../fonts/exljbris%20-%20MuseoSans-500.otf);
+}
+
 /*********** Header ******************************************************/
-header {
-    background-color: blue;
+header, body, footer {
+
+
+}
+
+h1{
+    font-family: elementalEnd !important;
+    color: white;
+    font-size: 20pt !important;
+    margin: 45px 0 0 0 !important;
+    float:left;
+}
+#alphaheader{
+
+    width: 60%;
+    height: 100px;
+    margin-left: 20%;
+}
+
+
+
+body{
+background-color: #0c0806;
 }
 /*********** Logo *****************/
 
-
+#logo{
+    float:left;
+    margin: 0 0 0 7px;
+    width: 300px;
+    height: auto;
+}
 /*********** Account **************/
+
 #account{
     float: right;
 
 }
 #loginForm {
-    width: 250px;
+    margin:20px 0 0 0;
+    width: 200px;
     float: right;
-    background-color: red;
-}
-
-#inbox {
-    background-color: hotpink;
 
 }
 
-#greeting{
-    background-color: red;
+#inbox, #greeting {
+    background-color: #292726;
+    color:white;
+
+}
+
+
+#centerdiv{
+    max-width: 60%;
+    margin-left: 20%;
+    clear:both;
+}
+
+#centerdiv > div
+{
+    padding:5px;
+}
+
+input{
+    font-family: elementalEnd;
+    color: #292726;
+
+}
+
+.icon{
+    height: 20px;
+    width: 20px;
+    margin-bottom: -7px;
+}
+.icon, input, .verticalLine, .verticalLine2, .verticalLine3{
+    -moz-box-shadow: 0 0 8px 3px rgba(1,27,185,.75);
+    -webkit-box-shadow:0 0 8px 3px rgba(1,27,185,.75);
+    box-shadow: 0 0 8px 3px rgba(1,27,185,.75);
+}
+input[type="text"], input[type="password"], input[type="email"]{
+    -webkit-appearance: none;
+}
+
+#loginForm input{
+    margin: 10px 0 0 0;
 }
 
 /************ Nav **************/
-nav {
-    background-color: lightgoldenrodyellow;
+header {
+    background-color:#292726;;
     clear: both;
-    height: 50px;
+    text-align: center;
+    color: white;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+.verticalLine {
+    border: 1px solid white;
+    height: 20px;
+}
+
+
+a:link,a:hover ,a:visited ,a:active{
+    color: lightblue;
+    text-decoration:none;
+}
+
+nav{
+    margin: 0 auto 0 auto !important;
 }
 
 nav ul li{
     display: inline;
+    margin: 20px 10px 20px 10px;
+    margin: 20px 10px 20px 10px;
+    font-family: elementalEnd;
+    font-size: 20px;
+}
+
+#search{
+    float:right;
+    margin: 20px 0 0 0;
 
 }
 
 
 /******** Body ***********************************************************/
-section {
-    background-color: purple;
+
+#centerdiv , footer, #alphaheader{
+    min-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
+/************************ Section html *******************************/
+#learn,#friends, #mySong, #contact, #disclaimer, #termsOfUse, #register, #songPage, #sequencerpage, #newsongpage , #profilePage{
+    background-color: #292726;
+    color: white;
+    margin: 10px 0 10px 0 !important;
+}
+#learn h2,#friends h2, #mySong h2, #contact h2, #disclaimer h2, #termsOfUse h2, #register h2, #profilePage h2{
+    text-align: center;
+    margin: 10px 0 0 0 !important;
+
+}
+
+
+h2{
+    font-family: elementalEnd !important;
+    color:white;
+}
+
+
+/************************** Home html ***********************************/
 #news {
-    background-color: orange;
+    background-image: url(../images/Homepage-future-96-dpi_15.png);
+    height: 225px;
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    margin: 10px 0 0 0;
+    margin-bottom:10px;
+
+}
+#createSearch
+{
+    background-color: #292726;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+#featuredsongs
+{
+    background-color: red;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+#createSong, #searchSong, #newSongs, #popularSongs {
+    background-color: #292726;
+    /*height: 225px;*/
+    /*float: right;*/
+    min-width:424px;
+    width: 49.8%;
+    color:white;
+    display:inline-block;
+    margin:0;
+}
+
+h3{
+    /* margin: 10px 50px 10px 50px !important;*/
+    margin: 20px 0 20px 0 !important;
+    text-align: center;
+    font-family: elementalEnd !important;
+}
+
+#createSong, #searchSong{
+    font-size: 50px;
+
+}
+
+#newSongs, #popularSongs{
+    font-size: 20px;
+    height: 320px;
+}
+
+.verticalLine2{
+    background-color: white;
+    border: 1px solid white;
     height: 150px;
-    margin: 20px 10% 20px 10%;
+    display: inline-block;
+    position: relative;
+    top: 50px;
 }
 
-#createSong {
-    background-color: gray;
-    height: 300px;
-    float: left;
-    width: 50%;
-    margin: 0 0 20px 0;
+.verticalLine3{
+    background-color: white;
+    border: 1px solid white;
+    height: 150px;
+    display: inline-block;
+    position: relative;
+    top: 200px;
 }
 
-#searchSong {
-    background-color: cornflowerblue;
-    height: 300px;
-    float: right;
-    width: 50%;
+#createSearch h2{
+    text-align: center;
+    margin: 20% 0 20% 0 !important;
+    font-family: elementalEnd !important;
 }
 
-tr{
-    padding: 30px !important;
+.newSong{
+    margin: 0 0 0 20px !important;
+    float:left;
+    width: 80%;
 }
+.playsurface{
+    background-image: url("../images/Homepage-future-96-dpi_22.png");
+    width:270px;
+    height:60px;
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+    float:right;
+    font-family: museoSans !important;
+    font-size: 14px !important;
+    text-align: center;
+}
+
+
+/************************** Register html ***********************************/
+#register{
+    background-color: #292726;
+    margin: 10px 0 0 0;
+    color: white;
+    font-family: museoSans;
+
+
+}
+
+#register label{
+margin: 4px 0 0 10px;
+    width:150px;
+    float:left;
+}
+#register input {
+    margin: 5px 0 5px 0;
+    clear: both;
+}
+/************************** My Songs html ***********************************/
+
+#mySong td, #mySong th
+{
+    border: 2px solid white;
+    border-collapse:collapse;
+    padding:4px;
+}
+
+/************************** Friends html ***********************************/
+
+#friends td, #friends th
+{
+    border: 2px solid white;
+    border-collapse:collapse;
+    padding:4px;
+}
+
+#createNewMessageForm{
+    color: white;
+}
+#createNewMessageForm label{
+    width:150px;
+    float:left;
+}
+
+/************************** Learn html ***********************************/
+
+
+/************************** Profile html ***********************************/
+
+
+
+/************************** Song html ***********************************/
+#songPage{
+height: 500px;
+}
+
+#songPage td , #songPage th {
+    border: 2px solid white;
+    border-collapse:collapse;
+    padding:4px;
+}
+td {
+    width: 100px;
+}
+
+
+#comment{
+    color:#292726;
+}
+td:nth-child(4){
+    width: 250px;
+}
+
+
+
+
+
+progress {
+    width: 200px;
+    height: 14px;
+    display: block;
+    /* Important Thing */
+    -webkit-appearance: none;
+    border: none;
+}
+
+/* All good till now. Now we'll style the background */
+progress::-webkit-progress-bar {
+    background: red;
+    border-radius: 50px;
+    padding: 0px;
+    box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.2);
+
+    background-color: pink;
+    background-image: -moz-linear-gradient(top, pink, red);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, pink),color-stop(1, red));
+    background-image: -webkit-linear-gradient(pink, red);
+
+}
+progress::-webkit-progress-bar,progress::-webkit-progress-value {
+
+    padding: 0px;
+    -webkit-box-shadow:
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+    -moz-box-shadow:
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+    box-shadow:
+        inset 0 2px 9px  rgba(255,255,255,0.3),
+        inset 0 -2px 6px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: hidden;
+
+}
+progress::-webkit-progress-value {
+    background-color: lightgreen;
+    background-image: -moz-linear-gradient(top, lightgreen, green);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, lightgreen),color-stop(0, green));
+    background-image: -webkit-linear-gradient(lightgreen, green);
+
+}
+
+
+
+/************************** Contact html ***********************************/
+
+
+/************************** Terms of Use html ***********************************/
+
+
+/************************** Disclaimer html ***********************************/
+
 
 /********** Footer ********************************************************/
 footer {
-    background-color: green;
-    clear: both;
-    margin: 50px 0 0 0 !important;
-    position: relative;
+    margin: 0px 0 0 20%  !important;
+    min-width: 900px;
+    width: 60%;
+
+}
+
+footer li{
+    display: inline;
+    font-family: elementalEnd;
+    color: white;
+    font-size: 20px;
+    margin: 40px
+
 }

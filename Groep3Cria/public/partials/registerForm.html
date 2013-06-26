@@ -1,33 +1,26 @@
 
-<form id="saveNewUserForm" class="form-horizontal" action="/user/" method="post" >
-    <div class="control-group">
-        <label class="control-label" for="displayName">Display naam</label>
 
-        <div class="controls">
-            <input type="text" name="displayName" id="displayName" placeholder="Display name" required>
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="loginName">Login naam</label>
+<div id="register">
+    <h2> register </h2>
+    <form id="registerForm" name="registerForm">
 
-        <div class="controls">
-            <input type="text" name="loginName" id="loginName" placeholder="Login name" required>
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="email">Email</label>
+        <p><label>Name:</label> <input  type="text" data-ng-model="userForm.displayName" required
+                                              placeholder="Name"/></p>
 
-        <div class="controls">
-            <input type="email" name="email" id="email" placeholder="Email" >
-        </div>
-    </div>
-    <div class="control-group">
-        <label class="control-label" for="password">Password</label>
+        <p><label>Username:</label> <input type="text" data-ng-model="userForm.loginName" required
+                                            placeholder="Username"/></p>
 
-        <div class="controls">
-            <input type="password" name="password" id="password" placeholder="Password" required>
-        </div>
-    </div>
+        <p><label>E-mail:</label> <input type="email"
+                                        data-ng-model="userForm.email" required
+                                        placeholder="e-mail"/></p>
 
-    <p><input type="submit" value="Register" class="btn btn-primary" id="btnSaveUser"></p>
-</form>
+        <p><label>Password:</label> <input type="password"
+                                           data-ng-model="userForm.password" required
+                                           placeholder="password"/></p>
+
+        <p>
+            <button data-ng-click="cancel()">Cancel</button>
+            <button data-ng-click="registerUser()" data-ng-disabled="registerForm.$invalid">Register</button>
+        </p>
+    </form>
+</div>
