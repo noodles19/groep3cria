@@ -6,263 +6,263 @@
  * To change this template use File | Settings | File Templates.
  */
 var sequencerRenderer = {
-    stage: null,
-    width: 2000,
-    height: 2000,
-    maxPosition: 0,
-    instrumentLayers: [],
-    isPlaying: false,
-    numFrames: 0,
-    time_step: 1,
-    frame_scale: 1000 / 60,
-    lastUpdate: null,
-    bankLayer: null,
-    markerLayer: null, //TODO remove and make an array of markers
-    songs: [],
-    songLength: 0,
+    stage:null,
+    width:2000,
+    height:2000,
+    maxPosition:0,
+    instrumentLayers:[],
+    isPlaying:false,
+    numFrames:0,
+    time_step:1,
+    frame_scale:1000 / 60,
+    lastUpdate:null,
+    bankLayer:null,
+    markerLayer:null, //TODO remove and make an array of markers
+    songs:[],
+    songLength:0,
 
-    pitchToRect: [2.0, 1.5, 1, 0.667, 0.5],
+    pitchToRect:[2.0, 1.5, 1, 0.667, 0.5],
 
-    instruments: [
+    instruments:[
         {
-            "instrumenttype": "Bass",
-            "notes": [
+            "instrumenttype":"Bass",
+            "notes":[
 
             ],
-            color: '#e60099'
+            color:'#e60099'
         },
-        { "instrumenttype": "Cymbal",
-            "notes": [
+        { "instrumenttype":"Cymbal",
+            "notes":[
 
             ],
-            color: '#6633cc' },
-        {  "instrumenttype": "Hi-hat",
-            "notes": [
+            color:'#6633cc' },
+        {  "instrumenttype":"Hi-hat",
+            "notes":[
 
             ],
-            color: '#00d0fa'},
-        { "instrumenttype": "Snare",
-            "notes": [
+            color:'#00d0fa'},
+        { "instrumenttype":"Snare",
+            "notes":[
 
             ],
-            color: '#0ba80b'},
-        { "instrumenttype": "Kick",
-            "notes": [
+            color:'#0ba80b'},
+        { "instrumenttype":"Kick",
+            "notes":[
 
             ],
-            color: '#80ff00'},
-        { "instrumenttype": "Piano",
-            "notes": [
+            color:'#80ff00'},
+        { "instrumenttype":"Piano",
+            "notes":[
 
             ],
-            color: '#ffff00'},
-        { "instrumenttype": "Clap",
-            "notes": [
+            color:'#ffff00'},
+        { "instrumenttype":"Clap",
+            "notes":[
 
             ],
-            color: '#e67a0f'
+            color:'#e67a0f'
         },
-        { "instrumenttype": "Pad",
-            "notes": [
+        { "instrumenttype":"Pad",
+            "notes":[
 
             ],
-            color: '#ff0000'
+            color:'#ff0000'
         }
     ],
 
-    instrumentnew: {
-        "instrumenttype": "Orchestra Hit",
-        "notes": [
+    instrumentnew:{
+        "instrumenttype":"Orchestra Hit",
+        "notes":[
 
         ]
     },
 
-    song1: {
-        "_id": "51b07731f61f961805000000",
-        "author": {
-            "_id": "51ac822bf61f96380a000001",
-            "loginName": "Ersanio",
-            "displayName": "Ersan",
-            "email": "ersan_computeren@hotmail.com",
-            "password": "gjyrwegt872trg7289uibgirg",
-            "modificationDate": "2013-06-12T08:47:45.517Z"
+    song1:{
+        "_id":"51b07731f61f961805000000",
+        "author":{
+            "_id":"51ac822bf61f96380a000001",
+            "loginName":"Ersanio",
+            "displayName":"Ersan",
+            "email":"ersan_computeren@hotmail.com",
+            "password":"gjyrwegt872trg7289uibgirg",
+            "modificationDate":"2013-06-12T08:47:45.517Z"
         },
-        "based_on": null,
-        "comments": [
+        "based_on":null,
+        "comments":[
             {
-                "UserID": {
-                    "_id": "51ac822bf61f96380a000001",
-                    "loginName": "Ersanio",
-                    "displayName": "Ersan",
-                    "email": "ersan_computeren@hotmail.com",
-                    "password": "gjyrwegt872trg7289uibgirg",
-                    "modificationDate": "2013-06-12T08:47:45.516Z"
+                "UserID":{
+                    "_id":"51ac822bf61f96380a000001",
+                    "loginName":"Ersanio",
+                    "displayName":"Ersan",
+                    "email":"ersan_computeren@hotmail.com",
+                    "password":"gjyrwegt872trg7289uibgirg",
+                    "modificationDate":"2013-06-12T08:47:45.516Z"
                 },
-                "comment": "THIS IS GREATER."
+                "comment":"THIS IS GREATER."
             },
             {
-                "UserID": {
-                    "_id": "51ac8212f61f96380a000000",
-                    "loginName": "Mike",
-                    "displayName": "Mike",
-                    "email": "etc@etc.etc",
-                    "password": "gjyrwegt872trg7289uibgirg",
-                    "modificationDate": "2013-06-12T08:47:45.507Z"
+                "UserID":{
+                    "_id":"51ac8212f61f96380a000000",
+                    "loginName":"Mike",
+                    "displayName":"Mike",
+                    "email":"etc@etc.etc",
+                    "password":"gjyrwegt872trg7289uibgirg",
+                    "modificationDate":"2013-06-12T08:47:45.507Z"
                 },
-                "comment": "THIS IS BETTER."
+                "comment":"THIS IS BETTER."
             }
         ],
-        "instruments": [
+        "instruments":[
             {
-                "instrumenttype": "Distortion Guitar",
-                "notes": [
+                "instrumenttype":"Distortion Guitar",
+                "notes":[
                     {
-                        "pitch": 1,
-                        "position": 0,
-                        "duration": 0.25,
-                        "volume": 1
+                        "pitch":1,
+                        "position":0,
+                        "duration":0.25,
+                        "volume":1
                     },
                     {
-                        "pitch": 1,
-                        "position": 1,
-                        "duration": 0.25,
-                        "volume": 1
+                        "pitch":1,
+                        "position":1,
+                        "duration":0.25,
+                        "volume":1
                     },
                     {
-                        "pitch": 2,
-                        "position": 4,
-                        "duration": 0.25,
-                        "volume": 1
+                        "pitch":2,
+                        "position":4,
+                        "duration":0.25,
+                        "volume":1
                     }
                 ]
             }
         ],
-        "name": "Remember me V2",
-        "ratings": [
+        "name":"Remember me V2",
+        "ratings":[
             {
-                "UserID": {
-                    "_id": "51ac822bf61f96380a000001",
-                    "loginName": "Ersanio",
-                    "displayName": "Ersan",
-                    "email": "ersan_computeren@hotmail.com",
-                    "password": "gjyrwegt872trg7289uibgirg",
-                    "modificationDate": "2013-06-12T08:47:45.517Z"
+                "UserID":{
+                    "_id":"51ac822bf61f96380a000001",
+                    "loginName":"Ersanio",
+                    "displayName":"Ersan",
+                    "email":"ersan_computeren@hotmail.com",
+                    "password":"gjyrwegt872trg7289uibgirg",
+                    "modificationDate":"2013-06-12T08:47:45.517Z"
                 },
-                "rating": "Like"
+                "rating":"Like"
             },
             {
-                "UserID": {
-                    "_id": "51ac8212f61f96380a000000",
-                    "loginName": "Mike",
-                    "displayName": "Mike",
-                    "email": "etc@etc.etc",
-                    "password": "gjyrwegt872trg7289uibgirg",
-                    "modificationDate": "2013-06-12T08:47:45.517Z"
+                "UserID":{
+                    "_id":"51ac8212f61f96380a000000",
+                    "loginName":"Mike",
+                    "displayName":"Mike",
+                    "email":"etc@etc.etc",
+                    "password":"gjyrwegt872trg7289uibgirg",
+                    "modificationDate":"2013-06-12T08:47:45.517Z"
                 },
-                "rating": "Dislike"
+                "rating":"Dislike"
             }
         ],
-        "speed": 60,
-        "volume": 100
+        "speed":60,
+        "volume":100
     },
 
-    song3: {
-        "_id": "51b07731f61f961805000000",
-        "author": {
-            "_id": "51ac822bf61f96380a000001",
-            "loginName": "Ersanio",
-            "displayName": "Ersan",
-            "email": "ersan_computeren@hotmail.com",
-            "password": "gjyrwegt872trg7289uibgirg",
-            "modificationDate": "2013-06-12T08:47:45.517Z"
+    song3:{
+        "_id":"51b07731f61f961805000000",
+        "author":{
+            "_id":"51ac822bf61f96380a000001",
+            "loginName":"Ersanio",
+            "displayName":"Ersan",
+            "email":"ersan_computeren@hotmail.com",
+            "password":"gjyrwegt872trg7289uibgirg",
+            "modificationDate":"2013-06-12T08:47:45.517Z"
         },
-        "based_on": null,
-        "comments": [
+        "based_on":null,
+        "comments":[
         ],
-        "instruments": [
+        "instruments":[
 
         ],
-        "name": "Remember me V2",
-        "ratings": [
+        "name":"Remember me V2",
+        "ratings":[
         ],
-        "speed": 60,
-        "volume": 100
+        "speed":60,
+        "volume":100
     },
 
 
-    song2: {
-        "_id": "51ac8357f61f963c13000000",
-        "author": "51ac822bf61f96380a000001",
-        "based_on": null,
-        "name": "Remember me",
-        "speed": 20,
-        "volume": 100,
-        "ratings": [
+    song2:{
+        "_id":"51ac8357f61f963c13000000",
+        "author":"51ac822bf61f96380a000001",
+        "based_on":null,
+        "name":"Remember me",
+        "speed":20,
+        "volume":100,
+        "ratings":[
             {
-                "UserID": "51ac822bf61f96380a000001",
-                "rating": "Like"
+                "UserID":"51ac822bf61f96380a000001",
+                "rating":"Like"
             },
             {
-                "UserID": "51ac822bf61f96380a000000",
-                "rating": "Dislike"
+                "UserID":"51ac822bf61f96380a000000",
+                "rating":"Dislike"
             }
         ],
-        "instruments": [
+        "instruments":[
             {
-                "instrumenttype": "Xylophone",
-                "notes": [
+                "instrumenttype":"Xylophone",
+                "notes":[
                     {
-                        "pitch": 1,
-                        "position": 0,
-                        "duration": 0.25,
-                        "volume": 1
+                        "pitch":1,
+                        "position":0,
+                        "duration":0.25,
+                        "volume":1
                     },
                     {
-                        "pitch": 1,
-                        "position": 1,
-                        "duration": 0.25,
-                        "volume": 1
+                        "pitch":1,
+                        "position":1,
+                        "duration":0.25,
+                        "volume":1
                     }
                 ]
             },
             {
-                "instrumenttype": "Piano",
-                "notes": [
+                "instrumenttype":"Piano",
+                "notes":[
                     {
-                        "pitch": 1,
-                        "position": 0,
-                        "duration": 0.25,
-                        "volume": 1
+                        "pitch":1,
+                        "position":0,
+                        "duration":0.25,
+                        "volume":1
                     },
                     {
-                        "pitch": 1,
-                        "position": 1,
-                        "duration": 0.25,
-                        "volume": 1
+                        "pitch":1,
+                        "position":1,
+                        "duration":0.25,
+                        "volume":1
                     },
                     {
-                        "pitch": 1,
-                        "position": 2,
-                        "duration": 0.25,
-                        "volume": 1
+                        "pitch":1,
+                        "position":2,
+                        "duration":0.25,
+                        "volume":1
                     },
                     {
-                        "pitch": 1,
-                        "position": 3,
-                        "duration": 0.25,
-                        "volume": 1
+                        "pitch":1,
+                        "position":3,
+                        "duration":0.25,
+                        "volume":1
                     }
                 ]
             }
         ],
-        "comments": [
+        "comments":[
             {
-                "UserID": "51ac822bf61f96380a000001",
-                "comment": "THIS IS GREAT."
+                "UserID":"51ac822bf61f96380a000001",
+                "comment":"THIS IS GREAT."
             },
             {
-                "UserID": "51ac822bf61f96380a000000",
-                "comment": "THIS IS GOOD."
+                "UserID":"51ac822bf61f96380a000000",
+                "comment":"THIS IS GOOD."
             }
         ]
     },
@@ -272,14 +272,14 @@ var sequencerRenderer = {
      * @param x The x position of the canvas/stage
      * @param y The y position of the canvas/stage
      */
-    setUpCanvas: function (x, y) {
+    setUpCanvas:function (x, y) {
 
         this.stage = new Kinetic.Stage({
-            x: x,
-            y: y,
-            container: 'container',
-            width: this.width,
-            height: this.height
+            x:x,
+            y:y,
+            container:'container',
+            width:this.width,
+            height:this.height
         });
 
 
@@ -290,7 +290,7 @@ var sequencerRenderer = {
      * @param layer The layer being minimized
      * @private
      */
-    _collapseUi: function (layer) {
+    _collapseUi:function (layer) {
         var otherLayers = [];
         var afterInstrumentTrigger = false;
 
@@ -323,7 +323,7 @@ var sequencerRenderer = {
      * @param layer The layer being minimized
      * @private
      */
-    _expandUi: function (layer) {
+    _expandUi:function (layer) {
         var otherLayers = [];
         var afterInstrumentTrigger = false;
 
@@ -357,7 +357,7 @@ var sequencerRenderer = {
      * @param layer The layer to be minimized
      * @private
      */
-    _minimizeInstrument: function (layer) {
+    _minimizeInstrument:function (layer) {
 
         var groups = layer.get('.notes');
 
@@ -442,7 +442,7 @@ var sequencerRenderer = {
      * @param notes The notes from which the visualnotes array has to be created
      * @returns {*|Array|string|Blob} A newly created visualnotes array
      */
-    createVisualArray: function (notesVisual, notes) {
+    createVisualArray:function (notesVisual, notes) {
         notesVisual = notes.slice(0);
         this.maxPosition = 0;
 
@@ -470,7 +470,7 @@ var sequencerRenderer = {
      * Adds a click event to the designated layer
      * @param layer The layer to which the click events should be added
      */
-    addClickEventLastAddedInstrument: function (layer) {
+    addClickEventLastAddedInstrument:function (layer) {
         var self = this;
 
         layer.on('click', function (event) {
@@ -540,9 +540,9 @@ var sequencerRenderer = {
      * @param index The index on which to insert something
      * @param notesVisual The array into which you are inserting
      */
-    insertEmptyNote: function (index, notesVisual) {
+    insertEmptyNote:function (index, notesVisual) {
 
-        var emptyNote = {position: null, pitch: null, volume: null, duration: null};
+        var emptyNote = {position:null, pitch:null, volume:null, duration:null};
         notesVisual.splice(index, 0, emptyNote);
     },
 
@@ -551,17 +551,17 @@ var sequencerRenderer = {
      * @param markerLayer
      * @param y
      */
-    createMarker: function (markerLayer, y) {
+    createMarker:function (markerLayer, y) {
         var rect = new Kinetic.Rect({
-            x: 209,
-            y: y,
-            width: 37,
-            height: 195,
-            fill: 'red',
-            strokeWidth: 0,
-            name: 'marker',
-            opacity: 0.7,
-            isListening: false
+            x:209,
+            y:y,
+            width:37,
+            height:195,
+            fill:'red',
+            strokeWidth:0,
+            name:'marker',
+            opacity:0.7,
+            isListening:false
         });
 
         markerLayer.add(rect);
@@ -571,7 +571,7 @@ var sequencerRenderer = {
     /**
      * Adds the click events for the music library
      */
-    listenerBankEvents: function () {
+    listenerBankEvents:function () {
         var self = this;
         this.bankLayer.on('click', function (event) {
             var shape = event.targetNode;
@@ -581,13 +581,13 @@ var sequencerRenderer = {
 
                 var type = shape.getAttr('instrumenttype');
                 var instrument = {
-                    "instrumenttype": type,
-                    "notes": [
+                    "instrumenttype":type,
+                    "notes":[
                         {
-                            "pitch": null,
-                            "position": null,
-                            "duration": null,
-                            "volume": null
+                            "pitch":null,
+                            "position":null,
+                            "duration":null,
+                            "volume":null
                         }
                     ]
                 }
@@ -601,7 +601,7 @@ var sequencerRenderer = {
     /**
      * @deprecated we're using individual click event assigning on startup/addition  of an instrument now. Use addClickEvent()
      */
-    clickEvents: function () {
+    clickEvents:function () {
         var self = this;
         var lengthglobal = this.instrumentLayers.length;
 
@@ -685,7 +685,7 @@ var sequencerRenderer = {
      * @param y The y coordinate of teh column(top)
      * @param group The group it needs to be added to, null for making a new group
      */
-    createColumn: function (note, layer, x, y, group) {
+    createColumn:function (note, layer, x, y, group) {
         var origin = 0;
 
         if (note.position > this.songLength) {
@@ -694,10 +694,10 @@ var sequencerRenderer = {
         // detecting the note depending on pitch, rest of the rectangles do nothing for now
         if (group == null) {
             group = new Kinetic.Group({
-                x: x,
-                y: layer.getY(),
-                id: note.position,
-                name: 'notes'
+                x:x,
+                y:layer.getY(),
+                id:note.position,
+                name:'notes'
 
             });
         }
@@ -705,37 +705,37 @@ var sequencerRenderer = {
         for (var i = 0; i < 5; i++) {
             if (note.pitch == this.pitchToRect[i]) {
                 var rect = new Kinetic.Rect({
-                    x: x,
-                    y: y + origin,
-                    lastY: y + origin,
-                    width: 35,
-                    height: 35,
-                    fill: layer.getAttr('color'),
+                    x:x,
+                    y:y + origin,
+                    lastY:y + origin,
+                    width:35,
+                    height:35,
+                    fill:layer.getAttr('color'),
 //                    stroke: "black",
 //                    strokeWidth: 2,
-                    pitchValue: note.pitch,
-                    notePosition: note.position,
-                    hasNote: true,
-                    name: 'n' + note.position,
-                    enabled: true,
-                    opacity: 1
+                    pitchValue:note.pitch,
+                    notePosition:note.position,
+                    hasNote:true,
+                    name:'n' + note.position,
+                    enabled:true,
+                    opacity:1
                 });
             } else {
                 var rect = new Kinetic.Rect({
-                    x: x,
-                    y: y + origin,
-                    lastY: y + origin,
-                    width: 35,
-                    height: 35,
-                    fill: "#3d3a39",
+                    x:x,
+                    y:y + origin,
+                    lastY:y + origin,
+                    width:35,
+                    height:35,
+                    fill:"#3d3a39",
 //                    stroke: "black",
 //                    strokeWidth: 0,
-                    pitchValue: this.pitchToRect[i],
-                    notePosition: note.position,
-                    hasNote: false,
-                    opacity: 1,
-                    enabled: true,
-                    name: 'n' + note.position
+                    pitchValue:this.pitchToRect[i],
+                    notePosition:note.position,
+                    hasNote:false,
+                    opacity:1,
+                    enabled:true,
+                    name:'n' + note.position
                 });
             }
 
@@ -750,7 +750,7 @@ var sequencerRenderer = {
      * Moves the markers up for an x component to simulate playing
      * @param markerLayer the layer on which the markers reside
      */
-    moveMarkers: function (markerLayer) {
+    moveMarkers:function (markerLayer) {
 
         var children = markerLayer.getChildren();
 
@@ -766,7 +766,7 @@ var sequencerRenderer = {
      * Reset the markers back to their original position
      * @param markerLayer The
      */
-    resetMarker: function (markerLayer) {
+    resetMarker:function (markerLayer) {
         var children = markerLayer.getChildren();
 
         for (var i = 0; i < children.length; i++) {
@@ -781,7 +781,7 @@ var sequencerRenderer = {
      * Animate function to simulate playing, currently unused due to technical limitations
      * @param layer The layer on which the marker resides(?)
      */
-    animate: function (layer) {
+    animate:function (layer) {
         var shapes = this.stage.get('.marker');
 
         var anim = new Kinetic.Animation(function (frame) {
@@ -803,16 +803,16 @@ var sequencerRenderer = {
      * @param layer The layer on which the note resides
      * @private
      */
-    _replaceEmptyNote: function (position, pitch, layer) {
-        layer.getAttr('notes').splice(position, 1, {position: position, pitch: pitch, volume: 1, duration: 1});
+    _replaceEmptyNote:function (position, pitch, layer) {
+        layer.getAttr('notes').splice(position, 1, {position:position, pitch:pitch, volume:1, duration:1});
         for (var i = 0; i < layer.getAttr('visualNotes').length; i++) {
             if (i == position) {
-                layer.getAttr('visualNotes').splice(i, 1, {position: position, pitch: pitch, volume: 1, duration: 1});
+                layer.getAttr('visualNotes').splice(i, 1, {position:position, pitch:pitch, volume:1, duration:1});
             }
         }
         this.sortNotes(layer.getAttr('notes'));
     },
-    findWithAttr: function (array, attr, value) {
+    findWithAttr:function (array, attr, value) {
         for (var i = 0; i < array.length; i += 1) {
             if (array[i][attr] === value) {
                 return i;
@@ -827,7 +827,7 @@ var sequencerRenderer = {
      * @param layer The layer on which you are clicking
      * @private
      */
-    _replaceNoteSamePitch: function (position, pitch, layer) {
+    _replaceNoteSamePitch:function (position, pitch, layer) {
 
         var notes = layer.getAttr('notes');
 
@@ -835,7 +835,7 @@ var sequencerRenderer = {
         layer.getAttr('notes').splice(index, 1);
         for (var i = 0; i < layer.getAttr('visualNotes').length; i++) {
             if (i == position) {
-                layer.getAttr('visualNotes').splice(i, 1, {position: null, pitch: null, volume: null, duration: null});
+                layer.getAttr('visualNotes').splice(i, 1, {position:null, pitch:null, volume:null, duration:null});
             }
         }
         this.sortNotes(layer.getAttr('notes'));
@@ -849,34 +849,34 @@ var sequencerRenderer = {
      * @param position The position of the note
      * @param group The group to which to add the column, null if a new group should be created
      */
-    createEmptyColumn: function (layer, x, y, position, group) {
+    createEmptyColumn:function (layer, x, y, position, group) {
         var origin = 0;
         if (position > this.songLength) {
             this.songLength = position;
         }
         if (group == null) {
             group = new Kinetic.Group({
-                y: layer.getY(),
-                x: x,
-                id: position,
-                name: 'notes'
+                y:layer.getY(),
+                x:x,
+                id:position,
+                name:'notes'
             });
         }
         for (var i = 0; i < 5; i++) {
             var rect = new Kinetic.Rect({
-                x: x,
-                y: y + origin,
-                lastY: y + origin,
-                width: 35,
-                height: 35,
-                fill: "#3d3a39",
+                x:x,
+                y:y + origin,
+                lastY:y + origin,
+                width:35,
+                height:35,
+                fill:"#3d3a39",
 //                stroke: "black",
 //                strokeWidth: 2,
-                pitchValue: this.pitchToRect[i],
-                notePosition: position,
-                hasNote: false,
-                enabled: true,
-                name: 'u' + position
+                pitchValue:this.pitchToRect[i],
+                notePosition:position,
+                hasNote:false,
+                enabled:true,
+                name:'u' + position
             });
             if (group != null) {
                 group.add(rect);
@@ -893,7 +893,7 @@ var sequencerRenderer = {
      * @param x The x coordinate of the layer
      * @param y The y coordinate of the layer
      */
-    createRaster: function (layer, x, y) {
+    createRaster:function (layer, x, y) {
 
         var xOrigin = x;
         var notes = layer.getAttr('visualNotes');
@@ -916,7 +916,7 @@ var sequencerRenderer = {
      * Initial setup of the instruments when the sequencer first loads
      * @param songs The songs from which to create the instruments
      */
-    setupInstruments: function (songs) {
+    setupInstruments:function (songs) {
 
         for (var i = 0; i < songs.length; i++) {
             for (var j = 0; j < songs[i].instruments.length; j++) {
@@ -936,7 +936,7 @@ var sequencerRenderer = {
      * @param layer the layer to be updated
      * @private
      */
-    _updateLayer: function (layer) {
+    _updateLayer:function (layer) {
         var x = layer.getX();
         var y = layer.getY();
         layer.removeChildren();
@@ -955,7 +955,7 @@ var sequencerRenderer = {
      * @param group The group in which the column resides
      * @private
      */
-    _updateEmptyColumn: function (layer, shape, group) {
+    _updateEmptyColumn:function (layer, shape, group) {
 
         var position = shape.getAttr('notePosition');
         var pitch = shape.getAttr('pitchValue');
@@ -964,7 +964,7 @@ var sequencerRenderer = {
 
         group.removeChildren();
 
-        this.createColumn({position: position, pitch: pitch, volume: 1, duration: 1}, layer, x, y, group);
+        this.createColumn({position:position, pitch:pitch, volume:1, duration:1}, layer, x, y, group);
         group.draw();
     },
 
@@ -975,7 +975,7 @@ var sequencerRenderer = {
      * @param group Group in which the shape resides for convenience
      * @private
      */
-    _updateColumnSamePitch: function (layer, shape, group) {
+    _updateColumnSamePitch:function (layer, shape, group) {
 
         var position = shape.getAttr('notePosition');
         var x = group.getX();
@@ -987,7 +987,7 @@ var sequencerRenderer = {
         group.draw();
     },
 
-    _updateColumn: function (layer, shape, group) {
+    _updateColumn:function (layer, shape, group) {
 
         var position = shape.getAttr('notePosition');
         var pitch = shape.getAttr('pitchValue');
@@ -1010,55 +1010,55 @@ var sequencerRenderer = {
      * Adds the instrument library from a statically defined list of instruments
      * @param instruments The instruments from which to create our library
      */
-    addInstrumentBank: function (instruments) {
+    addInstrumentBank:function (instruments) {
         var y = this.instrumentLayers.length * 200 + 4; // get the last instrumentLayer
         var x = 20;
 
         this.bankLayer = new Kinetic.Layer({
-            x: x,
-            y: y,
-            height: 200,
-            width: 200
+            x:x,
+            y:y,
+            height:200,
+            width:200
 
         });
 
 
         var bankbg = new Kinetic.Rect({
-            x: 0,
-            y: 0,
-            width: 185,
-            height: 0,
-            fill: '#3d3a39',
-            strokeWidth: 0,
-            name: 'instrbankbg',
-            opacity: 1
+            x:0,
+            y:0,
+            width:185,
+            height:0,
+            fill:'#3d3a39',
+            strokeWidth:0,
+            name:'instrbankbg',
+            opacity:1
         });
 
         var titlebg = new Kinetic.Rect({
-            x: 0,
-            y: 0,
-            width: 185,
-            height: 25,
-            fill: 'black',
-            name: 'titleBG',
-            opacity: 1
+            x:0,
+            y:0,
+            width:185,
+            height:25,
+            fill:'black',
+            name:'titleBG',
+            opacity:1
         });
 
         var titleText = new Kinetic.Text({
-            x: 5,
-            y: 2,
-            text: 'Instrument Library',
-            fontSize: 20,
-            fill: 'white'
+            x:5,
+            y:2,
+            text:'Instrument Library',
+            fontSize:20,
+            fill:'white'
         });
 
 
         var group = new Kinetic.Group({
 //           x: this.bankLayer.getX(),
 //            y: this.bankLayer.getY(),
-            x: 0,
-            y: 0,
-            name: 'bankgroup'
+            x:0,
+            y:0,
+            name:'bankgroup'
         });
 
         group.add(bankbg);
@@ -1071,17 +1071,17 @@ var sequencerRenderer = {
 
         for (var i = 0; i < instruments.length; i++) {
             var instrumentText = new Kinetic.Text({
-                x: 2,
-                y: 0 + offset,
+                x:2,
+                y:0 + offset,
 //                fontFamily: elementalEnd, // doesnt work for now
-                text: instruments[i].instrumenttype,
-                fontSize: 15,
-                fill: 'black',
-                fontFamily: 'Calibri'
+                text:instruments[i].instrumenttype,
+                fontSize:15,
+                fill:'black',
+                fontFamily:'Calibri'
             });
 
             var previewButton = new Kinetic.Shape({
-                drawFunc: function (canvas) {
+                drawFunc:function (canvas) {
                     var context = canvas.getContext();
                     context.beginPath();
                     context.moveTo(0, 0);
@@ -1091,16 +1091,16 @@ var sequencerRenderer = {
                     context.closePath();
                     canvas.fillStroke(this);
                 },
-                fill: 'black',
-                x: 145,
-                y: 0 + offset,
-                name: 'playsample',
-                instrumenttype: instruments[i].instrumenttype
+                fill:'black',
+                x:145,
+                y:0 + offset,
+                name:'playsample',
+                instrumenttype:instruments[i].instrumenttype
 
             });
 
             var addInstrumentButton = new Kinetic.Shape({
-                drawFunc: function (canvas) {
+                drawFunc:function (canvas) {
                     var context = canvas.getContext();
                     context.beginPath();
                     context.moveTo(8, 0);
@@ -1110,13 +1110,13 @@ var sequencerRenderer = {
                     context.closePath();
                     canvas.fillStroke(this);
                 },
-                fill: 'black',
-                x: 165,
-                y: 0 + offset,
-                stroke: 'black',
-                strokeWidth: 4,
-                name: 'addnewinstrument',
-                instrumenttype: instruments[i].instrumenttype
+                fill:'black',
+                x:165,
+                y:0 + offset,
+                stroke:'black',
+                strokeWidth:4,
+                name:'addnewinstrument',
+                instrumenttype:instruments[i].instrumenttype
 
             });
             group.add(addInstrumentButton)
@@ -1141,7 +1141,7 @@ var sequencerRenderer = {
      * @param addClickEvents true if we need to add clicEvents(after setup) false if not(on setup)
      * @returns {Kinetic.Layer} The layer with the added Instrument.
      */
-    addInstrument: function (instrument, addClickEvents) {
+    addInstrument:function (instrument, addClickEvents) {
 
         var visualNotes = [];
         var notes = instrument.notes;
@@ -1157,13 +1157,13 @@ var sequencerRenderer = {
         var color = this.instruments[index].color;
 
         var layer = new Kinetic.Layer({
-            x: 10,
-            y: y,
-            height: 200,
-            instrumenttype: instrument.instrumenttype,
-            notes: instrument.notes,
-            visualNotes: visualNotes,
-            color: color
+            x:10,
+            y:y,
+            height:200,
+            instrumenttype:instrument.instrumenttype,
+            notes:instrument.notes,
+            visualNotes:visualNotes,
+            color:color
         });
 
         if (addClickEvents == true) {
@@ -1181,7 +1181,7 @@ var sequencerRenderer = {
      * Removes an instrument and destroys the layer
      * @param layer Layer to be destroyed
      */
-    removeInstrument: function (layer) { // Removes the instrument by type
+    removeInstrument:function (layer) { // Removes the instrument by type
 
 
         for (var index = this.instrumentLayers.indexOf(layer) + 1; index < this.instrumentLayers.length; index++) {
@@ -1214,76 +1214,76 @@ var sequencerRenderer = {
      * Draws the user control panel on a new layer(usually the instrument layer)
      * @param layer The layer to which the CP needs to be added
      */
-    drawCP: function (layer) {
+    drawCP:function (layer) {
         var correction = 0;
         if (layer.getY() != 0) {
             correction = 67 * (layer.getY() / 67);
         }
 
         var group = new Kinetic.Group({
-            name: 'uigroup'
+            name:'uigroup'
 
         });
         var bg = new Kinetic.Rect({
-            x: layer.getX(),
-            y: layer.getY() + correction,
-            width: 185,
-            height: 196,
-            fill: '#3d3a39',
-            strokeWidth: 0,
-            name: 'cpbg',
-            opacity: 1
+            x:layer.getX(),
+            y:layer.getY() + correction,
+            width:185,
+            height:196,
+            fill:'#3d3a39',
+            strokeWidth:0,
+            name:'cpbg',
+            opacity:1
 
         });
 
         var titleBarBG = new Kinetic.Rect({
             x:layer.getX(),
-            y: layer.getY() + correction,
-            width: 185,
-            height: 20,
-            fill: layer.getAttr('color'),
-            name: 'cptitlebar',
-            opacity: 1
+            y:layer.getY() + correction,
+            width:185,
+            height:20,
+            fill:layer.getAttr('color'),
+            name:'cptitlebar',
+            opacity:1
         });
 
 
         var instrumentText = new Kinetic.Text({
-            x: layer.getX() + 2,
-            y: layer.getY() + correction + 2,
-            text: layer.getAttr('instrumenttype'),
-            fontSize: 15,
-            fontFamily: 'Calibri',
-            fill: 'black'
+            x:layer.getX() + 2,
+            y:layer.getY() + correction + 2,
+            text:layer.getAttr('instrumenttype'),
+            fontSize:15,
+            fontFamily:'Calibri',
+            fill:'black'
         });
 
         var minButton = new Kinetic.Circle({
-            x: layer.getX() + 155,
-            y: layer.getY() + correction + 10,
-            radius: 5,
-            fill: 'white',
-            sroke: 'black',
-            strokeWidth: 1,
-            name: 'minimize'
+            x:layer.getX() + 155,
+            y:layer.getY() + correction + 10,
+            radius:5,
+            fill:'white',
+            sroke:'black',
+            strokeWidth:1,
+            name:'minimize'
         });
 
         var killButton = new Kinetic.Circle({
-            x: layer.getX() + 170,
-            y: layer.getY() + correction + 10,
-            radius: 5,
-            fill: 'white',
-            sroke: 'black',
-            strokeWidth: 1,
-            name: 'killinstr'
+            x:layer.getX() + 170,
+            y:layer.getY() + correction + 10,
+            radius:5,
+            fill:'white',
+            sroke:'black',
+            strokeWidth:1,
+            name:'killinstr'
         });
 
         var addColumnsButton = new Kinetic.Circle({
-            x: layer.getX() + 140,
-            y: layer.getY() + correction + 10,
-            radius: 5,
-            fill: 'red',
-            sroke: 'black',
-            strokeWidth: 1,
-            name: 'addcolumns'
+            x:layer.getX() + 140,
+            y:layer.getY() + correction + 10,
+            radius:5,
+            fill:'red',
+            sroke:'black',
+            strokeWidth:1,
+            name:'addcolumns'
         });
 
         group.add(bg);
@@ -1298,7 +1298,7 @@ var sequencerRenderer = {
     /**
      * Draws the last instrument in our instrumentLayers array
      */
-    drawLastInstrument: function () {
+    drawLastInstrument:function () {
         if (this.instrumentLayers.length == 1) {
             var y = 0
             var layer = this.instrumentLayers[this.instrumentLayers.length - 1];
@@ -1328,7 +1328,7 @@ var sequencerRenderer = {
      * Redraws all the instruments, also draws the control panel to the instruments
      * Used on setup
      */
-    drawInstruments: function () {
+    drawInstruments:function () {
         for (var i = 0; i < this.instrumentLayers.length; i++) {
             this.createRaster(this.instrumentLayers[i], this.instrumentLayers[i].getX() + 40, this.instrumentLayers[i].getY());
             this.drawCP(this.instrumentLayers[i]);
@@ -1342,7 +1342,7 @@ var sequencerRenderer = {
      * Sorts the notes in an array by their position property
      * @param notes The Note array to be sorted
      */
-    sortNotes: function (notes) {
+    sortNotes:function (notes) {
         notes.sort(function (a, b) {
             if (a.position < b.position)
                 return -1;
@@ -1356,7 +1356,7 @@ var sequencerRenderer = {
      * Doesn't work yet
      * @returns {*}
      */
-    saveSong: function () {
+    saveSong:function () {
         var lastSong = this.songs.length - 1;
 
         /*
@@ -1378,7 +1378,7 @@ var sequencerRenderer = {
      * @param y The y position of the sequencer
      * @param songs The songs to be loaded into the sequencer, leave empty if no previous song is selected
      */
-    init: function (x, y/*, songs*/) {
+    init:function (x, y/*, songs*/) {
 
         this.setUpCanvas(x, y);
 
