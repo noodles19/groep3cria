@@ -1434,15 +1434,16 @@ var sequencerRenderer = {
      * @param y The y position of the sequencer
      * @param songs The songs to be loaded into the sequencer, leave empty if no previous song is selected
      */
-    init: function (x, y/*, songs*/) {
+    init: function (x, y, songs) {
 
         this.setUpCanvas(x, y);
+        this.songs.length = 0;
 
-//        this.songs = songs
+        this.songs = songs
 
 //        songs.push(this.song1);
 //        songs.push(this.song2);
-        this.songs.push(this.song3);
+//        this.songs.push(this.song3);
 
         this.setupInstruments(this.songs);
         this.drawInstruments();
