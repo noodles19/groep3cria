@@ -1276,22 +1276,42 @@ var sequencerRenderer = {
             name: 'killinstr'
         });
 
-        var addColumnsButton = new Kinetic.Circle({
-            x: layer.getX() + 140,
-            y: layer.getY() + correction + 10,
-            radius: 5,
-            fill: 'red',
-            sroke: 'black',
-            strokeWidth: 1,
-            name: 'addcolumns'
-        });
+//        var addColumnsButton = new Kinetic.Circle({
+//            x: layer.getX() + 140,
+//            y: layer.getY() + correction + 10,
+//            radius: 5,
+//            fill: 'red',
+//            sroke: 'black',
+//            strokeWidth: 1,
+//            name: 'addcolumns'
+//        });
+
 
         group.add(bg);
         group.add(titleBarBG);
         group.add(instrumentText);
         group.add(minButton);
         group.add(killButton);
-        group.add(addColumnsButton);
+        var addColumnsButton = new Image();
+        addColumnsButton.onload = function() {
+            var addimage = new Kinetic.Image({
+                x: layer.getX() + 140,
+                y: layer.getY() + correction + 10,
+                name: 'addcolumns',
+                width: 20,
+                height: 20,
+                image: addColumnsButton
+
+            });
+
+
+            group.add(addimage);
+            layer.draw();
+        };
+        addColumnsButton.src = 'http://i.imgur.com/uVAKa2g.png';
+//        addColumnsButton.src = 'http://i.imgur.com/uVAKa2g.png';
+
+
         layer.add(group);
     },
 
