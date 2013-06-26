@@ -143,6 +143,8 @@ function init(id) {
 
     getMaxSongLength();
 
+    console.log(songs);
+
     sequencerRenderer.init(0,0, songs);
 
     loadInstrumentTypesIntoArray();
@@ -184,10 +186,16 @@ function saveSong()
         saved.instruments[i] = instrument;
     }
 
+    saved.author = "51c859d24cc4047534000010";
+    saved.volume = 100;
+    saved.based_on = null;
+
     console.log(saved);
     alert('now sending a request');
-    var url = "songs";
-    var params = JSON.stringify(saved);
+    var http = new XMLHttpRequest();
+
+    var url = "updatesong";
+    var params = "song=" + JSON.stringify(saved);
     http.open("POST", url, true);
 
     alert(params);
