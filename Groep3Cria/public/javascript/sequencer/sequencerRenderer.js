@@ -1342,9 +1342,9 @@ var sequencerRenderer = {
             group.add(addimage);
             layer.draw();
         };
-        addColumnsButton.src = 'images/adcollumbutton20x20px.png';
-        killButtonImage.src = 'images/deleteinstrumentbutton20x20px.png';
-        minButtonImage.src = 'images/Minimizebutton20x20px.png';
+        addColumnsButton.src = 'javascript/sequencer/images/adcollumbutton20x20px.png';
+        killButtonImage.src = 'javascript/sequencer/images/deleteinstrumentbutton20x20px.png';
+        minButtonImage.src = 'javascript/sequencer/images/Minimizebutton20x20px.png';
 //        addColumnsButton.src = 'http://i.imgur.com/uVAKa2g.png';
 
 
@@ -1436,8 +1436,12 @@ var sequencerRenderer = {
      */
     init: function (x, y, songs) {
 
-        this.setUpCanvas(x, y);
         this.songs.length = 0;
+        if(this.stage != null)
+        {
+            this.stage.destroy();
+        }
+        this.setUpCanvas(x, y);
 
         this.songs = songs;
 
@@ -1462,7 +1466,7 @@ var sequencerRenderer = {
          */
 
         this.addInstrumentBank(this.instruments);
-
+        this.stage.draw();
 //        this.clickEvents();
     }
 }

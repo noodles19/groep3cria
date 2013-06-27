@@ -134,6 +134,16 @@ function loadInstrumentTypesIntoArray() {
  */
 function init(id) {
 
+
+    base = null;
+    seed = null;
+    instrumenttypes.length = 0;
+    songs.length = 0;
+    saved = null;
+    original = null;
+    audioContext = null;
+    source.length = 0;
+
     console.log("[LOG] Initializing resources...");
     loadAudioSources();
 
@@ -298,6 +308,7 @@ function loadAudioSources()
  */
 function getMaxSongLength()
 {
+    console.log(songs);
     for(var h=0;h<songs.length;h++)
     {
         for(var i=0;i<songs[h].instruments.length;i++)
